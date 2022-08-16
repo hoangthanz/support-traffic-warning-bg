@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
+using Support.Warning.Traffic.BorderGuard.Models.Region;
 
 namespace Support.Warning.Traffic.BorderGuard;
 
@@ -10,6 +11,23 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
 {
     public SupportWarningContext(DbContextOptions<SupportWarningContext> options) : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        
+        base.OnModelCreating(builder);
+        builder.Entity<wards>().HasKey(x => x.code);
+        builder.Entity<provinces>().HasKey(x => x.code);
+        builder.Entity<districts>().HasKey(x => x.code);
+        foreach (var entityType in builder.Model.GetEntityTypes())
+        {
+            var tableName = entityType.GetTableName();
+            if (tableName != null && tableName.StartsWith("AspNet"))
+            {
+                entityType.SetTableName(tableName.Substring(6));
+            }
+        }
     }
 
     public override DbSet<ApplicationRole> Roles { get; set; }
@@ -20,6 +38,15 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
     public DbSet<Area> Areas { get; set; }
     public DbSet<Gate> Gates { get; set; }
     public DbSet<Station> Stations { get; set; }
+    
+    
+    // data of provinces vn
+    
+    public DbSet<administrative_regions> administrative_regions { get; set; }
+    public DbSet<administrative_units> administrative_units { get; set; }
+    public DbSet<districts> districts { get; set; }
+    public DbSet<provinces> provinces { get; set; }
+    public DbSet<wards> wards { get; set; }
 
     public override int SaveChanges()
     {

@@ -10,7 +10,7 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Description("Id")]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
     [Required, MaxLength(255)]
     [Description("mã")]
