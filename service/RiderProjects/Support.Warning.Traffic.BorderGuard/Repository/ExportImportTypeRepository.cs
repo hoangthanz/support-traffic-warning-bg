@@ -4,15 +4,15 @@ using Support.Warning.Traffic.BorderGuard.Models.Business;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
 
-public class AreaRepository: RepositoryBase<Area>, IAreaRepository
+public class ExportImportTypeRepository : RepositoryBase<ExportImportType>, IExportImportTypeRepository
 {
     private readonly SupportWarningContext _context;
-    public AreaRepository(SupportWarningContext context) : base(context)
+    public ExportImportTypeRepository(SupportWarningContext context) : base(context)
     {
         _context = context;
     }
-   
-    public async Task CreateAsync(Area obj)
+
+    public async Task CreateAsync(ExportImportType obj)
     {
         try
         {
@@ -26,7 +26,7 @@ public class AreaRepository: RepositoryBase<Area>, IAreaRepository
         }
     }
 
-    public async Task UpdateAsync(Area obj)
+    public async Task UpdateAsync(ExportImportType obj)
     {
         try
         {

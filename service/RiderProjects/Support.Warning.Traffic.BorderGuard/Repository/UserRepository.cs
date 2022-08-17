@@ -4,22 +4,27 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Account;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
 
-public class UserRepository: IUserRepository, IDisposable
+public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, IDisposable
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
-    private readonly  SupportWarningContext _context;
+    private readonly SupportWarningContext _context;
     private readonly string _userId;
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
 
-    public UserRepository(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, SupportWarningContext context, IMapper mapper, IConfiguration configuration)
+    public UserRepository(UserManager<ApplicationUser> userManager,
+        RoleManager<ApplicationRole> roleManager,
+        SupportWarningContext context,
+        IMapper mapper,
+        IConfiguration configuration) : base(context)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -27,7 +32,6 @@ public class UserRepository: IUserRepository, IDisposable
         _mapper = mapper;
         _configuration = configuration;
     }
-
 
     public async Task<RespondLoginModel> Login(RequestLoginModel model, string ipAddress)
     {
@@ -56,18 +60,15 @@ public class UserRepository: IUserRepository, IDisposable
             claims.Add(roleData.Name);
             claims.AddRange(roleClaims.Select(claim => claim.Value));
         }
-                
+
         return new RespondLoginModel
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             Expiration = token.ValidTo,
             ListClaims = claims
         };
-
     }
-    
-    
-    
+
     private async Task<JwtSecurityToken> GenerateTokenJwtByUser(ApplicationUser user)
     {
         var authClaims = new List<Claim>
@@ -82,6 +83,7 @@ public class UserRepository: IUserRepository, IDisposable
         {
             var roleData = await _roleManager.FindByNameAsync(role);
         }
+
         authClaims.Add(new Claim(ClaimTypes.Role, "manyRole"));
 
         var index = 0;
@@ -102,8 +104,6 @@ public class UserRepository: IUserRepository, IDisposable
 
         return token;
     }
-
-    
 
     public void Dispose()
     {

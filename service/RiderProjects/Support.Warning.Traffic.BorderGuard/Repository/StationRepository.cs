@@ -4,15 +4,16 @@ using Support.Warning.Traffic.BorderGuard.Models.Business;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
 
-public class AreaRepository: RepositoryBase<Area>, IAreaRepository
+public class StationRepository : RepositoryBase<Station>, IStationRepository
 {
     private readonly SupportWarningContext _context;
-    public AreaRepository(SupportWarningContext context) : base(context)
+
+    public StationRepository(SupportWarningContext context) : base(context)
     {
         _context = context;
     }
-   
-    public async Task CreateAsync(Area obj)
+
+    public async Task CreateAsync(Station obj)
     {
         try
         {
@@ -26,7 +27,7 @@ public class AreaRepository: RepositoryBase<Area>, IAreaRepository
         }
     }
 
-    public async Task UpdateAsync(Area obj)
+    public async Task UpdateAsync(Station obj)
     {
         try
         {
@@ -45,7 +46,7 @@ public class AreaRepository: RepositoryBase<Area>, IAreaRepository
         try
         {
             var exportImportType = FindByCondition(x => x.Id == id).FirstOrDefault();
-            if(null != exportImportType)
+            if (null != exportImportType)
                 Delete(exportImportType);
             await _context.SaveChangesAsync();
         }
