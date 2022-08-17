@@ -31,7 +31,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +41,8 @@ import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    CdkTableModule
+    CdkTableModule,
+    LeafletModule
   ],
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
