@@ -37,6 +37,8 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 
+/.angular/*
+.angular/*
 # System Files
 .DS_Store
 Thumbs.db
@@ -375,3 +377,4 @@ Thumbs.db
 /.angular/cache/14.0.7/angular-webpack/2b8487806382faa1c4871035d8f7590676f678b7/index.pack
 /.angular/cache/14.0.7/angular-webpack/702a023a36cf63442ec5c8ecb9e90c6644302015/index.pack
 /.angular/cache/14.0.7/angular-webpack/2b8487806382faa1c4871035d8f7590676f678b7/index.pack.old
+/.angular/
