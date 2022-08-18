@@ -2,23 +2,23 @@
 <!-- row -->
 <!-- ============================================================== -->
 <div fxLayout="row" fxLayoutWrap="wrap">
-		<!-- Card column -->
-		<div fxFlex.gt-sm="100%" fxFlex="100">
-				<mat-card>
-					<mat-card-content>
-						<mat-card-title>Bản đồ</mat-card-title>
-						<mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Bản đồ</mat-card-title>
+        <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
 
 
+        <div id="map"
+             style="height: 700px;"
+             leaflet
+             [leafletOptions]="options"
+             [leafletLayersControl]="layersControl">
+        </div>
 
-            <div style="height: 700px;"
-                 leaflet
-                 [leafletOptions]="options"
-                 [leafletLayersControl]="layersControl">
-            </div>
+      </mat-card-content>
+    </mat-card>
 
-					</mat-card-content>
-			 </mat-card>
-
-		</div>
+  </div>
 </div>
