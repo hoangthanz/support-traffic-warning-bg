@@ -472,9 +472,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsUserCompany")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -489,12 +486,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<int>("NumberCountSendCode")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberInputCode")
-                        .HasColumnType("integer");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
@@ -506,9 +497,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
-
-                    b.Property<DateTime?>("SendActiveCodeTime")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");

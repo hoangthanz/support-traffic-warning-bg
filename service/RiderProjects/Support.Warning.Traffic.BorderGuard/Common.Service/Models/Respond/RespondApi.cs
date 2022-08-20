@@ -14,6 +14,11 @@ public class RespondApi<T> where T : class
         Message = message;
         Data = data;
     }
+
+    public RespondApi()
+    {
+       
+    }
 }
 
 public enum ResultRespond

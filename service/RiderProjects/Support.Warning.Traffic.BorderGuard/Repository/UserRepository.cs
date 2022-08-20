@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
+using Common.Service.Models.Respond;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Support.Warning.Traffic.BorderGuard.Contracts;
@@ -33,7 +34,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
         _configuration = configuration;
     }
 
-    public async Task<RespondLoginModel> Login(RequestLoginModel model, string ipAddress)
+    public async Task<RespondLoginModel> Login(RequestLoginModel model)
     {
         var user = await _userManager.FindByNameAsync(model.Username);
         if (null == user)
@@ -67,6 +68,80 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             Expiration = token.ValidTo,
             ListClaims = claims
         };
+    }
+
+    public async Task<RespondApi<ApplicationUser>> Register(RegisterModel model)
+    {
+        try
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (null != user)
+            {
+                return new RespondApi<ApplicationUser>()
+                {
+                    Result = ResultRespond.Failed,
+                    Message = "Tài khoản trùng tên",
+                    Data = null,
+                    Code = "00"
+                };
+            }
+            
+            var newUser = new ApplicationUser
+            {
+                UserName = model.UserName,
+                PhoneNumber = model.Phone,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                Status = true,
+                IsDeleted = false,
+                IsActive = true,
+            };
+            
+            var result = await _userManager.CreateAsync(newUser, model.Password);
+            if (!result.Succeeded)
+            {
+                string errors = "";
+                foreach (var error in result.Errors)
+                {
+                    if (error.Code == "PasswordRequiresNonAlphanumeric")
+                    {
+                        errors += "Mật khẩu phải có ký tự đặc biệt, ";
+                    }
+                    
+                    if (error.Code == "PasswordRequiresDigit")
+                    {
+                        errors += "Mật khẩu phải có ký tự số, ";
+                    }
+                    
+                    if (error.Code == "PasswordRequiresUpper")
+                    {
+                        errors += "Mật khẩu phải có ký tự in hoa";
+                    }
+                }
+                return new RespondApi<ApplicationUser>()
+                {
+                    Result = ResultRespond.Failed,
+                    Message = $"{errors}",
+                    Data = null,
+                    Code = "00"
+                };
+            }
+
+            var userDb = await _userManager.FindByNameAsync(model.UserName);
+                
+            return new RespondApi<ApplicationUser>()
+            {
+                Result = ResultRespond.Succeeded,
+                Message = "Tạo tài khoản thành công",
+                Data = userDb,
+                Code = "00"
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     private async Task<JwtSecurityToken> GenerateTokenJwtByUser(ApplicationUser user)

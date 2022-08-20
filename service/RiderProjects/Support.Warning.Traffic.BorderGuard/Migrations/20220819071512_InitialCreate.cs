@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class initialize : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -139,11 +139,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    IsUserCompany = table.Column<bool>(type: "boolean", nullable: false),
                     ActiveCode = table.Column<string>(type: "text", nullable: true),
-                    SendActiveCodeTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    NumberCountSendCode = table.Column<int>(type: "integer", nullable: false),
-                    NumberInputCode = table.Column<int>(type: "integer", nullable: false),
                     DisplayName = table.Column<string>(type: "text", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
