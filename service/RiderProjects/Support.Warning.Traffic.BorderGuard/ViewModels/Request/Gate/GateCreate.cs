@@ -14,5 +14,9 @@ public class GateCreate
 
     public double Longitude { set; get; }
     
-    public int AreaId { get; set; }
+    public int ProvinceId { get; set; }
+    
+    public int DistrictId { get; set; }
+    
+    public int WardId { get; set; }
 }

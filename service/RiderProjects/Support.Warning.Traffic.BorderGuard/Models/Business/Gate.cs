@@ -35,11 +35,15 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
 
     [Description("Vĩ độ")] public double Longitude { set; get; }
 
-    [ForeignKey("AreaId")]
+    [ForeignKey("ProvinceId")]
     [Description("Id khu vực")]
-    public int AreaId { get; set; }
-
-    public Area Area { get; set; }
+    public int ProvinceId { get; set; }
+    [ForeignKey("DistrictId")]
+    [Description("Id huyện")]
+    public int DistrictId { get; set; }
+    [ForeignKey("ProvinceId")]
+    [Description("Id xã, phường")]
+    public int WardId { get; set; }
 
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }

@@ -19,6 +19,34 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         _mapper = mapper;
     }
 
+    public async Task<RespondApi<List<Gate>>> GetAll()
+    {
+        try
+        {
+            var result = await _context.Gates.ToListAsync();
+            return new RespondApi<List<Gate>>()
+                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<List<Gate>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
+        }
+    }
+
+    public async Task<RespondApi<Gate>> GetById(int id)
+    {
+        try
+        {
+            var result = await _context.Gates.FirstOrDefaultAsync(x => x.Id == id);
+            return new RespondApi<Gate>()
+                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+        }
+    }
+
     public async Task<RespondApi<Gate>> CreateAsync(GateCreate model)
     {
         try
@@ -52,7 +80,6 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
             if (duplicateGate != null)
                 return new RespondApi<Gate>()
                     { Result = ResultRespond.Duplication, Message = "tên hoặc mã cửa khẩu đã tồn tại" };
-            obj.AreaId = model.AreaId;
             obj.Code = model.Code;
             obj.Name = model.Name;
             obj.Description = model.Description;
@@ -60,7 +87,10 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
             obj.Longitude = model.Longitude;
             obj.NormalizationName = model.NormalizationName;
             obj.UpdatedDate = DateTime.Now;
-            
+            obj.ProvinceId = model.ProvinceId;
+            obj.DistrictId = model.DistrictId;
+            obj.WardId = model.WardId;
+
             await _context.SaveChangesAsync();
             return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
         }
