@@ -33,21 +33,23 @@ public class WardRepository : IWardRepository
                                                             || x.code.Contains(model.NameSearch)
                                                             || x.code_name.Contains(model.NameSearch)
                                                             || x.full_name.Contains(model.NameSearch)
-                                                            || x.full_name_en.Contains(model.NameSearch))
+                                                            || x.full_name_en.Contains(model.NameSearch)
+                                                            && x.district_code == model.Code)
                         .OrderBy(x => x.code).Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
                     paging.TotalRecords = await _context.wards.Where(x => x.name.Contains(model.NameSearch)
                                                                           || x.name_en.Contains(model.NameSearch)
                                                                           || x.code.Contains(model.NameSearch)
                                                                           || x.code_name.Contains(model.NameSearch)
                                                                           || x.full_name.Contains(model.NameSearch)
-                                                                          || x.full_name_en.Contains(model.NameSearch))
+                                                                          || x.full_name_en.Contains(model.NameSearch)
+                                                                          && x.district_code == model.Code)
                         .CountAsync();
                 }
                 else
                 {
-                    wards = await _context.wards
+                    wards = await _context.wards.Where(x => x.district_code == model.Code)
                         .OrderBy(x => x.code).Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
-                    paging.TotalRecords = await _context.wards
+                    paging.TotalRecords = await _context.wards.Where(x => x.district_code == model.Code)
                         .CountAsync();
                 }
                 paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords,paging.PageSize));
@@ -62,11 +64,12 @@ public class WardRepository : IWardRepository
                                                             || x.code.Contains(model.NameSearch)
                                                             || x.code_name.Contains(model.NameSearch)
                                                             || x.full_name.Contains(model.NameSearch)
-                                                            || x.full_name_en.Contains(model.NameSearch))
+                                                            || x.full_name_en.Contains(model.NameSearch)
+                                                            && x.district_code == model.Code)
                         .OrderBy(x => x.code).ToListAsync();
                 else
                 {
-                    wards = await _context.wards
+                    wards = await _context.wards.Where(x => x.district_code == model.Code)
                         .OrderBy(x => x.code).ToListAsync();
                 }
                 return new RespondApiPaging<List<wards>>()

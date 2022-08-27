@@ -33,7 +33,8 @@ public class DistrictRepository : IDistrictRepository
                                                                     || x.code.Contains(model.NameSearch)
                                                                     || x.code_name.Contains(model.NameSearch)
                                                                     || x.full_name.Contains(model.NameSearch)
-                                                                    || x.full_name_en.Contains(model.NameSearch))
+                                                                    || x.full_name_en.Contains(model.NameSearch)
+                                                                    && x.province_code == model.Code)
                         .OrderBy(x => x.code).Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
                     paging.TotalRecords = await _context.districts.Where(x => x.name.Contains(model.NameSearch)
                                                                               || x.name_en.Contains(model.NameSearch)
@@ -41,13 +42,14 @@ public class DistrictRepository : IDistrictRepository
                                                                               || x.code_name.Contains(model.NameSearch)
                                                                               || x.full_name.Contains(model.NameSearch)
                                                                               || x.full_name_en.Contains(
-                                                                                  model.NameSearch)).CountAsync();
+                                                                                  model.NameSearch)
+                                                                              && x.province_code == model.Code).CountAsync();
                 }
                 else
                 {
-                    districts = await _context.districts
+                    districts = await _context.districts.Where(x=>x.province_code == model.Code)
                         .OrderBy(x => x.code).Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
-                    paging.TotalRecords = await _context.districts.CountAsync();
+                    paging.TotalRecords = await _context.districts.Where(x=>x.province_code == model.Code).CountAsync();
                 }
 
                 paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords,paging.PageSize));
@@ -62,11 +64,12 @@ public class DistrictRepository : IDistrictRepository
                                                                     || x.code.Contains(model.NameSearch)
                                                                     || x.code_name.Contains(model.NameSearch)
                                                                     || x.full_name.Contains(model.NameSearch)
-                                                                    || x.full_name_en.Contains(model.NameSearch))
+                                                                    || x.full_name_en.Contains(model.NameSearch)
+                                                                    && x.province_code == model.Code)
                         .OrderBy(x => x.code).ToListAsync();
                 else
                 {
-                    districts = await _context.districts
+                    districts = await _context.districts.Where(x=>x.province_code == model.Code)
                         .OrderBy(x => x.code).ToListAsync();
                 }
                 return new RespondApiPaging<List<districts>>()
