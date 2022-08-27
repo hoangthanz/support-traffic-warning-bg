@@ -4,7 +4,7 @@ using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Gate;
 
 namespace Support.Warning.Traffic.BorderGuard.Controllers;
 [ApiController]
-[Route("api/user")]
+[Route("api/gate")]
 public class GateController : ControllerBase
 {
     private readonly IGateRepository _gateRepository;
