@@ -1,0 +1,112 @@
+<h1 mat-dialog-title style="font-weight: bolder; color: #4F5467;">{{isCreate ? 'Thêm mới cửa khẩu' : 'Cập nhật cửa khẩu'}}</h1>
+<form novalidate [formGroup]='gateForm' (ngSubmit)='submit()'>
+  <mat-form-field appearance="outline">
+    <mat-label>Tên cửa khẩu</mat-label>
+    <textarea formControlName='name' matInput class="customScroll" style="height: 50px; max-height: 50px;"
+              placeholder="Tên cửa khẩu" required></textarea>
+    <mat-error *ngIf="gateForm.controls.name.hasError('required')">
+      Vui lòng nhập tên cửa khẩu
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Mã cửa khẩu</mat-label>
+    <input formControlName='code' matInput placeholder="Mã cửa khẩu" required />
+    <mat-error *ngIf="gateForm.controls.code.hasError('required')">
+      Vui lòng nhập mã cửa khẩu
+    </mat-error>
+  </mat-form-field>
+
+
+  <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="row"
+       fxLayout.xs="row" fxLayoutWrap fxLayoutGap="14px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+       fxLayoutAlign.md="left" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center">
+
+    <div fxFlex="32%" fxFlex.xl="32%" fxFlex.lg="32%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Thành phố</mat-label>
+        <input matInput [matAutocomplete]="autoProvinces" formControlName='provinceId' [required]="true" placeholder="Nhập thành phố">
+        <mat-error *ngIf="gateForm.controls?.provinceId?.hasError('required')">
+          Vui lòng chọn thành phố
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete #autoProvinces="matAutocomplete" (optionSelected)="onCitySelectionChange($event)" [displayWith]="displayProvincesTypeFn">
+        <mat-option *ngFor="let province of filterProvinces | async" [value]="province.code">
+          <span>{{province?.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+
+    <div fxFlex="32%" fxFlex.xl="32%" fxFlex.lg="32%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Quận/Huyện</mat-label>
+        <input matInput [matAutocomplete]="autoDistricts" formControlName='districtId' [required]="true" placeholder="Nhập quận/huyện">
+        <mat-error *ngIf="gateForm.controls?.districtId?.hasError('required')">
+          Vui lòng chọn quận/huyện
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete #autoDistricts="matAutocomplete" (optionSelected)="onDistrictSelectionChange($event)" [displayWith]="displayDistrictsTypeFn">
+        <mat-option *ngFor="let district of filterDistricts | async" [value]="district.code">
+          <span>{{district?.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+
+    <div fxFlex="32%" fxFlex.xl="32%" fxFlex.lg="32%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Xã/Phường</mat-label>
+        <input matInput [matAutocomplete]="autoWards" formControlName='wardId' [required]="true" placeholder="Nhập xã/phường">
+        <mat-error *ngIf="gateForm.controls?.wardId?.hasError('required')">
+          Vui lòng chọn xã/phường
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete #autoWards="matAutocomplete" (optionSelected)="onWardSelectionChange($event)" [displayWith]="displayWardsTypeFn">
+        <mat-option *ngFor="let ward of filterWards | async" [value]="ward.code">
+          <span>{{ward?.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+  </div>
+
+  <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="row"
+       fxLayout.xs="row" fxLayoutWrap fxLayoutGap="14px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+       fxLayoutAlign.md="left" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center">
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Kinh độ</mat-label>
+        <input formControlName='longitude' matInput placeholder="Kinh độ" required>
+        <mat-error *ngIf="gateForm.controls.longitude.hasError('required')">
+          Vui lòng chọn kinh độ
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Vĩ độ</mat-label>
+        <input formControlName='latitude' matInput placeholder="Vĩ độ" required>
+        <mat-error *ngIf="gateForm.controls.latitude.hasError('required')">
+          Vui lòng chọn vĩ độ
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-form-field appearance="outline" style="margin-top: 20px;">
+    <mat-label>Diễn giải</mat-label>
+    <textarea formControlName='description' class="customScroll" style="height: 150px; max-height: 150px;" matInput
+              placeholder="Diễn giải"></textarea>
+  </mat-form-field>
+  <mat-dialog-actions align='end'>
+    <button mat-button class='button-action' style='float: right;' mat-dialog-close tabindex='-1'
+            matTooltip="Hủy" fxHide.sm fxHide.xs fxHide.md>
+      <mat-icon>close</mat-icon>
+      Hủy
+    </button>
+    <button mat-flat-button class='button-add' style='float: right;' color="primary" type='submit'
+            matTooltip="{{isCreate ? 'Thêm mới' : 'Cập nhật'}}">
+      <mat-icon>check</mat-icon>
+      {{isCreate ? 'Thêm mới' : 'Cập nhật'}}
+    </button>
+  </mat-dialog-actions>
+</form>
