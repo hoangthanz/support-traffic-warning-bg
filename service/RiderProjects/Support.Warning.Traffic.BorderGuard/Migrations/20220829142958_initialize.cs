@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,8 +87,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     NormalizationName = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -97,6 +97,33 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExportImportTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Code = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    NormalizationName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    ProvinceId = table.Column<string>(type: "text", nullable: true),
+                    DistrictId = table.Column<string>(type: "text", nullable: true),
+                    WardId = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,8 +168,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     ActiveCode = table.Column<string>(type: "text", nullable: true),
                     DisplayName = table.Column<string>(type: "text", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -177,8 +204,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     MinValue = table.Column<double>(type: "double precision", nullable: false),
                     MaxValue = table.Column<double>(type: "double precision", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -208,32 +235,34 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gates",
+                name: "Stations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Code = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    NormalizationName = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Website = table.Column<string>(type: "text", nullable: true),
+                    Latitude = table.Column<string>(type: "text", nullable: true),
+                    Longitude = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false),
-                    Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    Longitude = table.Column<double>(type: "double precision", nullable: false),
-                    AreaId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Gates", x => x.Id);
+                    table.PrimaryKey("PK_Stations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Gates_Areas_AreaId",
-                        column: x => x.AreaId,
-                        principalTable: "Areas",
+                        name: "FK_Stations_Gates_GateId",
+                        column: x => x.GateId,
+                        principalTable: "Gates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -355,8 +384,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     NomalizanameLicencePlate = table.Column<string>(type: "text", nullable: true),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
                     LoadDueToOwnWeight = table.Column<decimal>(type: "numeric", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -372,44 +401,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Stations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    Website = table.Column<string>(type: "text", nullable: true),
-                    Latitude = table.Column<string>(type: "text", nullable: true),
-                    Longitude = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    GateId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stations_Gates_GateId",
-                        column: x => x.GateId,
-                        principalTable: "Gates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Gates_AreaId",
-                table: "Gates",
-                column: "AreaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -469,6 +460,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "administrative_units");
 
             migrationBuilder.DropTable(
+                name: "Areas");
+
+            migrationBuilder.DropTable(
                 name: "districts");
 
             migrationBuilder.DropTable(
@@ -512,9 +506,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");
-
-            migrationBuilder.DropTable(
-                name: "Areas");
         }
     }
 }

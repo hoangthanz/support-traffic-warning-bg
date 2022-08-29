@@ -37,13 +37,13 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
 
     [ForeignKey("ProvinceId")]
     [Description("Id khu vực")]
-    public int ProvinceId { get; set; }
+    public string ProvinceId { get; set; }
     [ForeignKey("DistrictId")]
     [Description("Id huyện")]
-    public int DistrictId { get; set; }
+    public string DistrictId { get; set; }
     [ForeignKey("ProvinceId")]
     [Description("Id xã, phường")]
-    public int WardId { get; set; }
+    public string WardId { get; set; }
 
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }

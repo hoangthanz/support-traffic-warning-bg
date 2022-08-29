@@ -51,15 +51,14 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
     {
         try
         {
-            var obj = new Gate();
-            obj = _mapper.Map<Gate>(model);
-            obj.CreatedDate = DateTime.Now;
-            obj.UpdatedDate = DateTime.Now;
-            obj.Status = true;
-            obj.IsDeleted = false;
-            await _context.Gates.AddAsync(obj);
+            var gate = _mapper.Map<Gate>(model);
+            gate.CreatedDate = DateTime.Now;
+            gate.UpdatedDate = DateTime.Now;
+            gate.Status = true;
+            gate.IsDeleted = false;
+            await _context.Gates.AddAsync(gate);
             await _context.SaveChangesAsync();
-            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
+            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gate };
         }
         catch (Exception e)
         {

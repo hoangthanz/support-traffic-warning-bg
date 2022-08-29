@@ -12,8 +12,8 @@ using Support.Warning.Traffic.BorderGuard;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     [DbContext(typeof(SupportWarningContext))]
-    [Migration("20220819071512_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220829142958_initialize")]
+    partial class initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -181,7 +181,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -199,21 +199,21 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DistrictId")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -233,18 +233,22 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("NormalizationName")
                         .HasColumnType("text");
 
+                    b.Property<string>("ProvinceId")
+                        .HasColumnType("text");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.Property<string>("WardId")
+                        .HasColumnType("text");
 
-                    b.HasIndex("AreaId");
+                    b.HasKey("Id");
 
                     b.ToTable("Gates");
                 });
@@ -261,7 +265,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -294,7 +298,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -318,7 +322,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -340,7 +344,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -370,7 +374,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -399,7 +403,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -457,7 +461,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
@@ -508,7 +512,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -724,17 +728,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Gate", b =>
-                {
-                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Area", "Area")
-                        .WithMany()
-                        .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Area");
                 });
 
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Station", b =>
