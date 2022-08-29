@@ -1,2 +1,493 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/cdk/overlay-prebuilt.css';
 
+:root {
+  --add-color: #004890;
+  --update-color: #2181cc;
+  --action-color: whitesmoke;
+  --delete-color: red;
+  --cancel-color: whitesmoke;
+  --orange-color: #f56e4e;
+  --font-weight: normal;
+  --primary: #1363B9;
+  --success: #00875A;
+  --warning: #D27300;
+  --bs-warning: #D27300;
+  --danger: #BF2600;
+  --font-base: 'Open Sans', sans-serif;
+  --body-color: #172B4D;
+}
+
+input:disabled, input:read-only {
+  background-color: #fafafa;
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover {
+  background-color: #edf1f5;
+}
+
+.font-base, .body-font {
+  font-family: var(--font-base);
+}
+
+.body-color {
+  color: var(--body-color);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-success {
+  background-color: var(--success);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.border-danger {
+  border-color: var(--danger);
+}
+
+.customScroll .mat-dialog-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  width: 8px;
+  height: 8px;
+}
+
+.customScroll .mat-dialog-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+}
+
+.customScroll .mat-dialog-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
+}
+
+.customScroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  width: 8px;
+  height: 8px;
+}
+
+.customScroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+  opacity: 0.5;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #555;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+  opacity: 0.5;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: 14px !important;
+  min-height: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+.timepicker-overlay {
+  z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000 !important;
+}
+
+/* Customize the screen size for dialog */
+
+.dialog-responsive-30 {
+  width: 30%;
+}
+
+.dialog-responsive-40 {
+  width: 40%;
+}
+
+.dialog-responsive-50 {
+  width: 50%;
+}
+
+.dialog-responsive-60 {
+  width: 60%;
+}
+
+.dialog-responsive-70 {
+  width: 70%;
+}
+
+.dialog-responsive-80 {
+  width: 80%;
+}
+.dialog-responsive-90 {
+  width: 95%;
+  max-width: 95vw !important;
+}
+
+@media only screen and (max-width: 760px) {
+  .dialog-responsive-30 {
+    width: 100%;
+  }
+
+  .dialog-responsive-40 {
+    width: 100%;
+  }
+
+  .dialog-responsive-50 {
+    width: 100%;
+  }
+
+  .dialog-responsive-60 {
+    width: 100%;
+  }
+
+  .dialog-responsive-70 {
+    width: 100%;
+  }
+
+  .dialog-responsive-80 {
+    width: 100%;
+  }
+  .dialog-responsive-90 {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .dialog-responsive-30 {
+    width: 100%;
+  }
+
+  .dialog-responsive-40 {
+    width: 100%;
+  }
+
+  .dialog-responsive-50 {
+    width: 100%;
+  }
+
+  .dialog-responsive-60 {
+    width: 100%;
+  }
+
+  .dialog-responsive-70 {
+    width: 100%;
+  }
+
+  .dialog-responsive-80 {
+    width: 100%;
+  }
+  .dialog-responsive-90 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+    color: black;
+  }
+
+  .mat-table .mat-header-cell {
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #4f5467;
+    display: block;
+  }
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #dee2e6;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .mat-table .mat-cell:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+    padding: 0;
+  }
+
+  .mat-table .mat-cell:first-child {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.blue-snackbar {
+  background: #004890;
+  color: white;
+}
+
+.background-red {
+  background-color: rgb(153, 50, 50);
+}
+.background-green {
+  background-color: rgb(29, 102, 29);
+}
+
+.background-warning {
+  background-color: rgb(250, 173, 20);
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.create-action-icon {
+  color: #1db2f5;
+}
+
+.update-action-icon {
+  color: #75767a;
+  font-size: 1.2rem;
+}
+
+.delete-action-icon {
+  color: #75767a;
+  font-size: 1.2rem;
+}
+
+.page-container {
+  background-color: #ffffff;
+}
+
+.create-button {
+  background-color: #004890;
+  color: #ffffff;
+}
+
+.update-button {
+  background-color: #75767a;
+  color: #ffffff;
+}
+
+.refresh-button {
+  background-color: #edf1f5;
+  color: #38364c;
+}
+
+.w-mp-5 {
+  max-width: 5%;
+}
+
+.w-mp-10 {
+  max-width: 10%;
+}
+
+.w-mp-20 {
+  max-width: 20%;
+}
+
+.w-mp-30 {
+  max-width: 30%;
+}
+
+.w-mp-40 {
+  max-width: 40%;
+}
+
+.w-mp-50 {
+  max-width: 50%;
+}
+
+.w-mp-60 {
+  max-width: 60%;
+}
+
+.w-mp-70 {
+  max-width: 70%;
+}
+
+.w-mp-80 {
+  max-width: 80%;
+}
+
+.w-mp-90 {
+  max-width: 90%;
+}
+
+.w-mp-100 {
+  max-width: 100%;
+}
+
+.w-75 {
+  max-width: 75px;
+}
+
+.w-100 {
+  max-width: 100px;
+}
+
+.w-120 {
+  max-width: 120px;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+ol.breadcrumbs {
+  padding: 0;
+  list-style-type: none;
+}
+
+.breadcrumb-current-route {
+  color: inherit;
+  font-weight: 500;
+}
+
+.breadcrumb-history-link {
+  color: #3f51b5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+ol.breadcrumbs li {
+  list-style-type: none;
+}
+
+@media only screen and (min-width: 960px) {
+  ol.breadcrumbs li {
+    list-style-type: none;
+    display: inline;
+  }
+
+  .route-content-top {
+    height: 30px;
+  }
+}
+
+.bold {
+  font-weight: bolder;
+  font-size: 0.8rem;
+  color: #4f5467;
+}
+
+@media print {
+  qnh-root > * {
+    display: none;
+  }
+  qnh-root app-print-layout {
+    display: block;
+  }
+
+  html,
+  body {
+    border: 1px solid white;
+    height: 99%;
+    page-break-after: avoid;
+    page-break-before: avoid;
+  }
+}
+
+.mat-card-subtitle,
+.mat-card-title,
+.mat-header-cell,
+.mat-cell,
+.mat-paginator,
+mat-label,
+tbody,td
+{
+  color: black !important;
+}
+
+thead, th{
+  font-weight: bold !important;
+  color: black !important;
+}
