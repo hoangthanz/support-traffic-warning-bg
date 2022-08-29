@@ -23,7 +23,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
     {
         try
         {
-            var result = await _context.Gates.ToListAsync();
+            var result = await _context.Gates.Where(x => !x.IsDeleted).ToListAsync();
             return new RespondApi<List<Gate>>()
                 { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
         }
@@ -75,7 +75,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                 return new RespondApi<Gate>()
                     { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
             var duplicateGate = await _context.Gates.FirstOrDefaultAsync(x => !x.IsDeleted && (x.Name == model.Name || 
-                    x.Code == model.Code));
+                    x.Code == model.Code) && x.Id != id);
             if (duplicateGate != null)
                 return new RespondApi<Gate>()
                     { Result = ResultRespond.Duplication, Message = "tên hoặc mã cửa khẩu đã tồn tại" };
@@ -108,6 +108,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                 return new RespondApi<Gate>()
                     { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
             obj.IsDeleted = true;
+            await _context.SaveChangesAsync();
             return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
         }
         catch (Exception e)
