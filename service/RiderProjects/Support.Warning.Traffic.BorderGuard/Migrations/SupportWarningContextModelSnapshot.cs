@@ -155,7 +155,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -178,7 +178,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -196,22 +196,22 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -230,18 +230,22 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("NormalizationName")
                         .HasColumnType("text");
 
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.Property<int>("WardId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("AreaId");
+                    b.HasKey("Id");
 
                     b.ToTable("Gates");
                 });
@@ -258,7 +262,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -291,7 +295,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -315,7 +319,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -337,7 +341,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -367,7 +371,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUserId")
                         .HasColumnType("uuid");
@@ -396,7 +400,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
@@ -414,9 +418,18 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("HaveOTP")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -425,6 +438,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("RoleInGate")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -454,7 +470,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
@@ -505,7 +521,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -721,17 +737,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Gate", b =>
-                {
-                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Area", "Area")
-                        .WithMany()
-                        .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Area");
                 });
 
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Station", b =>
