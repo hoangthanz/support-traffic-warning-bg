@@ -32,6 +32,10 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { GateConfigComponent } from './pages/gate-config/gate-config.component';
+import { CuGateConfigComponent } from './components/cu-gate-config/cu-gate-config.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -63,7 +67,10 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     TooltipComponent,
     SnackbarComponent,
     SliderComponent,
-    SlideToggleComponent
+    SlideToggleComponent,
+    GateConfigComponent,
+    CuGateConfigComponent,
+    ConfirmDialogComponent
   ]
 })
 export class MaterialComponentsModule {}

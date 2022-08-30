@@ -21,7 +21,7 @@ public class Station : IDateTracking, IUserTracking, ICheckTracking
     public string? Longitude { get; set; }
     public string? Description { get; set; }
 
-    [ForeignKey("VehicleTypeId")]
+    [ForeignKey("GateId")]
     [Description("Khóa ngoại - Id cửa khẩu")]
     public int GateId { get; set; }
 

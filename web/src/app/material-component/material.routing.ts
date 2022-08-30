@@ -16,6 +16,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
+import { GateConfigComponent } from './pages/gate-config/gate-config.component';
 
 export const MaterialRoutes: Routes = [
   {
@@ -23,8 +24,8 @@ export const MaterialRoutes: Routes = [
     component: ButtonsComponent
   },
   {
-    path: 'grid',
-    component: GridComponent
+    path: 'gate-config',
+    component: GateConfigComponent
   },
   {
     path: 'lists',

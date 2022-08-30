@@ -210,8 +210,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<int>("DistrictId")
-                        .HasColumnType("integer");
+                    b.Property<string>("DistrictId")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -230,8 +230,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("NormalizationName")
                         .HasColumnType("text");
 
-                    b.Property<int>("ProvinceId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ProvinceId")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
@@ -242,8 +242,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<Guid>("UpdatedUserId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("WardId")
-                        .HasColumnType("integer");
+                    b.Property<string>("WardId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
