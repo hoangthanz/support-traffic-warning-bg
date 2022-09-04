@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
+using Support.Warning.Traffic.BorderGuard.Settings;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Account;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
@@ -168,11 +169,11 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             authClaims.Add(new Claim(ClaimTypes.Role, userRole));
         }
 
-        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hoangthanz123456"));
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["JWT:ValidIssuer"],
-            audience: _configuration["JWT:ValidAudience"],
+            issuer: "thanhoangz",
+            audience: "thanhoangz",
             expires: DateTime.Now.AddHours(24),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));
