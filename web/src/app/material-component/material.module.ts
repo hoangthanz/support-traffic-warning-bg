@@ -49,8 +49,8 @@ import {SharedModule} from "../shared/shared.module";
     FlexLayoutModule,
     CdkTableModule,
     LeafletModule,
-    SharedModule
-
+    // SharedModule,
+    SharedModule.forRoot()
   ],
   providers: [
   ],

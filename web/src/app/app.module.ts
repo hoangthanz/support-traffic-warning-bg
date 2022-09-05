@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {CurrencyPipe, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -18,13 +18,16 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import {InterceptorService} from "./core/interceptor/interceptor.service";
+import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import {NgxPermissionsModule} from "ngx-permissions";
 @NgModule({
   declarations: [
     AppComponent,
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent
+    AppSidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,13 +38,16 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     HttpClientModule,
     SharedModule.forRoot(),
     RouterModule.forRoot(AppRoutes),
-    LeafletModule
+    LeafletModule,
+    NgxPermissionsModule.forRoot(),
   ],
   providers: [
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
-    },
+    },  { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })
