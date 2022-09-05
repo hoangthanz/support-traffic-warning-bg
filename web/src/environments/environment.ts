@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  main_domain: 'http://xuanhoang.hopto.org:8001/api',
+  main_domain: 'http://10.35.66.220:8012/api',
 };

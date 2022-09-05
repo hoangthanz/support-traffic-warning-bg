@@ -1,7 +1,7 @@
 import 'hammerjs';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { DemoMaterialModule } from '../demo-material-module';
@@ -35,6 +35,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { GateConfigComponent } from './pages/gate-config/gate-config.component';
 import { CuGateConfigComponent } from './components/cu-gate-config/cu-gate-config.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { StationConfigComponent } from './pages/station-config/station-config.component';
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   imports: [
@@ -46,9 +48,12 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ReactiveFormsModule,
     FlexLayoutModule,
     CdkTableModule,
-    LeafletModule
+    LeafletModule,
+    SharedModule
+
   ],
-  providers: [],
+  providers: [
+  ],
   entryComponents: [DialogOverviewExampleDialogComponent],
   declarations: [
     ButtonsComponent,
@@ -70,7 +75,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     SlideToggleComponent,
     GateConfigComponent,
     CuGateConfigComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StationConfigComponent
   ]
 })
 export class MaterialComponentsModule {}

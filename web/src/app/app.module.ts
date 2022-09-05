@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -33,15 +33,15 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    SharedModule,
+    SharedModule.forRoot(),
     RouterModule.forRoot(AppRoutes),
     LeafletModule
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    }
+      useClass: PathLocationStrategy,
+    },
   ],
   bootstrap: [AppComponent]
 })

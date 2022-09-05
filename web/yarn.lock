@@ -267,6 +267,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@auth0/angular-jwt@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@auth0/angular-jwt/-/angular-jwt-5.0.2.tgz#0a23f240e8c6ed37c5c7a354ad79a755a217936e"
+  integrity sha512-rSamC9mu+gUxoR86AXcIo+KD7xRIro+/iu1F2Ld85YAZEVKlpB5vYG+g0yGaEOqjtQWP/i0H6fi6XMGPVHSYYQ==
+  dependencies:
+    tslib "^2.0.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.16.7", "@babel/code-frame@^7.18.6":
   version "7.18.6"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.18.6.tgz"
@@ -4556,6 +4563,27 @@ ng-apexcharts@^1.7.1:
   integrity sha512-GTRhF70G0leGVGjx4cbLKGusZxF7FogFgJ59q3Ntk0MIEvJqfpSYywmocselh3cGR0S/Zt/d7JEgt/f2HOzpTA==
   dependencies:
     tslib "^2.0.0"
+
+ngx-cookie-service@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-14.0.1.tgz#0c0f8a7ba91dbb68d3f8ad0f8808bbde4f6e55aa"
+  integrity sha512-PHjpA/bpp1ZgvQ2AWdXA6oxPQgE9k0WljQ7tvUH/u0Acl6p6akzF8kWlQiWxkgR3hBs7xB3paIsTk6GKdtakMg==
+  dependencies:
+    tslib "^2.0.0"
+
+ngx-device-detector@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-4.0.1.tgz#50cd5c88f805d78aac473be1fdae49186ada13bf"
+  integrity sha512-n0c9nOs7900r0pL/m4L0vaDvyf72xhKIC6bpr4BZYazWeRxankO1SqJZijqoMGxiUZnZAQqXkyhRkBIErgoKVg==
+  dependencies:
+    tslib "^2.0.0"
+
+ngx-permissions@^13.0.1:
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-permissions/-/ngx-permissions-13.0.1.tgz#120376ca201ab19cbdf2d584232572c98652b27f"
+  integrity sha512-KanBkK9v8aoQ9siSEmB69G+OPtF1i71Ie5ORuobOlKcpUMvmpcuCXG9eiu1j3k+8/Q+sv1jCbL9VviLiQF5PFA==
+  dependencies:
+    tslib "^2.1.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"
