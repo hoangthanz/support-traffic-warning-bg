@@ -12,8 +12,8 @@ using Support.Warning.Traffic.BorderGuard;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     [DbContext(typeof(SupportWarningContext))]
-    [Migration("20220829142958_initialize")]
-    partial class initialize
+    [Migration("20220905091549_version_1.0")]
+    partial class version_10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -421,9 +421,18 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("HaveOTP")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -432,6 +441,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("RoleInGate")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
