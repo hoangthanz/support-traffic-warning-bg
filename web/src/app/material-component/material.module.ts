@@ -37,6 +37,8 @@ import { CuGateConfigComponent } from './components/cu-gate-config/cu-gate-confi
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { StationConfigComponent } from './pages/station-config/station-config.component';
 import {SharedModule} from "../shared/shared.module";
+import { VehicleTrafficChartComponent } from './vehicle-traffic-chart/vehicle-traffic-chart.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   imports: [
@@ -49,7 +51,8 @@ import {SharedModule} from "../shared/shared.module";
     FlexLayoutModule,
     CdkTableModule,
     LeafletModule,
-    // SharedModule,
+    FlexLayoutModule,
+    NgApexchartsModule,
     SharedModule.forRoot()
   ],
   providers: [
@@ -76,7 +79,8 @@ import {SharedModule} from "../shared/shared.module";
     GateConfigComponent,
     CuGateConfigComponent,
     ConfirmDialogComponent,
-    StationConfigComponent
+    StationConfigComponent,
+    VehicleTrafficChartComponent
   ]
 })
 export class MaterialComponentsModule {}
