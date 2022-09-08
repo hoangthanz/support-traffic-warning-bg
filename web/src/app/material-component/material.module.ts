@@ -37,6 +37,8 @@ import {CuGateConfigComponent} from './components/cu-gate-config/cu-gate-config.
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 import {StationConfigComponent} from './pages/station-config/station-config.component';
 import {SharedModule} from "../shared/shared.module";
+import { VehicleTrafficChartComponent } from './vehicle-traffic-chart/vehicle-traffic-chart.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
 
 @NgModule({
@@ -50,7 +52,8 @@ import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
     FlexLayoutModule,
     CdkTableModule,
     LeafletModule,
-    // SharedModule,
+    FlexLayoutModule,
+    NgApexchartsModule,
     SharedModule.forRoot()
   ],
   providers: [],
@@ -77,7 +80,8 @@ import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
     CuGateConfigComponent,
     ConfirmDialogComponent,
     StationConfigComponent,
-    MapLockupComponent
+    MapLockupComponent,
+    VehicleTrafficChartComponent
   ]
 })
 export class MaterialComponentsModule {

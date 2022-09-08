@@ -1,0 +1,218 @@
+<!-- ============================================================== -->
+<!-- Simple four boxes Row -->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+  <!-- column -->
+  <div fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Phương tiện</mat-card-title>
+        <mat-card-subtitle>Tỷ lệ phương tiện khác nhau</mat-card-subtitle>
+        <div class="piechart">
+          <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive"
+            [tooltip]="chartOptions.tooltip"
+            [legend]="chartOptions.legend"
+            [colors]="chartOptions.colors"
+            [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions"
+            [stroke]="chartOptions.stroke"
+          >
+          </apx-chart>
+        </div>
+      </mat-card-content>
+      <hr/>
+      <mat-card-content>
+        <ul class="list-inline text-center">
+          <li>
+            <h6 class=" m-0" style="color: #e74c3c">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe container
+            </h6>
+          </li>
+          <li>
+            <h6 class=" m-0" style="color: #f1c40f">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe mooc
+            </h6>
+          </li>
+          <li>
+            <h6 class=" m-0" style="color: #16a085">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe tải
+            </h6>
+          </li>
+          <li>
+            <h6 class=" m-0" style="color: #9b59b6">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe thùng kín
+            </h6>
+          </li>
+          <li>
+            <h6 class=" m-0" style="color: #0abde3">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Ô tô tự hành
+            </h6>
+          </li>
+          <li>
+            <h6 class=" m-0" style="color: #353b48">
+              <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Khác
+            </h6>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <!-- column -->
+  <!-- column -->
+  <div fxFlex.gt-lg="60" fxFlex.gt-md="60" fxFlex.gt-xs="100" fxFlex="100">
+    <!--    <app-sales-overview></app-sales-overview>-->
+    <mat-card>
+      <mat-card-content>
+        <div class="d-flex flex-wrap">
+          <div>
+            <mat-card-title>Lưu lượng xe</mat-card-title>
+            <mat-card-subtitle>Tỷ lệ lưu lượng xe trong tuần</mat-card-subtitle>
+          </div>
+          <div class="ml-auto">
+            <ul class="list-inline text-center">
+              <li>
+                <h6 class=" m-0" style="color: #e74c3c">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe container
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #f1c40f">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe mooc
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #16a085">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe tải
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #9b59b6">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Xe thùng kín
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #0abde3">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Ô tô tự hành
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #353b48">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Khác
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <apx-chart
+            [series]="chart2.series"
+            [chart]="chart2.chart"
+            [dataLabels]="chart2.dataLabels"
+            [plotOptions]="chart2.plotOptions"
+            [yaxis]="chart2.yaxis"
+            [legend]="chart2.legend"
+            [fill]="chart2.fill"
+            [stroke]="chart2.stroke"
+            [tooltip]="chart2.tooltip"
+            [xaxis]="chart2.xaxis"
+            [grid]="chart2.grid"
+          >
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+  <!-- column -->
+</div>
+
+<!-- ============================================================== -->
+<!-- Image Card row-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-lg="70" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <div class="d-flex flex-wrap">
+          <div>
+            <mat-card-title>Lưu lượng xe tại cửa khẩu</mat-card-title>
+            <mat-card-subtitle>Lưu lượng xe tại cửa khẩu Hữu Nghị và Tân Thanh</mat-card-subtitle>
+          </div>
+          <div class="ml-auto">
+            <ul class="list-inline text-center">
+              <li>
+                <h6 class=" m-0" style="color: #e74c3c">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Tân thanh
+                </h6>
+              </li>
+              <li>
+                <h6 class=" m-0" style="color: #f1c40f">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Hữu nghị
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <apx-chart
+            [series]="chartGate.series"
+            [chart]="chartGate.chart"
+            [dataLabels]="chartGate.dataLabels"
+            [plotOptions]="chartGate.plotOptions"
+            [yaxis]="chartGate.yaxis"
+            [legend]="chartGate.legend"
+            [fill]="chartGate.fill"
+            [stroke]="chartGate.stroke"
+            [tooltip]="chartGate.tooltip"
+            [xaxis]="chartGate.xaxis"
+            [grid]="chartGate.grid"
+          >
+          </apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- Card column -->
+  <!-- Card column -->
+  <div fxFlex.gt-lg="30" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <div class="d-flex flex-wrap">
+          <div>
+            <mat-card-title>Lưu lượng xe</mat-card-title>
+            <mat-card-subtitle>Biểu đồ đường lưu lượng</mat-card-subtitle>
+          </div>
+          <div class="ml-auto">
+            <ul class="list-inline text-center">
+              <li>
+                <h6 class=" m-0" style="color: #2181cc">
+                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i>Phương tiện
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <apx-chart
+            [series]="lineChartOptions.series"
+            [chart]="lineChartOptions.chart"
+            [xaxis]="lineChartOptions.xaxis"
+            [dataLabels]="lineChartOptions.dataLabels"
+            [grid]="lineChartOptions.grid"
+            [stroke]="lineChartOptions.stroke"
+            [title]="lineChartOptions.title"
+          ></apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
