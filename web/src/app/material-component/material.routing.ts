@@ -17,6 +17,8 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { GateConfigComponent } from './pages/gate-config/gate-config.component';
+import {StationConfigComponent} from "./pages/station-config/station-config.component";
+import {VehicleTrafficChartComponent} from "./vehicle-traffic-chart/vehicle-traffic-chart.component";
 
 export const MaterialRoutes: Routes = [
   {
@@ -26,6 +28,14 @@ export const MaterialRoutes: Routes = [
   {
     path: 'gate-config',
     component: GateConfigComponent
+  },
+  {
+    path: 'vehicle-traffic-chart',
+    component: VehicleTrafficChartComponent
+  },
+  {
+    path: 'station-config',
+    component: StationConfigComponent
   },
   {
     path: 'lists',

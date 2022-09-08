@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class initialize : Migration
+    public partial class version_10 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,6 +150,10 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
+                    CanDelete = table.Column<bool>(type: "boolean", nullable: false),
+                    RoleInGate = table.Column<bool>(type: "boolean", nullable: false),
+                    HaveOTP = table.Column<bool>(type: "boolean", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
