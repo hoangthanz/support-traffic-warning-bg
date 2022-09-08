@@ -28,7 +28,7 @@ export class InterceptorService implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         // Authorization: `Bearer ${this.auth.getToken()}`
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMzdmYjA3OC1kZDllLTQ4MjItYjM2Ni03ZDA2MDQxM2VmY2UiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibHVhbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Im1hbnlSb2xlIiwiZXhwIjoxNjYyNDU3OTg0LCJpc3MiOiJ0aGFuaG9hbmd6IiwiYXVkIjoidGhhbmhvYW5neiJ9.K-xthSGuaxdSDCCb3qpUrOC36qjDaX4EDz-nnroF-S0`
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkZDYwNzU2NC03YzQ1LTQyYjEtOTlmMC05Mzg5MjE1NzczNDgiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibHVhbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJtYW55Um9sZSIsImdhdGUiXSwiZXhwIjoxNjYyNjUzNzAyLCJpc3MiOiJ0aGFuaG9hbmd6IiwiYXVkIjoidGhhbmhvYW5neiJ9.VvlO0wJ0OjeB7E9VGUJAwA29SBAKWHDTIUni6H4OB3E`
       },
     });
     return next.handle(request);

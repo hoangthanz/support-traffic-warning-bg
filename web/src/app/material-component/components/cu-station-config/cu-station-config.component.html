@@ -1,0 +1,106 @@
+<h1 mat-dialog-title style="font-weight: bolder; color: #4F5467;">{{isCreate ? 'Thêm mới trạm' : 'Cập nhật trạm'}}</h1>
+<form novalidate [formGroup]='stationForm' (ngSubmit)='submit()'>
+  <mat-form-field appearance="outline">
+    <mat-label>Tên trạm</mat-label>
+    <textarea formControlName='name' matInput class="customScroll" style="height: 50px; max-height: 50px;"
+              placeholder="Tên trạm" required></textarea>
+    <mat-error *ngIf="stationForm.controls.name.hasError('required')">
+      Vui lòng nhập tên trạm
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Cửa khẩu</mat-label>
+    <mat-select formControlName='gateId'>
+      <mat-option *ngFor="let gate of listGate" [value]="gate.id">
+        {{gate.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="stationForm.controls.gateId.hasError('required')">
+      Vui lòng chọn cửa khẩu
+    </mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="row"
+       fxLayout.xs="row" fxLayoutWrap fxLayoutGap="14px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+       fxLayoutAlign.md="left" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center">
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Địa chỉ</mat-label>
+        <input formControlName='address' matInput placeholder="Địa chỉ" required />
+        <mat-error *ngIf="stationForm.controls.address.hasError('required')">
+          Vui lòng nhập địa chỉ
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Số điện thoại</mat-label>
+        <input formControlName='phone' matInput placeholder="Số điện thoại" required (keypress)="numberOnly($event);"/>
+        <mat-error *ngIf="stationForm.controls.phone.hasError('required')">
+          Vui lòng nhập số điện thoại
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="row"
+       fxLayout.xs="row" fxLayoutWrap fxLayoutGap="14px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+       fxLayoutAlign.md="left" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center">
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Kinh độ</mat-label>
+        <input formControlName='longitude' matInput placeholder="Kinh độ" required>
+        <mat-error *ngIf="stationForm.controls.longitude.hasError('required')">
+          Vui lòng chọn kinh độ
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Vĩ độ</mat-label>
+        <input formControlName='latitude' matInput placeholder="Vĩ độ" required>
+        <mat-error *ngIf="stationForm.controls.latitude.hasError('required')">
+          Vui lòng chọn vĩ độ
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="row"
+       fxLayout.xs="row" fxLayoutWrap fxLayoutGap="14px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+       fxLayoutAlign.md="left" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center">
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName='email' matInput placeholder="Email"/>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md fxFlex.sm fxFlex.xs>
+      <mat-form-field appearance="outline">
+        <mat-label>Website</mat-label>
+        <input formControlName='website' matInput placeholder="website" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-slide-toggle (change)="isChecked=!isChecked" [checked]="isChecked">{{isChecked==true? 'Hoạt động' : 'Khoá'}}
+  </mat-slide-toggle>
+  <mat-form-field appearance="outline" style="margin-top: 20px;">
+    <mat-label>Diễn giải</mat-label>
+    <textarea formControlName='description' class="customScroll" style="height: 150px; max-height: 150px;" matInput
+              placeholder="Diễn giải"></textarea>
+  </mat-form-field>
+  <mat-dialog-actions align='end'>
+    <button mat-button class='button-action' style='float: right;' mat-dialog-close tabindex='-1'
+            matTooltip="Hủy" fxHide.sm fxHide.xs fxHide.md>
+      <mat-icon>close</mat-icon>
+      Hủy
+    </button>
+    <button mat-flat-button class='button-add' style='float: right;' color="primary" type='submit'
+            matTooltip="{{isCreate ? 'Thêm mới' : 'Cập nhật'}}">
+      <mat-icon>check</mat-icon>
+      {{isCreate ? 'Thêm mới' : 'Cập nhật'}}
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -39,6 +39,7 @@ import { StationConfigComponent } from './pages/station-config/station-config.co
 import {SharedModule} from "../shared/shared.module";
 import { VehicleTrafficChartComponent } from './vehicle-traffic-chart/vehicle-traffic-chart.component';
 import {NgApexchartsModule} from "ng-apexcharts";
+import { CuStationConfigComponent } from './components/cu-station-config/cu-station-config.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import {NgApexchartsModule} from "ng-apexcharts";
     CuGateConfigComponent,
     ConfirmDialogComponent,
     StationConfigComponent,
-    VehicleTrafficChartComponent
+    VehicleTrafficChartComponent,
+    CuStationConfigComponent
   ]
 })
 export class MaterialComponentsModule {}
