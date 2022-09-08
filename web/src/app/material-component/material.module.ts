@@ -1,42 +1,43 @@
 import 'hammerjs';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 
-import { DemoMaterialModule } from '../demo-material-module';
-import { CdkTableModule } from '@angular/cdk/table';
+import {DemoMaterialModule} from '../demo-material-module';
+import {CdkTableModule} from '@angular/cdk/table';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
-import { MaterialRoutes } from './material.routing';
-import { ButtonsComponent } from './buttons/buttons.component';
+import {MaterialRoutes} from './material.routing';
+import {ButtonsComponent} from './buttons/buttons.component';
 
-import { GridComponent } from './grid/grid.component';
-import { ListsComponent } from './lists/lists.component';
-import { MenuComponent } from './menu/menu.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { StepperComponent } from './stepper/stepper.component';
-import { ExpansionComponent } from './expansion/expansion.component';
-import { ChipsComponent } from './chips/chips.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.component';
-import { ProgressComponent } from './progress/progress.component';
+import {GridComponent} from './grid/grid.component';
+import {ListsComponent} from './lists/lists.component';
+import {MenuComponent} from './menu/menu.component';
+import {TabsComponent} from './tabs/tabs.component';
+import {StepperComponent} from './stepper/stepper.component';
+import {ExpansionComponent} from './expansion/expansion.component';
+import {ChipsComponent} from './chips/chips.component';
+import {ToolbarComponent} from './toolbar/toolbar.component';
+import {ProgressSnipperComponent} from './progress-snipper/progress-snipper.component';
+import {ProgressComponent} from './progress/progress.component';
 import {
   DialogComponent,
   DialogOverviewExampleDialogComponent
 } from './dialog/dialog.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { SnackbarComponent } from './snackbar/snackbar.component';
-import { SliderComponent } from './slider/slider.component';
-import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { GateConfigComponent } from './pages/gate-config/gate-config.component';
-import { CuGateConfigComponent } from './components/cu-gate-config/cu-gate-config.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { StationConfigComponent } from './pages/station-config/station-config.component';
+import {TooltipComponent} from './tooltip/tooltip.component';
+import {SnackbarComponent} from './snackbar/snackbar.component';
+import {SliderComponent} from './slider/slider.component';
+import {SlideToggleComponent} from './slide-toggle/slide-toggle.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {GateConfigComponent} from './pages/gate-config/gate-config.component';
+import {CuGateConfigComponent} from './components/cu-gate-config/cu-gate-config.component';
+import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
+import {StationConfigComponent} from './pages/station-config/station-config.component';
 import {SharedModule} from "../shared/shared.module";
+import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
 
 @NgModule({
   imports: [
@@ -52,8 +53,7 @@ import {SharedModule} from "../shared/shared.module";
     // SharedModule,
     SharedModule.forRoot()
   ],
-  providers: [
-  ],
+  providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
   declarations: [
     ButtonsComponent,
@@ -76,7 +76,9 @@ import {SharedModule} from "../shared/shared.module";
     GateConfigComponent,
     CuGateConfigComponent,
     ConfirmDialogComponent,
-    StationConfigComponent
+    StationConfigComponent,
+    MapLockupComponent
   ]
 })
-export class MaterialComponentsModule {}
+export class MaterialComponentsModule {
+}

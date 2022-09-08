@@ -13,7 +13,7 @@ const MENUITEMS = [
   { state: 'gate-config', type: 'link', name: 'Cấu hình cửa khẩu', icon: 'view_comfy' },
   { state: 'station-config', type: 'link', name: 'Cấu hình trạm', icon: 'view_list' },
   { state: 'lists', type: 'link', name: 'Khai báo lưu lượng', icon: 'view_list' },
-  { state: 'menu', type: 'link', name: 'Bản đồ', icon: 'view_headline' },
+  { state: 'map-lockup', type: 'link', name: 'Bản đồ', icon: 'view_headline' },
   { state: 'tabs', type: 'link', name: 'Tabs', icon: 'tab' },
   { state: 'stepper', type: 'link', name: 'Stepper', icon: 'web' },
   // {
