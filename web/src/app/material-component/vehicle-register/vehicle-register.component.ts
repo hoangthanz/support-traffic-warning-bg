@@ -10,6 +10,7 @@ import "leaflet/dist/leaflet.css";
 })
 export class VehicleRegisterComponent implements OnInit {
   public map: any;
+  public vehicleRegister: any;
   public markerIcon = {
     icon: L.icon({
       iconSize: [41, 41],
@@ -55,6 +56,16 @@ export class VehicleRegisterComponent implements OnInit {
     this.types = [
       {value: '1', viewValue: 'Hữu Nghị'},
       {value: '2', viewValue: 'Tân Thanh'},
+    ];
+    this.vehicleRegister = [
+      {licensePlate: '29A-14242', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-65785', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-54435', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-78643', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-26584', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-12345', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-87652', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
+      {licensePlate: '29A-43536', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'},
     ];
     this.selectedType = this.types[0].value;
     this.map = L.map("map").setView([16.00, 108.00], 10);

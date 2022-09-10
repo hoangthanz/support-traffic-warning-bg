@@ -11,13 +11,11 @@
       </mat-card-header>
       <mat-card-content>
         <section class="search-bar">
-
           <div class="search-group d-flex">
             <mat-form-field appearance="outline" class="search-input">
               <mat-label>Tìm kiếm theo biển số xe</mat-label>
               <input matInput placeholder="Nhập biển số xe" [(ngModel)]="searchText">
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="search-input">
               <mat-label>Chọn cửa khẩu</mat-label>
               <mat-select placeholder="Chọn loại xe" [(ngModel)]="selectedType">
@@ -47,25 +45,73 @@
             </ul>
           </div>
         </section>
+        <section>
+          <div class="text-center mt-3" style="border-top: black solid 1px"> Danh sách xe đăng kí</div>
+          <div class="d-flex flex-wrap p-2 justify-between">
+            <div *ngFor="let item of vehicleRegister;let  i = index" class="p-5">
+              <img src="assets/images/icons/container-truck.png" alt="{{item?.licensePlate}}" width="40"/>
+              <span>{{item?.licensePlate}}</span>
+<!--              <span>{{item?.gate}}</span>-->
+            </div>
+          </div>
+        </section>
       </mat-card-content>
     </mat-card>
   </div>
   <div fxFlex.gt-sm="100%" fxFlex="30">
-    <mat-card>
+    <mat-card style="height: 100%; overflow: auto;">
       <mat-card-content>
         <mat-card-title>Bản đồ</mat-card-title>
         <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
-
-
         <div id="map"
-             style="height: 700px;"
+             style="height: 400px;"
              leaflet
              [leafletOptions]="options"
              [leafletLayersControl]="layersControl">
         </div>
-
       </mat-card-content>
     </mat-card>
+  </div>
+</div>
 
+<div fxLayout="row" fxLayoutWrap="wrap" class="mt-5">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="70">
+    <mat-card class="mat-elevation-z0" style="height: 100%; overflow: auto;">
+      <mat-card-header>
+        <mat-card-title>Hiện tại</mat-card-title>
+        <mat-card-subtitle>Thông tin hiện tại tại Cửa Khẩu</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div>Số lượng xe: 1500 Xe</div>
+        <div>Chi tiết:</div>
+        <div>
+          <ul>
+            <li>- 200 Xe Hoa Quả</li>
+            <li>- 300 Xe Chở Vải</li>
+            <li> - .....</li>
+          </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="100%" fxFlex="30">
+    <mat-card style="height: 100%; overflow: auto;">
+      <mat-card-header>
+        <mat-card-title>Dự kiến</mat-card-title>
+        <mat-card-subtitle>Thông tin dự kiến tới Cửa Khẩu</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div>Số lượng xe: 1500 Xe</div>
+        <div>Chi tiết:</div>
+        <div>
+          <ul>
+            <li>- 200 Xe Hoa Quả</li>
+            <li>- 300 Xe Chở Vải</li>
+            <li> - .....</li>
+          </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
