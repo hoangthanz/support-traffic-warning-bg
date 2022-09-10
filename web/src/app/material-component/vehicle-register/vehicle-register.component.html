@@ -1,0 +1,71 @@
+<!-- ============================================================== -->
+<!-- row -->
+<!-- ============================================================== -->
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <!-- Card column -->
+  <div fxFlex.gt-sm="100%" fxFlex="70">
+    <mat-card class="mat-elevation-z0" style="height: 100%; overflow: auto;">
+      <mat-card-header>
+        <mat-card-title>Tra cứu xe của doanh nghiệp</mat-card-title>
+        <mat-card-subtitle>Tra cứu xe của doanh nghiệp</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <section class="search-bar">
+
+          <div class="search-group d-flex">
+            <mat-form-field appearance="outline" class="search-input">
+              <mat-label>Tìm kiếm theo biển số xe</mat-label>
+              <input matInput placeholder="Nhập biển số xe" [(ngModel)]="searchText">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="search-input">
+              <mat-label>Chọn cửa khẩu</mat-label>
+              <mat-select placeholder="Chọn loại xe" [(ngModel)]="selectedType">
+                <mat-option *ngFor="let type of types" [value]="type.value">
+                  {{type.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="search-btn-group">
+            <div class="flex justify-end items-center">
+              <button mat-raised-button color="primary">
+                <mat-icon>search</mat-icon>
+                Tìm kiếm
+              </button>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div>
+            <ul>
+              <li>-Biển số: 514A-TT1</li>
+              <li>-Chủ Xe: Nguyễn Văn A</li>
+              <li>-Vị trí hiện tại: 16 (kinh độ) - 72 (vĩ độ)</li>
+              <li>-Chở hàng: Vải</li>
+              <li>-Đăng kí lên cửa khẩu: Hữu Nghị - Lúc 16h 30p</li>
+            </ul>
+          </div>
+        </section>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="100%" fxFlex="30">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Bản đồ</mat-card-title>
+        <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
+
+
+        <div id="map"
+             style="height: 700px;"
+             leaflet
+             [leafletOptions]="options"
+             [leafletLayersControl]="layersControl">
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

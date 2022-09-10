@@ -77,7 +77,7 @@ export class VehicleTrafficChartComponent implements OnInit {
         }
       ],
       chart: {
-        height: 350,
+        height: 320,
         type: "line",
         zoom: {
           enabled: false
@@ -234,7 +234,7 @@ export class VehicleTrafficChartComponent implements OnInit {
       chart: {
         type: "donut",
         fontFamily: "Poppins,sans-serif",
-        height: 253,
+        height: 260,
       },
       plotOptions: {
         pie: {

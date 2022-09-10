@@ -40,6 +40,7 @@ import {SharedModule} from "../shared/shared.module";
 import { VehicleTrafficChartComponent } from './vehicle-traffic-chart/vehicle-traffic-chart.component';
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CuStationConfigComponent } from './components/cu-station-config/cu-station-config.component';
+import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
 
 @NgModule({
   imports: [
@@ -82,6 +83,7 @@ import { CuStationConfigComponent } from './components/cu-station-config/cu-stat
     ConfirmDialogComponent,
     StationConfigComponent,
     VehicleTrafficChartComponent,
+    VehicleRegisterComponent,
     CuStationConfigComponent
   ]
 })

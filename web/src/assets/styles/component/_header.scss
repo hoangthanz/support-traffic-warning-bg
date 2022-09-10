@@ -20,10 +20,10 @@ mat-toolbar {
         }
       }
     }
-  
+
     .profile-pic {
-      width: 40px;
-      height: 40px;
+      width: 40px !important;
+      height: 40px  !important;
       border-radius: 100%;
     }
   }
@@ -34,12 +34,11 @@ mat-toolbar {
     position: relative;
     z-index: 2;
   }
-  
+
   .example-sidenav-container {
     flex: 1;
   }
-  
+
   .example-sidenav-container {
     flex: 1 0 auto;
   }
-  
