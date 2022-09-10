@@ -77,6 +77,7 @@ export class VehicleRegisterComponent implements OnInit {
     this.map.on("click", (e: any) => {
       console.log(e.latlng); // get the coordinates
       L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
+      this.vehicleRegister.push({licensePlate: '29A-14242', type: '1', gate: 'Hữu Nghị', date: '2021-01-01 12:00:00', status: 'Đã đăng ký'});
     });
   }
 
