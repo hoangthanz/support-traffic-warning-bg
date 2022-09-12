@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 import {throwError} from "rxjs";
@@ -16,6 +16,13 @@ export class UserService {
   constructor(
     private _httpClient: HttpClient,
     public snackBar: MatSnackBar) {
+  }
+
+  Login = (userName: string, password: string) => {
+    // @ts-ignore
+    return this._httpClient.post<any>(`${environment.main_domain}/user/authenticate`, {username: userName, password: password}).pipe(
+      retry(1),
+      catchError(this.errorHandl))
   }
 
   GetUserByGateId = (gateId: number) => {
