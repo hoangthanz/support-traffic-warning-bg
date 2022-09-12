@@ -20,14 +20,21 @@ export class AuthGuardService implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+
+  if(state.url == '/login'){
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+      return true;
+    }
+
+  }
+
     return this.authService.user.pipe(
       map((user) => {
         if (this.authService.isAuthenticated()) {
           return true;
         } else {
-          this.router.navigate(['login'], {
-            queryParams: {returnUrl: state.url},
-          });
+          this.router.navigate(['login']);
           return false;
         }
       })

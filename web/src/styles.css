@@ -22,8 +22,10 @@
 
 input:disabled, input:read-only {
   background-color: #fafafa;
+  color: black;
 }
 
+ng-deep:: mat-date-range-input
 * {
   font-family: 'Quicksand', sans-serif;
 }

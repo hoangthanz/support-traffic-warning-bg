@@ -49,7 +49,7 @@ export class AuthenticationService {
   }
 
   public getToken() {
-    return sessionStorage.getItem('access_token');
+    return localStorage.getItem('access_token');
   }
 
   public convertObjectToString = (object: any) => JSON.stringify(object);
@@ -219,11 +219,6 @@ export class AuthenticationService {
     this.cookieService.deleteAll();
     this.router.navigate(['/login']);
   }
-
-  getUserInformation = () => this.http.get<any>(`${environment.main_domain}/user/info`, { withCredentials: true })
-    .pipe(map((user: ResponseApi<UserInfor>) => user));
-
-  // helper methods
 
   getIpAddress = () => {
     const headers = new HttpHeaders()

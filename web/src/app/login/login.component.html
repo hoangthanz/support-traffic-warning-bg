@@ -1,6 +1,6 @@
 <div class="parent-layout">
   <div class="main-block">
-    <img src="assets/images/undraw_map_dark_re_36sy.svg" class="image-head" />
+    <img src="assets/images/undraw_map_dark_re_36sy.svg" class="image-head"/>
     <h2 style="text-align: center; color: #3f3d56;font-weight: 600;">Đăng Nhập</h2>
 
     <mat-form-field appearance="outline">
@@ -10,7 +10,8 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Mật khẩu</mat-label>
-      <input matInput placeholder="********" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password" (keyup.enter)="loginUser()">
+      <input matInput placeholder="********" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password"
+             (keyup.enter)="loginUser()">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
