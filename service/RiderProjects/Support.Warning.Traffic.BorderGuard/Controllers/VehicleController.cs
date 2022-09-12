@@ -29,7 +29,7 @@ public class VehicleController : ControllerBase
     {
         return Ok(await _vehicleRepository.CreateVehicle(model));
     }
-    [HttpPost]
+    [HttpPost("register-vehicle")]
     public async Task<IActionResult> RegisterVehicle([FromBody] RequestRegisterVehicle model)
     {
         return Ok(await _vehicleRepository.RegisterVehicle(model));

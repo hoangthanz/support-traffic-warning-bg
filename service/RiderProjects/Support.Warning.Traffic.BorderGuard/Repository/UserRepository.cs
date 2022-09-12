@@ -52,16 +52,14 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 Token = null,
                 Expiration = DateTime.Now,
             };
-        var roles = await _userManager.GetRolesAsync(user);
+        
         var token = await GenerateTokenJwtByUser(user);
         var claims = new List<string>();
-        var userRoles = await _userManager.GetRolesAsync(user);
-        foreach (var role in userRoles)
+     
+        var claimOfUser = await _userManager.GetClaimsAsync(user);
+        foreach (var claim in claimOfUser)
         {
-            var roleData = await _roleManager.FindByNameAsync(role);
-            var roleClaims = await _roleManager.GetClaimsAsync(roleData);
-            claims.Add(roleData.Name);
-            claims.AddRange(roleClaims.Select(claim => claim.Value));
+            claims.Add(claim.Value);
         }
 
         return new RespondLoginModel
@@ -156,17 +154,13 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 .ToListAsync();
 
             var userView = _mapper.Map<List<UserViewModel>>(user);
-
-            foreach (var u in userView)
-            {
-                u.RoleName = 
-            }
+            
             
             
             return new RespondApi<List<UserViewModel>>()
             {
                 Code = "00",
-                Data = user,
+                Data = userView,
                 Message = "Lấy danh sách người dùng thành công",
                 Result = ResultRespond.Succeeded
             };
