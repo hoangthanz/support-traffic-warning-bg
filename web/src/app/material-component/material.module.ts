@@ -39,6 +39,8 @@ import {StationConfigComponent} from './pages/station-config/station-config.comp
 import {SharedModule} from "../shared/shared.module";
 import { VehicleTrafficChartComponent } from './vehicle-traffic-chart/vehicle-traffic-chart.component';
 import {NgApexchartsModule} from "ng-apexcharts";
+import { CuStationConfigComponent } from './components/cu-station-config/cu-station-config.component';
+import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
 import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
 
 @NgModule({
@@ -80,6 +82,9 @@ import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
     CuGateConfigComponent,
     ConfirmDialogComponent,
     StationConfigComponent,
+    VehicleTrafficChartComponent,
+    VehicleRegisterComponent,
+    CuStationConfigComponent
     MapLockupComponent,
     VehicleTrafficChartComponent
   ]

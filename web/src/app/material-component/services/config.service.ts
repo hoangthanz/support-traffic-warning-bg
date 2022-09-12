@@ -12,6 +12,8 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 import {RequestCreateGateModel} from "../models/gate-config/request-create-gate.model";
 import {ResposeCreateGateModel} from "../models/gate-config/respose-create-gate.model";
 import {ResposeGetGateModel} from "../models/gate-config/respose-get-gate.model";
+import {ResponseGetStationModel} from "../models/station-config/response-get-station.model";
+import {RequestCreateStationModel} from "../models/station-config/request-create-station.model";
 
 
 @Injectable({
@@ -71,6 +73,29 @@ export class ConfigService {
       catchError(this.errorHandl))
   }
 
+  getStation = () => {
+    return this._httpClient.get<ResponseApi<ResponseGetStationModel[]>>(`${environment.main_domain}/Stations`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  createStation = (request: RequestCreateStationModel) => {
+    return this._httpClient.post<ResponseApi<any>>(`${environment.main_domain}/Stations`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  deleteStation = (id: string) =>{
+    return this._httpClient.delete<ResponseApi<ResponseGetStationModel>>(`${environment.main_domain}/Stations/${id}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  updateStation = (id: number, request: RequestCreateStationModel) => {
+    return this._httpClient.put<ResponseApi<any>>(`${environment.main_domain}/Stations/${id}`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
 
 
   public openNotify(typeOfMessage: number, message: string = '', action: string = '', duration: number = 2500

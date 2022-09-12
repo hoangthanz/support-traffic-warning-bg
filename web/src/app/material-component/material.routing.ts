@@ -17,6 +17,7 @@ import {SlideToggleComponent} from './slide-toggle/slide-toggle.component';
 import {GateConfigComponent} from './pages/gate-config/gate-config.component';
 import {StationConfigComponent} from "./pages/station-config/station-config.component";
 import {VehicleTrafficChartComponent} from "./vehicle-traffic-chart/vehicle-traffic-chart.component";
+import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
 import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
 
 export const MaterialRoutes: Routes = [
@@ -31,6 +32,10 @@ export const MaterialRoutes: Routes = [
   {
     path: 'vehicle-traffic-chart',
     component: VehicleTrafficChartComponent
+  },
+  {
+    path: 'vehicle-register',
+    component: VehicleRegisterComponent
   },
   {
     path: 'station-config',

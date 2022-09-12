@@ -29,7 +29,11 @@ public class Vehicle : IDateTracking, IUserTracking, ICheckTracking
     
     public decimal Weight { get; set; } = 0;
     
-    
+    public string DriverName { get; set; }
+    public string DriverPhone { get; set; }
+
+    public bool InGate { get; set; } = false;
+
     [Required] 
     [Description("Tự trọng - trọng lượng của bản thân xe - Đơn vị hiểu là Kg")]
     public decimal LoadDueToOwnWeight { get; set; } = 0;
