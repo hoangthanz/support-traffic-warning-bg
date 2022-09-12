@@ -4,12 +4,13 @@ using System.Text;
 using AutoMapper;
 using Common.Service.Models.Respond;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
-using Support.Warning.Traffic.BorderGuard.Settings;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Account;
+using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Permissions;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
 
@@ -86,7 +87,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                     Code = "00"
                 };
             }
-            
+
             var newUser = new ApplicationUser
             {
                 UserName = model.UserName,
@@ -97,7 +98,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 IsDeleted = false,
                 IsActive = true,
             };
-            
+
             var result = await _userManager.CreateAsync(newUser, model.Password);
             if (!result.Succeeded)
             {
@@ -108,17 +109,18 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                     {
                         errors += "Mật khẩu phải có ký tự đặc biệt, ";
                     }
-                    
+
                     if (error.Code == "PasswordRequiresDigit")
                     {
                         errors += "Mật khẩu phải có ký tự số, ";
                     }
-                    
+
                     if (error.Code == "PasswordRequiresUpper")
                     {
                         errors += "Mật khẩu phải có ký tự in hoa";
                     }
                 }
+
                 return new RespondApi<ApplicationUser>()
                 {
                     Result = ResultRespond.Failed,
@@ -129,13 +131,104 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             }
 
             var userDb = await _userManager.FindByNameAsync(model.UserName);
-                
+
             return new RespondApi<ApplicationUser>()
             {
                 Result = ResultRespond.Succeeded,
                 Message = "Tạo tài khoản thành công",
                 Data = userDb,
                 Code = "00"
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<RespondApi<List<UserViewModel>>> GetUserOfGate(int gateId)
+    {
+        try
+        {
+            var user = await _context.Users
+                .Where(x => x.GateId == gateId)
+                .ToListAsync();
+
+            var userView = _mapper.Map<List<UserViewModel>>(user);
+
+            foreach (var u in userView)
+            {
+                u.RoleName = 
+            }
+            
+            
+            return new RespondApi<List<UserViewModel>>()
+            {
+                Code = "00",
+                Data = user,
+                Message = "Lấy danh sách người dùng thành công",
+                Result = ResultRespond.Succeeded
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<RespondApi<List<IdentityUserClaim<int>>>> GetUserClaims(int userId)
+    {
+        try
+        {
+            var user = await _context.UserClaims
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            return new RespondApi<List<IdentityUserClaim<int>>>()
+            {
+                Code = "00",
+                Data = user,
+                Message = "Lấy danh sách người dùng thành công",
+                Result = ResultRespond.Succeeded
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<RespondApi<List<IdentityUserClaim<int>>>> SetUserClaims(SetClaimUser claimUser)
+    {
+        try
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == claimUser.UserId);
+            if (null == user)
+                return new RespondApi<List<IdentityUserClaim<int>>>()
+                {
+                    Code = "00",
+                    Data = null,
+                    Message = "Không tìm thấy người dùng",
+                    Result = ResultRespond.Failed
+                };
+
+            var claims = await _userManager.GetClaimsAsync(user);
+            await _userManager.RemoveClaimsAsync(user, claims);
+            foreach (var claim in claimUser.Claims)
+            {
+                await _userManager.AddClaimsAsync(user,
+                    claimUser.Claims.Select(x => new Claim(ClaimTypes.Authentication, claim)));
+            }
+
+            return new RespondApi<List<IdentityUserClaim<int>>>()
+            {
+                Code = "00",
+                Data = null,
+                Message = "Cập nhật quyền người dùng thành công",
+                Result = ResultRespond.Succeeded
             };
         }
         catch (Exception e)

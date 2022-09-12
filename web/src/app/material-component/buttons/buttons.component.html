@@ -1,114 +1,84 @@
 <mat-card>
-	<mat-card-content>    
-	<mat-card-title>Buttons</mat-card-title>
-			<mat-card-subtitle>Angular Material buttons are native <code> button or a </code> elements enhanced with Material Design styling and ink ripples. <code><a href="https://material.angular.io/components/button/overview" target="_blank">Official Doc</a></code></mat-card-subtitle>
-	
-			<h4>Basic Buttons <br/><code class="bg-light">&lt;button mat-button color="primary"&gt;Primary&lt;/button&gt;</code></h4>
-		<div class="button-row">
-			<button mat-button>Basic</button>
-			<button mat-button color="primary">Primary</button>
-			<button mat-button color="accent">Accent</button>
-			<button mat-button color="warn">Warn</button>
-			<button mat-button disabled>Disabled</button>
-			<a mat-button routerLink=".">Link</a>
-		</div>
+  <mat-card-content>
+    <mat-card-title>Tài khoản
 
-		<h4>Raised Buttons <br/><code class="bg-light">&lt;button mat-raised-button color="primary"&gt;Primary&lt;/button&gt;</code></h4>
-		<div class="button-row">
-			<button mat-raised-button>Basic</button>
-			<button mat-raised-button color="primary">Primary</button>
-			<button mat-raised-button color="accent">Accent</button>
-			<button mat-raised-button color="warn">Warn</button>
-			<button mat-raised-button disabled>Disabled</button>
-			<a mat-raised-button routerLink=".">Link</a>
-		</div>
-
-		<h4>Icon Buttons <br/><code class="bg-light">&lt;button mat-icon-button color="primary"&gt; <br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;mat-icon aria-label="Example icon-button with a heart icon"&gt;favorite&lt;/mat-icon&gt;<br/>&lt;/button&gt;</code></h4>
-		<div class="button-row">
-			<button mat-icon-button>
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<button mat-icon-button color="primary">
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<button mat-icon-button color="accent">
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<button mat-icon-button color="warn">
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<button mat-icon-button disabled>
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-		</div>
-
-		<h4>Fab Buttons <br/><code class="bg-light">&lt;button mat-fab color="primary"&gt;Primary&lt;/button&gt;</code></h4>
-		<div class="button-row">
-			<button mat-fab>Basic</button>
-			<button mat-fab color="primary">Primary</button>
-			<button mat-fab color="accent">Accent</button>
-			<button mat-fab color="warn">Warn</button>
-			<button mat-fab disabled>Disabled</button>
-			<button mat-fab>
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<a mat-fab routerLink=".">Link</a>
-		</div>
-
-		<h4>Mini Fab Buttons <br/><code class="bg-light">&lt;button mat-mini-fab color="primary"&gt;Primary&lt;/button&gt;</code></h4>
-		<div class="button-row">
-			<button mat-mini-fab>Base</button>
-			<button mat-mini-fab color="primary">Pri</button>
-			<button mat-mini-fab color="accent">Acc</button>
-			<button mat-mini-fab color="warn">Warn</button>
-			<button mat-mini-fab disabled>Dis</button>
-			<button mat-mini-fab>
-				<mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
-			</button>
-			<a mat-mini-fab routerLink=".">Link</a>
-		</div>
-
-		<h4>Basic button-toggles <span class="bg-success text-white rounded font-12 p-l-5 p-r-5">New</span></h4>
-		<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-		  	<mat-button-toggle value="bold">Bold</mat-button-toggle>
-		  	<mat-button-toggle value="italic">Italic</mat-button-toggle>
-		  	<mat-button-toggle value="underline">Underline</mat-button-toggle>
-		</mat-button-toggle-group>
+      <div fxFlex fxFlex.xl fxFlex.lg fxFlex.md fxFlex.sm fxFlex.xs fxLayout="row" fxLayoutAlign="end center">
+        <button mat-flat-button class="refresh-button"  matTooltip="Làm mới">
+          <mat-icon>refresh</mat-icon>
+          Làm mới
+        </button>
+        <button mat-flat-button color="primary" matTooltip="Thêm mới" >
+          <mat-icon>add</mat-icon>
+          Tạo tài khoản
+        </button>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>Cấu hình thông tin tài khoản <code> phân quyền </code><code></code></mat-card-subtitle>
 
 
-		<h4>Button toggle </h4>  
-		<mat-button-toggle-group #group="matButtonToggleGroup">
-			<mat-button-toggle value="left">
-				<mat-icon>format_align_left</mat-icon>
-			</mat-button-toggle>
-			<mat-button-toggle value="center">
-				<mat-icon>format_align_center</mat-icon>
-			</mat-button-toggle>
-			<mat-button-toggle value="right">
-				<mat-icon>format_align_right</mat-icon>
-			</mat-button-toggle>
-			<mat-button-toggle value="justify" disabled>
-				<mat-icon>format_align_justify</mat-icon>
-			</mat-button-toggle>
-		</mat-button-toggle-group>
-		<div class="m-t-20">Selected value: {{group.value}}</div>  
+
+    <div fxLayout="row" fxLayoutWrap="wrap">
+      <div fxFlex="50%">
+        <mat-form-field appearance="standard">
+          <mat-label>Tìm kiếm</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ví dụ: cty1_vn..." #input>
+        </mat-form-field>
+
+        <div class="mat-elevation-z0">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
+              <td mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="userName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tài khoản </th>
+              <td mat-cell *matCellDef="let row"> {{row?.userName}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="roleName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Chức danh </th>
+              <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="controls">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+              <td mat-cell *matCellDef="let row">  </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">Không tìm thấy dữ liệu theo điều kiện "{{input.value}}"</td>
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+      </div>
+      <div fxFlex="10%">
+        <button mat-flat-button color="primary"> > </button>
+      </div>
+      <div fxFlex="40%">
+        <mat-selection-list #shoes>
+          <mat-list-option *ngFor="let shoe of typesOfShoes">
+            {{shoe}}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <p>
+          Options selected: {{shoes.selectedOptions.selected.length}}
+        </p>
+      </div>
+    </div>
 
 
-		<h4>Button toggle appearance <span class="bg-success text-white rounded font-12 p-l-5 p-r-5">New</span></h4>
-		<span>Default appearance:</span>
-		<mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="m-l-20">
-		    <mat-button-toggle value="bold">Bold</mat-button-toggle>
-		    <mat-button-toggle value="italic">Italic</mat-button-toggle>
-		    <mat-button-toggle value="underline">Underline</mat-button-toggle>
-		</mat-button-toggle-group><br/>
-
-		<div class="m-t-20">
-			<span>Legacy appearance:</span>
-		  	<mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style" class="m-l-20">
-			    <mat-button-toggle value="bold">Bold</mat-button-toggle>
-			    <mat-button-toggle value="italic">Italic</mat-button-toggle>
-			    <mat-button-toggle value="underline">Underline</mat-button-toggle>
-		  	</mat-button-toggle-group>
-		</div>
-	</mat-card-content>
+  </mat-card-content>
 </mat-card>

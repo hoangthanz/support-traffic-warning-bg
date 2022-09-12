@@ -42,7 +42,6 @@ export class GateConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProvincesInfo();
   }
 
 
@@ -50,7 +49,6 @@ export class GateConfigComponent implements OnInit {
     this._configService.getGate().subscribe(
       (res: ResponseApi<ResposeGetGateModel[]>) => {
         if(1 !== res.result){
-          this.listGate = [];
           return;
         }
         this.listGate = res.data;

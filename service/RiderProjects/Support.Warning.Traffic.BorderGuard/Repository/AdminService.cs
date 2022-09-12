@@ -140,14 +140,14 @@ public class AdminService : IAdminService
         };
 
         IdentityResult roleResult = await roleManager.CreateAsync(applicationRole);
+        List<string> listPermissionInApp = PermissionConfig.DefineListPermission.ListClaim
+            .SelectMany(e => e.Permissions).Select(e => e.Name).ToList();
         if (roleResult.Succeeded)
         {
             if (PermissionConfig.DefineListPermission.ListClaim == null)
                 return new RespondApi<string>()
                     { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
-            List<string> ListPermissionInApp = PermissionConfig.DefineListPermission.ListClaim
-                .SelectMany(e => e.Permissions).Select(e => e.Name).ToList();
-            if (ListPermissionInApp == null || ListPermissionInApp.Count == 0)
+            if (listPermissionInApp.Count == 0)
             {
                 return new RespondApi<string>()
                     { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
@@ -155,7 +155,7 @@ public class AdminService : IAdminService
 
             foreach (string permission in model.ListPermission)
             {
-                if (ListPermissionInApp.Contains(permission))
+                if (listPermissionInApp.Contains(permission))
                 {
                     await roleManager.AddClaimAsync(applicationRole, new Claim(ClaimTypes.Role, permission));
                 }
@@ -217,6 +217,8 @@ public class AdminService : IAdminService
         hasRole.HaveOTP = model.HaveOTP;
 
         IdentityResult roleResult = await roleManager.UpdateAsync(hasRole);
+        List<string> listPermissionInApp = PermissionConfig.DefineListPermission.ListClaim
+            .SelectMany(e => e.Permissions).Select(e => e.Name).ToList();
         if (roleResult.Succeeded)
         {
             var roleClaims = await roleManager.GetClaimsAsync(hasRole);
@@ -229,17 +231,15 @@ public class AdminService : IAdminService
             if (PermissionConfig.DefineListPermission.ListClaim == null)
                 return new RespondApi<string>()
                     { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
-            List<string> ListPermissionInApp = PermissionConfig.DefineListPermission.ListClaim
-                .SelectMany(e => e.Permissions).Select(e => e.Name).ToList();
-            if (ListPermissionInApp == null || ListPermissionInApp.Count == 0)
+            if (listPermissionInApp.Count == 0)
             {
                 return new RespondApi<string>()
                     { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
             }
 
-            foreach (string permission in model.ListPermission)
+            foreach (var permission in model.ListPermission)
             {
-                if (ListPermissionInApp.Contains(permission))
+                if (listPermissionInApp.Contains(permission))
                 {
                     await roleManager.AddClaimAsync(hasRole, new Claim(ClaimTypes.Role, permission));
                 }

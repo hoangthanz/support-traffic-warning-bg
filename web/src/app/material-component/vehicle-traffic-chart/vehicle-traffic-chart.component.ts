@@ -68,6 +68,7 @@ export class VehicleTrafficChartComponent implements OnInit {
   public chartGate: Partial<ChartOptions>;
 
   public lineChartOptions: Partial<LineChartOptions>;
+
   constructor() {
     this.lineChartOptions = {
       series: [

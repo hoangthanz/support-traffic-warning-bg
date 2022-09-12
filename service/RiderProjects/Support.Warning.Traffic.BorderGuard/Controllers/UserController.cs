@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Account;
+using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Permissions;
 
 namespace Support.Warning.Traffic.BorderGuard.Controllers;
 
@@ -29,6 +30,24 @@ public class UserController : ControllerBase
     {
         // map model to entity
         var register = await _userRepository.Register(model);
+    
+        return Ok(register);
+    }
+    
+    [HttpGet("get-user-by-gate/{gateId}")]
+    public async Task<IActionResult>  GetUserGate(int gateId)
+    {
+    
+        var register = await _userRepository.GetUserOfGate(gateId);
+    
+        return Ok(register);
+    }
+    
+    [HttpPost("set-user-claim")]
+    public async Task<IActionResult>  SetUserGate(SetClaimUser claimUser)
+    {
+ 
+        var register = await _userRepository.SetUserClaims(claimUser);
     
         return Ok(register);
     }
