@@ -1,20 +1,19 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import { UserToken } from "../models/user-token";
+import {UserToken} from "../models/user-token";
 import {Router} from "@angular/router";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { CurrencyPipe, DatePipe } from "@angular/common";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from "@angular/material/dialog";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {CurrencyPipe, DatePipe} from "@angular/common";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
 import {environment} from "../../../environments/environment";
-import { catchError, map } from 'rxjs/operators';
-import { UserInfor } from "../models/user-info";
-import { ResponseApi } from "../models/response-api";
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { CookieService } from 'ngx-cookie-service';
-import { DeviceDetectorService } from 'ngx-device-detector';
-
+import {catchError, map} from 'rxjs/operators';
+import {UserInfor} from "../models/user-info";
+import {ResponseApi} from "../models/response-api";
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {NgxPermissionsService} from 'ngx-permissions';
+import {CookieService} from 'ngx-cookie-service';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +48,7 @@ export class AuthenticationService {
   }
 
   public getToken() {
-    return localStorage.getItem('access_token');
+    return sessionStorage.getItem('access_token');
   }
 
   public convertObjectToString = (object: any) => JSON.stringify(object);
@@ -57,9 +56,9 @@ export class AuthenticationService {
   public isAuthenticated(): boolean {
     const token = this.getToken();
 
-    if (null === token)
+    if (null === token || token == 'null')
       return false;
-
+console.log(this.jwtHelper.isTokenExpired(token));
     return !this.jwtHelper.isTokenExpired(token.toString());
   }
 
@@ -68,7 +67,10 @@ export class AuthenticationService {
     return this.userSubject.value;
   }
 
-  login = (username: string, password: string, hasRemember: boolean) => this.http.post<UserToken>(`${environment.main_domain}/user/authentication`, { username, password }, { withCredentials: true })
+  login = (username: string, password: string, hasRemember: boolean) => this.http.post<UserToken>(`${environment.main_domain}/user/authentication`, {
+    username,
+    password
+  }, {withCredentials: true})
     .pipe(map((user: UserToken) => {
 
       this.currentUser = user;
@@ -79,7 +81,11 @@ export class AuthenticationService {
         localStorage.setItem('remember_password', password);
       }
 
-      this.cookieService.set('refresh-token', user.refreshToken, { expires: new Date(user.expiration), path: '/', secure: true });
+      this.cookieService.set('refresh-token', user.refreshToken, {
+        expires: new Date(user.expiration),
+        path: '/',
+        secure: true
+      });
 
       // let permissions = this.jwtHelper?.decodeToken(user.token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
       // permissions = (Array.isArray(permissions)) ? permissions : [permissions];
@@ -108,7 +114,7 @@ export class AuthenticationService {
     if (location.protocol == 'http:')
       refToken = this.cookieService.get('refresh-token');
 
-    this.http.post<any>(`${environment.main_domain}/user/revoke-token`, { token: refToken }).subscribe();
+    this.http.post<any>(`${environment.main_domain}/user/revoke-token`, {token: refToken}).subscribe();
     this.cookieService.delete('refresh-token');
     sessionStorage.clear();
 
@@ -121,13 +127,17 @@ export class AuthenticationService {
     let cookie = '';
     if (location.protocol == 'http:')
       cookie = this.cookieService.get('refresh-token');
-    return this.http.post<any>(`${environment.main_domain}/user/refresh-token`, { token: cookie }, { withCredentials: true })
+    return this.http.post<any>(`${environment.main_domain}/user/refresh-token`, {token: cookie}, {withCredentials: true})
       .pipe(
         map((user: UserToken) => {
           this.currentUser = user;
           this.cookieService.deleteAll();
           sessionStorage.clear();
-          this.cookieService.set('refresh-token', user.refreshToken, { expires: new Date(user.expiration), path: '/', secure: true });
+          this.cookieService.set('refresh-token', user.refreshToken, {
+            expires: new Date(user.expiration),
+            path: '/',
+            secure: true
+          });
           sessionStorage.setItem('access_token', user.token);
           sessionStorage.setItem('permissions', this.convertObjectToString(user.listClaims));
 
@@ -156,13 +166,17 @@ export class AuthenticationService {
 
 
   refreshTokenAsync = () => new Promise<string>((resolve, reject) => {
-    this.http.post<any>(`${environment.main_domain}/user/refresh-token`, { token: this.cookieService.get('refresh-token') }, { withCredentials: true }).subscribe(
+    this.http.post<any>(`${environment.main_domain}/user/refresh-token`, {token: this.cookieService.get('refresh-token')}, {withCredentials: true}).subscribe(
       (user: UserToken) => {
 
         this.cookieService.deleteAll();
         sessionStorage.clear();
 
-        this.cookieService.set('refresh-token', user.refreshToken, { expires: new Date(user.expiration), path: '/', secure: true });
+        this.cookieService.set('refresh-token', user.refreshToken, {
+          expires: new Date(user.expiration),
+          path: '/',
+          secure: true
+        });
         sessionStorage.setItem('access_token', user.token);
         sessionStorage.setItem('permissions', this.convertObjectToString(user.listClaims));
         //let permissions = this.jwtHelper?.decodeToken(user.token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
@@ -204,8 +218,7 @@ export class AuthenticationService {
 
           resolve();
         }
-      }
-      else {
+      } else {
         this.clearSession();
         resolve();
       }
@@ -225,11 +238,10 @@ export class AuthenticationService {
       .set('content-type', 'application/json')
       .set('Access-Control-Allow-Origin', '*');
 
-    return this.http.get("http://api.ipify.org/?format=json", { headers: headers }).pipe(map((ip: any) => {
+    return this.http.get("http://api.ipify.org/?format=json", {headers: headers}).pipe(map((ip: any) => {
       return ip;
     }));
   }
-
 
 
   private startRefreshTokenTimer() {

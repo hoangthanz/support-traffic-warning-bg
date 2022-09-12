@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     this._userService.Login(this.user.userName, this.user.password).subscribe((response: any) => {
       // khi đăng nhập thành công...
       //lưu token vào trong localStorage với key là access_token
+      sessionStorage.setItem('access_token', response.token);
       localStorage.setItem('access_token', response.token);
       this.openSnackBar('Đăng nhập thành công!');
       this.goToNav('');
