@@ -1,6 +1,5 @@
 import {Routes} from '@angular/router';
 
-import {ButtonsComponent} from './buttons/buttons.component';
 import {ListsComponent} from './lists/lists.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {StepperComponent} from './stepper/stepper.component';
@@ -19,11 +18,12 @@ import {StationConfigComponent} from "./pages/station-config/station-config.comp
 import {VehicleTrafficChartComponent} from "./vehicle-traffic-chart/vehicle-traffic-chart.component";
 import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
 import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
+import {AccountConfigComponent} from "./pages/account-config/account-config.component";
 
 export const MaterialRoutes: Routes = [
   {
-    path: 'button',
-    component: ButtonsComponent
+    path: 'account-config',
+    component: AccountConfigComponent
   },
   {
     path: 'gate-config',

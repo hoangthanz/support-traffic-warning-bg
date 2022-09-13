@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {MaterialRoutes} from './material.routing';
-import {ButtonsComponent} from './buttons/buttons.component';
 
 import {GridComponent} from './grid/grid.component';
 import {ListsComponent} from './lists/lists.component';
@@ -42,6 +41,8 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import {CuStationConfigComponent} from './components/cu-station-config/cu-station-config.component';
 import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
 import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
+import {RoleConfigComponent} from './pages/role-config/role-config.component';
+import {AccountConfigComponent} from './pages/account-config/account-config.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,6 @@ import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
   declarations: [
-    ButtonsComponent,
     GridComponent,
     ListsComponent,
     MenuComponent,
@@ -86,6 +86,8 @@ import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
     VehicleRegisterComponent,
     CuStationConfigComponent,
     MapLockupComponent,
+    RoleConfigComponent,
+    AccountConfigComponent
   ]
 })
 export class MaterialComponentsModule {

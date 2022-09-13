@@ -42,6 +42,7 @@ export class GateConfigComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProvincesInfo();
   }
 
 

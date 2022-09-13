@@ -1,57 +1,16 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
-import {UserService} from "../services/user/user.service";
-import {User} from "../../shared/models/user";
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { User } from 'src/app/shared/models/user';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
-  selector: 'app-buttons',
-  templateUrl: './buttons.component.html',
-  styleUrls: ['./buttons.component.scss']
+  selector: 'app-account-config',
+  templateUrl: './account-config.component.html',
+  styleUrls: ['./account-config.component.css']
 })
-export class ButtonsComponent implements AfterViewInit {
+export class AccountConfigComponent implements AfterViewInit {
   displayedColumns: string[] = ['index', 'userName', 'roleName', 'controls'];
   dataSource: MatTableDataSource<User>;
 
