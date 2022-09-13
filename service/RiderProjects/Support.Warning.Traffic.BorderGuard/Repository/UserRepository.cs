@@ -53,16 +53,16 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 Token = null,
                 Expiration = DateTime.Now,
             };
-        
+
         var token = await GenerateTokenJwtByUser(user);
         var claims = new List<string>();
-     
+
         var claimOfUser = await _userManager.GetClaimsAsync(user);
         foreach (var claim in claimOfUser)
         {
             claims.Add(claim.Value);
         }
-        
+
         var refreshToken = GenerateRefreshToken(ip);
         refreshToken.UserId = user.Id;
         await _context.RefreshTokens.AddAsync(refreshToken);
@@ -70,11 +70,70 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
         return new RespondLoginModel
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
+            RefreshToken = refreshToken.Token,
             Expiration = token.ValidTo,
             ListClaims = claims
         };
     }
-    
+
+    public async Task<RespondLoginModel> RefreshToken(string refreshToken, string ip)
+    {
+        try
+        {
+            var token = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Token == refreshToken);
+            if (token != null)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == token.UserId);
+                if (user != null)
+                {
+                    var newToken = await GenerateTokenJwtByUser(user);
+                    var claims = new List<string>();
+                    var claimOfUser = await _userManager.GetClaimsAsync(user);
+                    foreach (var claim in claimOfUser)
+                    {
+                        claims.Add(claim.Value);
+                    }
+
+                    // clear refresh token 
+                    var oldRefreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.UserId == user.Id);
+                    if (oldRefreshToken != null)
+                    {
+                        _context.RefreshTokens.Remove(oldRefreshToken);
+                        await _context.SaveChangesAsync();
+                    }
+                    
+                    var newRefreshToken = GenerateRefreshToken(ip);
+                    newRefreshToken.UserId = user.Id;
+                    await _context.RefreshTokens.AddAsync(newRefreshToken);
+                    await _context.SaveChangesAsync();
+                    return new RespondLoginModel
+                    {
+                        Token = new JwtSecurityTokenHandler().WriteToken(newToken),
+                        RefreshToken = newRefreshToken.Token,
+                        Expiration = newToken.ValidTo,
+                        ListClaims = claims
+                    };
+                }
+            }
+            
+            return new RespondLoginModel
+            {
+                Token = null,
+                Expiration = new DateTime(),
+                ListClaims = new List<string>()
+            };
+        }
+        catch (Exception e)
+        {
+            return new RespondLoginModel
+            {
+                Token = null,
+                Expiration = new DateTime(),
+                ListClaims = new List<string>()
+            };
+        }
+    }
+
     public RefreshToken GenerateRefreshToken(string ipAddress)
     {
         using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
@@ -174,9 +233,8 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 .ToListAsync();
 
             var userView = _mapper.Map<List<UserViewModel>>(user);
-            
-            
-            
+
+
             return new RespondApi<List<UserViewModel>>()
             {
                 Code = "00",

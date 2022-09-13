@@ -10,6 +10,7 @@ namespace Support.Warning.Traffic.BorderGuard.IRepository;
 public interface IUserRepository: IRepositoryBase<ApplicationUser>
 { 
     Task<RespondLoginModel> Login(RequestLoginModel model, string ip);
+    Task<RespondLoginModel> RefreshToken(string refreshToken, string ip);
     Task<RespondApi<ApplicationUser>> Register(RegisterModel model);
     
     Task<RespondApi<List<UserViewModel>>> GetUserOfGate(int gateId);

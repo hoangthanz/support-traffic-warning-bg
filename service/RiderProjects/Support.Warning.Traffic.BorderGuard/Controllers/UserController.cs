@@ -25,6 +25,16 @@ public class UserController : ControllerBase
         return Ok(login);
     }
     
+     
+    [AllowAnonymous]
+    [HttpGet("refresh-token/{refreshToken}")]
+    public async Task<IActionResult> RefreshToken (string refreshToken)
+    {
+        var ip = IpAddress();
+        var login = await _userRepository.RefreshToken(refreshToken, ip);
+        return Ok(login);
+    }
+
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult>  Register([FromBody]RegisterModel model)
