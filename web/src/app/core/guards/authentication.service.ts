@@ -58,7 +58,7 @@ export class AuthenticationService {
 
     if (null === token || token == 'null')
       return false;
-console.log(this.jwtHelper.isTokenExpired(token));
+    console.log(this.jwtHelper.isTokenExpired(token));
     return !this.jwtHelper.isTokenExpired(token.toString());
   }
 
@@ -209,19 +209,20 @@ console.log(this.jwtHelper.isTokenExpired(token));
   async startApp() {
     return new Promise<void>(async (resolve, reject) => {
       // console.log("AppInitService.init() called");
-      if (this.isAuthenticated()) {
-        const token = await this.refreshTokenAsync();
-        if ('' === token || null === token) {
-          this.clearSession();
-          resolve();
-        } else {
-
-          resolve();
-        }
-      } else {
-        this.clearSession();
-        resolve();
-      }
+      // if (this.isAuthenticated()) {
+      //   const token = await this.refreshTokenAsync();
+      //   if ('' === token || null === token) {
+      //     this.clearSession();
+      //     resolve();
+      //   } else {
+      //
+      //     resolve();
+      //   }
+      // } else {
+      //   this.clearSession();
+      //   resolve();
+      // }
+      resolve();
     });
   }
 
