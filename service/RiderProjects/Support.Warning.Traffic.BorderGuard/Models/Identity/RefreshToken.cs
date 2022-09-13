@@ -17,7 +17,6 @@ public class RefreshToken: IDateTracking
     public string ReplacedByToken { get; set; }
     public bool IsActive => Revoked == null && !IsExpired;
 
-    public ApplicationUser User { get; set; }
     public int UserId { get; set; }
 
     public DateTime CreatedDate { get; set; }

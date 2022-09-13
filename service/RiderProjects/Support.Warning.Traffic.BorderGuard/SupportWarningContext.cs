@@ -38,6 +38,7 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
     public DbSet<Area> Areas { get; set; }
     public DbSet<Gate> Gates { get; set; }
     public DbSet<Station> Stations { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     
     
     // data of provinces vn

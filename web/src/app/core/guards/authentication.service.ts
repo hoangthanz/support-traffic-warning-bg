@@ -58,7 +58,7 @@ export class AuthenticationService {
 
     if (null === token || token == 'null')
       return false;
-console.log(this.jwtHelper.isTokenExpired(token));
+
     return !this.jwtHelper.isTokenExpired(token.toString());
   }
 
@@ -75,6 +75,7 @@ console.log(this.jwtHelper.isTokenExpired(token));
 
       this.currentUser = user;
       sessionStorage.setItem('access_token', user.token);
+      sessionStorage.setItem('refresh-token', user.refreshToken);
 
       if (hasRemember) {
         localStorage.setItem('remember_user_name', username);
@@ -127,7 +128,7 @@ console.log(this.jwtHelper.isTokenExpired(token));
     let cookie = '';
     if (location.protocol == 'http:')
       cookie = this.cookieService.get('refresh-token');
-    return this.http.post<any>(`${environment.main_domain}/user/refresh-token`, {token: cookie}, {withCredentials: true})
+    return this.http.get<any>(`${environment.main_domain}/user/refresh-token/${cookie}`,)
       .pipe(
         map((user: UserToken) => {
           this.currentUser = user;

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class version_10 : Migration
+    public partial class initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -145,6 +145,27 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Token = table.Column<string>(type: "text", nullable: true),
+                    Expires = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "text", nullable: true),
+                    Revoked = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "text", nullable: true),
+                    ReplacedByToken = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -176,6 +197,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -387,6 +409,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     LicencePlate = table.Column<string>(type: "text", nullable: false),
                     NomalizanameLicencePlate = table.Column<string>(type: "text", nullable: true),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
+                    DriverName = table.Column<string>(type: "text", nullable: true),
+                    DriverPhone = table.Column<string>(type: "text", nullable: true),
+                    InGate = table.Column<bool>(type: "boolean", nullable: false),
                     LoadDueToOwnWeight = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -474,6 +499,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
             migrationBuilder.DropTable(
                 name: "provinces");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

@@ -21,14 +21,6 @@ export class AuthGuardService implements CanActivate {
     | boolean
     | UrlTree {
 
-  if(state.url == '/login'){
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/dashboard']);
-      return true;
-    }
-
-  }
-
     return this.authService.user.pipe(
       map((user) => {
         if (this.authService.isAuthenticated()) {
