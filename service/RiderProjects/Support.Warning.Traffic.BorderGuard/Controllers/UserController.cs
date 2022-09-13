@@ -20,7 +20,8 @@ public class UserController : ControllerBase
     [HttpPost("authenticate")]
     public async Task<IActionResult> Login([FromBody] RequestLoginModel requestLoginModel)
     {
-        var login = await _userRepository.Login(requestLoginModel);
+        var ip = IpAddress();
+        var login = await _userRepository.Login(requestLoginModel, ip);
         return Ok(login);
     }
     
@@ -50,5 +51,12 @@ public class UserController : ControllerBase
         var register = await _userRepository.SetUserClaims(claimUser);
     
         return Ok(register);
+    }
+    
+    private string IpAddress()
+    {
+        if (Request.Headers.ContainsKey("X-Forwarded-For"))
+            return Request.Headers["X-Forwarded-For"];
+        return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
     }
 }

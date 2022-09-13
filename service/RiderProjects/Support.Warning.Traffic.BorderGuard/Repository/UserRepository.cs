@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
 using Common.Service.Models.Respond;
@@ -36,7 +37,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
         _configuration = configuration;
     }
 
-    public async Task<RespondLoginModel> Login(RequestLoginModel model)
+    public async Task<RespondLoginModel> Login(RequestLoginModel model, string ip)
     {
         var user = await _userManager.FindByNameAsync(model.Username);
         if (null == user)
@@ -61,7 +62,11 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
         {
             claims.Add(claim.Value);
         }
-
+        
+        var refreshToken = GenerateRefreshToken(ip);
+        refreshToken.UserId = user.Id;
+        await _context.RefreshTokens.AddAsync(refreshToken);
+        await _context.SaveChangesAsync();
         return new RespondLoginModel
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -69,6 +74,21 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             ListClaims = claims
         };
     }
+    
+    public RefreshToken GenerateRefreshToken(string ipAddress)
+    {
+        using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+        var randomBytes = new byte[64];
+        rngCryptoServiceProvider.GetBytes(randomBytes);
+        return new RefreshToken
+        {
+            Token = Convert.ToBase64String(randomBytes),
+            Expires = DateTime.UtcNow.AddDays(7),
+            CreatedDate = DateTime.UtcNow,
+            CreatedByIp = ipAddress
+        };
+    }
+
 
     public async Task<RespondApi<ApplicationUser>> Register(RegisterModel model)
     {
