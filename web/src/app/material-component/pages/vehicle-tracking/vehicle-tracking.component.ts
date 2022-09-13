@@ -4,11 +4,11 @@ import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 @Component({
-  selector: 'app-vehicle-register',
-  templateUrl: './vehicle-register.component.html',
-  styleUrls: ['./vehicle-register.component.scss']
+  selector: 'app-vehicle-tracking',
+  templateUrl: './vehicle-tracking.component.html',
+  styleUrls: ['./vehicle-tracking.component.scss']
 })
-export class VehicleRegisterComponent implements OnInit {
+export class VehicleTrackingComponent implements OnInit {
   public map: any;
   public vehicleRegister: any;
   public markerIcon = {

@@ -11,7 +11,7 @@ const MENUITEMS = [
   {state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer'},
   {state: 'vehicle-traffic-chart', name: 'Biểu đồ lưu lượng xe', type: 'link', icon: 'av_timer'},
   {
-    state: 'vehicle-register',
+    state: 'vehicle-tracking',
     type: 'link',
     name: 'Tra cứu xe',
     icon: 'assignment_turned_in'

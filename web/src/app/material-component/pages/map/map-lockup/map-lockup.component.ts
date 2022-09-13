@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as L from "leaflet";
 import {circle, latLng, polygon, tileLayer} from "leaflet";
-import {LocationService} from "../../../shared/services/location.service";
+import {LocationService} from "../../../../shared/services/location.service";
 
 @Component({
   selector: 'app-map-lockup',

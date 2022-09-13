@@ -1,23 +1,23 @@
 import {Routes} from '@angular/router';
 
-import {ListsComponent} from './lists/lists.component';
-import {TabsComponent} from './tabs/tabs.component';
-import {StepperComponent} from './stepper/stepper.component';
-import {ExpansionComponent} from './expansion/expansion.component';
-import {ChipsComponent} from './chips/chips.component';
-import {ToolbarComponent} from './toolbar/toolbar.component';
-import {ProgressSnipperComponent} from './progress-snipper/progress-snipper.component';
-import {ProgressComponent} from './progress/progress.component';
-import {DialogComponent} from './dialog/dialog.component';
-import {TooltipComponent} from './tooltip/tooltip.component';
-import {SnackbarComponent} from './snackbar/snackbar.component';
-import {SliderComponent} from './slider/slider.component';
-import {SlideToggleComponent} from './slide-toggle/slide-toggle.component';
+import {ListsComponent} from './pages/demo/lists/lists.component';
+import {TabsComponent} from './pages/demo/tabs/tabs.component';
+import {StepperComponent} from './pages/demo/stepper/stepper.component';
+import {ExpansionComponent} from './pages/demo/expansion/expansion.component';
+import {ChipsComponent} from './pages/demo/chips/chips.component';
+import {ToolbarComponent} from './pages/demo/toolbar/toolbar.component';
+import {ProgressSnipperComponent} from './pages/demo/progress-snipper/progress-snipper.component';
+import {ProgressComponent} from './pages/demo/progress/progress.component';
+import {DialogComponent} from './pages/demo/dialog/dialog.component';
+import {TooltipComponent} from './pages/demo/tooltip/tooltip.component';
+import {SnackbarComponent} from './pages/demo/snackbar/snackbar.component';
+import {SliderComponent} from './pages/demo/slider/slider.component';
+import {SlideToggleComponent} from './pages/demo/slide-toggle/slide-toggle.component';
 import {GateConfigComponent} from './pages/gate-config/gate-config.component';
 import {StationConfigComponent} from "./pages/station-config/station-config.component";
-import {VehicleTrafficChartComponent} from "./vehicle-traffic-chart/vehicle-traffic-chart.component";
-import {VehicleRegisterComponent} from "./vehicle-register/vehicle-register.component";
-import {MapLockupComponent} from "./map/map-lockup/map-lockup.component";
+import {VehicleTrafficChartComponent} from "./pages/vehicle-traffic-chart/vehicle-traffic-chart.component";
+import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-tracking.component";
+import {MapLockupComponent} from "./pages/map/map-lockup/map-lockup.component";
 import {AccountConfigComponent} from "./pages/account-config/account-config.component";
 
 export const MaterialRoutes: Routes = [
@@ -34,8 +34,8 @@ export const MaterialRoutes: Routes = [
     component: VehicleTrafficChartComponent
   },
   {
-    path: 'vehicle-register',
-    component: VehicleRegisterComponent
+    path: 'vehicle-tracking',
+    component: VehicleTrackingComponent
   },
   {
     path: 'station-config',
