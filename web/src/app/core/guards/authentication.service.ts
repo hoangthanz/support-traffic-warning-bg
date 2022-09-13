@@ -210,19 +210,20 @@ export class AuthenticationService {
   async startApp() {
     return new Promise<void>(async (resolve, reject) => {
       // console.log("AppInitService.init() called");
-      if (this.isAuthenticated()) {
-        const token = await this.refreshTokenAsync();
-        if ('' === token || null === token) {
-          this.clearSession();
-          resolve();
-        } else {
-
-          resolve();
-        }
-      } else {
-        this.clearSession();
-        resolve();
-      }
+      // if (this.isAuthenticated()) {
+      //   const token = await this.refreshTokenAsync();
+      //   if ('' === token || null === token) {
+      //     this.clearSession();
+      //     resolve();
+      //   } else {
+      //
+      //     resolve();
+      //   }
+      // } else {
+      //   this.clearSession();
+      //   resolve();
+      // }
+      resolve();
     });
   }
 
