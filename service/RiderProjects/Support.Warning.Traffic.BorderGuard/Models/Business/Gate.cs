@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Common.Service.Interfaces;
+using Support.Warning.Traffic.BorderGuard.Enums;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
@@ -45,6 +46,19 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
     [Description("Id xã, phường")]
     public string WardId { get; set; }
 
+    [Description("Cấp độ quốc gia")]
+    public NationalLevel NationalLevel { get; set; } = NationalLevel.Nation;
+    
+    [Description("Loại hình vận chuyển")]
+    public TypeOfShipping TypeOfShipping { get; set; } = TypeOfShipping.Road;
+    
+    [Description("Có khu kinh tế hay không")]
+    public bool EconomicSector { get; set; } = false;
+    
+        
+    [Description("Tới cửa khẩu nào")]
+    public string CountryCode { get; set; } = "cn";
+    
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
     public Guid CreatedUserId { get; set; }

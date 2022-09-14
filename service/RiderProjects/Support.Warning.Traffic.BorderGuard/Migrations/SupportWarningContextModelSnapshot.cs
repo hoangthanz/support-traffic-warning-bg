@@ -201,6 +201,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("CountryCode")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -212,6 +215,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<string>("DistrictId")
                         .HasColumnType("text");
+
+                    b.Property<bool>("EconomicSector")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -227,6 +233,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("NationalLevel")
+                        .HasColumnType("integer");
+
                     b.Property<string>("NormalizationName")
                         .HasColumnType("text");
 
@@ -235,6 +244,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("TypeOfShipping")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");
