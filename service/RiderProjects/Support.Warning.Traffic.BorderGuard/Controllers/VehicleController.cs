@@ -34,6 +34,11 @@ public class VehicleController : ControllerBase
     {
         return Ok(await _vehicleRepository.RegisterVehicle(model));
     }
+    [HttpPost("register-many-vehicle")]
+    public async Task<IActionResult> RegisterManyVehicle([FromBody] RequestRegisterManyVehicle model)
+    {
+        return Ok(await _vehicleRepository.RegisterManyVehicle(model));
+    }
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateGates([FromBody] RequestCreateVehicle model, int id)
     {

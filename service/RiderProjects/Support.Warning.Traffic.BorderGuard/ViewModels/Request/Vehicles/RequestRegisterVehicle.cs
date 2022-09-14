@@ -4,4 +4,5 @@ public class RequestRegisterVehicle
 {
     public int Id { get; set; }
     public bool InGate { get; set; }
+    public int GateId { get; set; }
 }

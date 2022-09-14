@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Common.Service.Interfaces;
+using JetBrains.Annotations;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
@@ -23,6 +24,8 @@ public class Vehicle : IDateTracking, IUserTracking, ICheckTracking
 
     [Description("Chuẩn hóa biển số xe")]
     public string? NomalizanameLicencePlate { get; set; }
+    [Description("Id cửa khẩu")] [CanBeNull]
+    public int GateId { get; set; }
     
     [Required]
     [Description("Tổng trọng hàng hóa - Đơn vị hiểu là Kg")]

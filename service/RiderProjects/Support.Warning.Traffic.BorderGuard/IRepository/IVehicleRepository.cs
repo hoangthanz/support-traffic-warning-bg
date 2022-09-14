@@ -13,4 +13,5 @@ public interface IVehicleRepository: IRepositoryBase<Vehicle>
     Task<RespondApi<Vehicle>> UpdateVehicle(RequestCreateVehicle model, int id);
     Task<RespondApi<Vehicle>> DeleteVehicle(int id);
     Task<RespondApi<string>> RegisterVehicle(RequestRegisterVehicle model);
+    Task<RespondApi<List<Vehicle>>> RegisterManyVehicle(RequestRegisterManyVehicle model);
 }
