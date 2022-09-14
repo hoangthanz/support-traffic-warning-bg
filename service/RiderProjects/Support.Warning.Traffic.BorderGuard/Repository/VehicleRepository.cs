@@ -212,6 +212,11 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
             foreach (var request in model.vehicles)
             {
+                var oldVehicle = await _context.Vehicles.FirstOrDefaultAsync(x =>
+                    x.LicencePlate == request.LicencePlate && x.InGate && !x.IsDeleted);
+                if(oldVehicle != null)
+                    return new RespondApi<List<Vehicle>>()
+                        { Result = ResultRespond.NotFound, Message = $"Tồn tại xe biển số {oldVehicle.LicencePlate} đã trong cửa khẩu " };
                 var vehicle = new Vehicle()
                 {
                     LicencePlate = request.LicencePlate,
