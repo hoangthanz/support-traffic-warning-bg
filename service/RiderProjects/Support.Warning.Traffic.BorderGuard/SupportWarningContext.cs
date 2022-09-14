@@ -15,7 +15,6 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        
         base.OnModelCreating(builder);
         builder.Entity<wards>().HasKey(x => x.code);
         builder.Entity<provinces>().HasKey(x => x.code);
@@ -39,10 +38,12 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
     public DbSet<Gate> Gates { get; set; }
     public DbSet<Station> Stations { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-    
-    
+    public DbSet<Level> Levels { get; set; }
+    public DbSet<GateLevel> GateLevels { get; set; }
+
+
     // data of provinces vn
-    
+
     public DbSet<administrative_regions> administrative_regions { get; set; }
     public DbSet<administrative_units> administrative_units { get; set; }
     public DbSet<districts> districts { get; set; }

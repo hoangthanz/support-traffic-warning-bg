@@ -9,10 +9,34 @@ public class GatePermission
     public const string Update = "Gate_Update";
     public const string Delete = "Gate_Delete";
 
-    public static ClaimInfo Claim_Gate = new ClaimInfo("Thông tin cửa khẩu", "Claim_Gate",
+    public const string GetStation = "GetStation";
+    public const string CreateStation = "CreateStation";
+    public const string UpdateStation = "UpdateStation";
+    public const string DeleteStation = "DeleteStation";
+
+    public const string GetLevel = "GetLevel";
+    public const string CreateLevel = "CreateLevel";
+    public const string UpdateLevel = "UpdateLevel";
+    public const string DeleteLevel = "DeleteLevel";
+    
+    public static ClaimInfo ClaimGate = new("Thông tin cửa khẩu", "ClaimGate",
         new List<Permission>()
         {
-            new Permission("Đọc", Get, 0), new Permission("Thêm mới", Create, 1),
-            new Permission("Cập nhật", Update, 2), new Permission("Xóa", Delete, 3),
+            new("Đọc", Get, 0), new("Thêm mới", Create, 1),
+            new("Cập nhật", Update, 2), new("Xóa", Delete, 3),
+        });
+    
+    public static ClaimInfo ClaimStation = new("Thông tin trạm", "ClaimStation",
+        new List<Permission>()
+        {
+            new("Đọc", GetStation, 0), new("Thêm mới", CreateStation, 1),
+            new("Cập nhật", UpdateStation, 2), new("Xóa", DeleteStation, 3),
+        });
+    
+    public static ClaimInfo ClaimLevel = new("Mức độ cảnh báo", "ClaimLevel",
+        new List<Permission>()
+        {
+            new("Đọc", GetLevel, 0), new("Thêm mới", CreateLevel, 1),
+            new("Cập nhật", UpdateLevel, 2), new("Xóa", DeleteLevel, 3),
         });
 }

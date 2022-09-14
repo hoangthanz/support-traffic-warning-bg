@@ -250,6 +250,72 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.ToTable("Gates");
                 });
 
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.GateLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GateId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("MaxValue")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("MinValue")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GateId");
+
+                    b.HasIndex("LevelId");
+
+                    b.ToTable("GateLevels");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UpdatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Levels");
+                });
+
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Station", b =>
                 {
                     b.Property<int>("Id")
@@ -329,6 +395,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<string>("DriverPhone")
                         .HasColumnType("text");
+
+                    b.Property<int>("GateId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("InGate")
                         .HasColumnType("boolean");
@@ -789,6 +858,25 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.GateLevel", b =>
+                {
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Gate", "Gate")
+                        .WithMany()
+                        .HasForeignKey("GateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Level", "Level")
+                        .WithMany()
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gate");
+
+                    b.Navigation("Level");
                 });
 
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Station", b =>

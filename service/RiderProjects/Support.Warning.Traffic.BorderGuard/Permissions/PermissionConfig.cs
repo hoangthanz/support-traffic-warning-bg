@@ -8,7 +8,7 @@ public class PermissionConfig
     {
         public static List<ClaimInfo> ListClaim = new List<ClaimInfo>()
         {
-            GatePermission.Claim_Gate
+            GatePermission.ClaimGate
         };
 
         public static List<ClaimInfo> ListReportClaim = new List<ClaimInfo>()
