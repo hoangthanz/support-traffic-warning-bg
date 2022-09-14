@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class initialize : Migration
+    public partial class version_10 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -116,6 +116,10 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     ProvinceId = table.Column<string>(type: "text", nullable: true),
                     DistrictId = table.Column<string>(type: "text", nullable: true),
                     WardId = table.Column<string>(type: "text", nullable: true),
+                    NationalLevel = table.Column<int>(type: "integer", nullable: false),
+                    TypeOfShipping = table.Column<int>(type: "integer", nullable: false),
+                    EconomicSector = table.Column<bool>(type: "boolean", nullable: false),
+                    CountryCode = table.Column<string>(type: "text", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -124,6 +128,26 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Levels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Levels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -294,6 +318,34 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GateLevels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
+                    LevelId = table.Column<int>(type: "integer", nullable: false),
+                    MinValue = table.Column<decimal>(type: "numeric", nullable: false),
+                    MaxValue = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GateLevels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GateLevels_Gates_GateId",
+                        column: x => x.GateId,
+                        principalTable: "Gates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GateLevels_Levels_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "Levels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 columns: table => new
                 {
@@ -408,6 +460,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     VehicleTypeId = table.Column<int>(type: "integer", nullable: false),
                     LicencePlate = table.Column<string>(type: "text", nullable: false),
                     NomalizanameLicencePlate = table.Column<string>(type: "text", nullable: true),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
                     DriverName = table.Column<string>(type: "text", nullable: true),
                     DriverPhone = table.Column<string>(type: "text", nullable: true),
@@ -430,6 +483,16 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GateLevels_GateId",
+                table: "GateLevels",
+                column: "GateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GateLevels_LevelId",
+                table: "GateLevels",
+                column: "LevelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -498,6 +561,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "ExportImportTypes");
 
             migrationBuilder.DropTable(
+                name: "GateLevels");
+
+            migrationBuilder.DropTable(
                 name: "provinces");
 
             migrationBuilder.DropTable(
@@ -526,6 +592,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
             migrationBuilder.DropTable(
                 name: "wards");
+
+            migrationBuilder.DropTable(
+                name: "Levels");
 
             migrationBuilder.DropTable(
                 name: "Gates");

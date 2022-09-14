@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import {  throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import {ResponseGetProvincesModel} from "../models/gate-config/response-get-provinces.model";
-import {ResponseApi} from "../models/response-api";
 import {environment} from "../../../environments/environment";
 import {ResponseGetDistrictsModel} from "../models/gate-config/response-get-districts.model";
 import {ResponseGetWardsModel} from "../models/gate-config/response-get-wards.model";
@@ -14,6 +13,7 @@ import {ResposeCreateGateModel} from "../models/gate-config/respose-create-gate.
 import {ResposeGetGateModel} from "../models/gate-config/respose-get-gate.model";
 import {ResponseGetStationModel} from "../models/station-config/response-get-station.model";
 import {RequestCreateStationModel} from "../models/station-config/request-create-station.model";
+import {ResponseApi} from "../../core/models/response-api";
 
 
 @Injectable({

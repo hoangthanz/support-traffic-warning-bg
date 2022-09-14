@@ -6,10 +6,10 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { CuGateConfigComponent } from '../../components/cu-gate-config/cu-gate-config.component';
 import {ConfigService} from "../../services/config.service";
-import {ResponseApi} from "../../models/response-api";
 import {ResponseGetProvincesModel} from "../../models/gate-config/response-get-provinces.model";
 import {ResposeGetGateModel} from "../../models/gate-config/respose-get-gate.model";
 import {ConfirmDialogComponent} from "../../components/confirm-dialog/confirm-dialog.component";
+import {ResponseApi} from "../../../core/models/response-api";
 
 @Component({
   selector: 'app-gate-config',

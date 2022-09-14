@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Settings;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Account;
@@ -76,4 +77,12 @@ public class AdminController : ControllerBase
     {
         return Ok(await _adminRepository.UpdateRolesUserInGate(model));
     }
+    
+    [HttpGet("get-nationality")]
+    public async Task<IActionResult> GetNational()
+    {
+        return Ok(ConstApp.Nations);
+    }
+
+    
 }

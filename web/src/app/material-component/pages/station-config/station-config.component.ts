@@ -3,12 +3,12 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {ConfigService} from "../../services/config.service";
-import {ResponseApi} from "../../models/response-api";
 import {ResponseGetStationModel} from "../../models/station-config/response-get-station.model";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {CuStationConfigComponent} from "../../components/cu-station-config/cu-station-config.component";
 import {ConfirmDialogComponent} from "../../components/confirm-dialog/confirm-dialog.component";
+import {ResponseApi} from "../../../core/models/response-api";
 
 @Component({
   selector: 'app-station-config',

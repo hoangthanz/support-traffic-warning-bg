@@ -1,0 +1,96 @@
+<mat-card class="mat-elevation-z0" style="min-height: calc(100% - 4rem);">
+
+  <mat-card-header fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column"
+    fxLayout.xs="column" fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+    fxLayoutAlign.md="left" fxLayoutAlign.sm="left" fxLayoutAlign.xs="left">
+    <mat-card-title-group>
+      <mat-card-title> <b style="color: #4F5467">Phân quyền chức năng</b></mat-card-title>
+      <mat-card-subtitle> Phân quyền chức năng</mat-card-subtitle>
+    </mat-card-title-group>
+    <div fxFlex></div>
+    <div fxLayoutAlign="end center">
+      <button mat-flat-button style="background-color: #EDF1F5;color: #38364C; margin-right: 10px" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Làm mới
+      </button>
+      <button mat-flat-button color="primary" (click)="updatePermissionRole( selectedRole,selectedPermissions)">
+        <mat-icon>edit</mat-icon>
+        Cập nhật
+      </button>
+    </div>
+  </mat-card-header>
+
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column"
+      fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left" fxLayoutAlign.md="left"
+      fxLayoutAlign.sm="left" fxLayoutAlign.xs="left">
+      <div fxFlex="20%" fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <p><b style="color: #4F5467">Tên quyền</b> - <i>{{'' ===
+            selectedRole.name?"Chọn vai trò" :
+            selectedRole.displayName }}</i>
+        </p>
+        <mat-divider></mat-divider>
+        <div style="height: 10px;"></div>
+        <div class="customScroll scrollAble">
+          <mat-list>
+            <mat-list-item *ngFor="let role of roles" matRipple (click)="roleSelection(role)">{{ role.displayName }}
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+
+
+      <div fxFlex fxFlex.xl fxFlex.lg fxFlex.md fxFlex.sm fxFlex.xs>
+        <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column"
+          fxLayout.xs="column" fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+          fxLayoutAlign.md="left" fxLayoutAlign.sm="left" fxLayoutAlign.xs="left" style="margin-bottom: 22px;">
+          <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <p>
+              <b class="bold">Tên quyền</b>
+            </p>
+          </div>
+          <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="25%" fxFlex.sm="100%" fxFlex.xs="100%"
+              fxLayout="row" fxLayoutAlign="space-around center">
+              <b class="bold">Đọc/ chấp thuận</b>
+            </div>
+            <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="25%" fxFlex.sm="100%" fxFlex.xs="100%"
+              fxLayout="row" fxLayoutAlign="space-around center">
+              <b class="bold">Thêm mới</b>
+            </div>
+            <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="25%" fxFlex.sm="100%" fxFlex.xs="100%"
+              fxLayout="row" fxLayoutAlign="space-around center">
+              <b class="bold">Cập nhật</b>
+            </div>
+            <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="25%" fxFlex.sm="100%" fxFlex.xs="100%"
+              fxLayout="row" fxLayoutAlign="space-around center">
+              <b class="bold">Xóa</b>
+            </div>
+          </div>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="scrollAble customScroll">
+          <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column"
+            fxLayout.xs="column" fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+            fxLayoutAlign.md="left" fxLayoutAlign.sm="left" fxLayoutAlign.xs="left"
+            *ngFor="let permission of permissions; let i = index">
+            <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <p style="font-size: 1rem;">
+                {{ (i+1) + ". " + permission.displayName }}
+              </p>
+            </div>
+            <div fxFlex="50%" fxFlex.xl="50%" fxFlex.lg="50%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="25%" fxFlex.sm="100%" fxFlex.xs="100%"
+                fxLayout="row" fxLayoutAlign="space-around center" *ngFor="let item of permission.permissions">
+                <mat-checkbox (change)="changeSelectedPermissions($event, item.name )"
+                  [checked]="selectedPermissions.indexOf(item.name) < 0 ? false : true  "></mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
