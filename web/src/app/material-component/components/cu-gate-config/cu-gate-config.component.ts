@@ -7,10 +7,10 @@ import {ResponseGetWardsModel} from "../../models/gate-config/response-get-wards
 import {Observable} from "rxjs";
 import {map, startWith} from 'rxjs/operators';
 import {ConfigService} from "../../services/config.service";
-import {ResponseApi} from "../../models/response-api";
 import {RequestCreateGateModel} from "../../models/gate-config/request-create-gate.model";
 import {ResposeCreateGateModel} from "../../models/gate-config/respose-create-gate.model";
 import {ResposeGetGateModel} from "../../models/gate-config/respose-get-gate.model";
+import {ResponseApi} from "../../../core/models/response-api";
 
 @Component({
   selector: 'app-cu-gate-config',

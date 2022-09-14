@@ -8,14 +8,10 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  {state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer'},
-  {state: 'vehicle-traffic-chart', name: 'Biểu đồ lưu lượng xe', type: 'link', icon: 'av_timer'},
-  {
-    state: 'vehicle-tracking',
-    type: 'link',
-    name: 'Tra cứu xe',
-    icon: 'assignment_turned_in'
-  },
+  {state: 'dashboard', type: 'link', name: 'Dashboard', icon: 'av_timer'},
+  {state: 'vehicle-traffic-chart', type: 'link', name: 'Biểu đồ lưu lượng xe', icon: 'av_timer'},
+  {state: 'permission-for-role', type: 'link', name: 'Phân quyền', icon: 'av_timer'},
+  {state: 'vehicle-tracking', type: 'link', name: 'Tra cứu xe', icon: 'assignment_turned_in'},
   {state: 'account-config', type: 'link', name: 'Cấu hình tài khoản', icon: 'crop_7_5'},
   {state: 'gate-config', type: 'link', name: 'Cấu hình cửa khẩu', icon: 'view_comfy'},
   {state: 'station-config', type: 'link', name: 'Cấu hình trạm', icon: 'view_list'},

@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ConfigService} from "../../services/config.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ResponseApi} from "../../models/response-api";
 import {ResposeGetGateModel} from "../../models/gate-config/respose-get-gate.model";
 import {RequestCreateStationModel} from "../../models/station-config/request-create-station.model";
+import {ResponseApi} from "../../../core/models/response-api";
 
 @Component({
   selector: 'app-cu-station-config',

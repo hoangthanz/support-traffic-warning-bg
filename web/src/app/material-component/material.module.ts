@@ -43,6 +43,7 @@ import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-trackin
 import {MapLockupComponent} from "./pages/map/map-lockup/map-lockup.component";
 import {RoleConfigComponent} from './pages/role-config/role-config.component';
 import {AccountConfigComponent} from './pages/account-config/account-config.component';
+import {PermissionForRolePageComponent} from "./pages/permission-config/permission-for-role-page.component";
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ import {AccountConfigComponent} from './pages/account-config/account-config.comp
     VehicleTrackingComponent,
     CuStationConfigComponent,
     MapLockupComponent,
+    PermissionForRolePageComponent,
     RoleConfigComponent,
     AccountConfigComponent
   ]
