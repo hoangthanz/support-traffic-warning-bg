@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   main_domain: 'http://xuanhoang.hopto.org:8001/api',
+  signalr_domain: 'http://xuanhoang.hopto.org:8001/api',
 };

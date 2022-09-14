@@ -25,6 +25,7 @@
     "@angular/router": "14.0.1",
     "@asymmetrik/ngx-leaflet": "^14.0.1",
     "@auth0/angular-jwt": "^5.0.2",
+    "@microsoft/signalr": "^6.0.9",
     "@nrwl/angular": "14.7.5",
     "@types/leaflet": "^1.7.11",
     "apexcharts": "^3.35.3",
@@ -59,4 +60,3 @@
     "typescript": "~4.7.3"
   }
 }
-

@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Support.Warning.Traffic.BorderGuard;
 using Support.Warning.Traffic.BorderGuard.Contracts;
+using Support.Warning.Traffic.BorderGuard.HubConfig;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.Repository;
@@ -29,6 +30,8 @@ builder.Services.AddCors(options =>
         });
 });
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<SupportWarningContext>(options =>
     options.UseNpgsql(connectionString));
@@ -153,6 +156,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SupportWarningContext>();
@@ -174,5 +178,6 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
+app.MapControllers();
+app.MapHub<RealtimeHub>("/nofication");
 app.Run();
