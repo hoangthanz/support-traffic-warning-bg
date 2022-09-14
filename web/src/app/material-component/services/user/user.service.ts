@@ -82,6 +82,12 @@ export class UserService {
     catchError(this.errorHandl)
   );
 
+  updateDisplayNameRole = (id: string, displayName: string) => this._httpClient.put<any>(`${environment.main_domain}/admin/role/update-without-permission/${id}`,
+    { displayName: displayName }
+  ).pipe(
+    retry(1),
+    catchError(this.errorHandl)
+  );
   public openNotify(typeOfMessage: number, message: string = '', action: string = '', duration: number = 2500
     , horizontalPosition: MatSnackBarHorizontalPosition = 'right',
                     verticalPosition: MatSnackBarVerticalPosition = 'top', className: string = 'background-green') {
@@ -101,6 +107,22 @@ export class UserService {
       verticalPosition: verticalPosition,
       panelClass: [className]
     });
+  }
+  public orderArrayBy = (arr: any[], key: string | number, isDate: boolean = false) => {
+    if (!isDate)
+      return arr.sort((a, b) => {
+        if (a[key] > b[key]) return 1;
+        if (a[key] < b[key]) return -1;
+        return 0;
+      });
+
+    return arr.sort((a, b) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
+  }
+
+  /* clone để tránh trùng ô nhớ  */
+  public clone(object: unknown) {
+    const ObjStr = JSON.stringify(object);
+    return JSON.parse(ObjStr);
   }
 
   errorHandl(error: { error: { message: string; }; status: any; message: any; }) {

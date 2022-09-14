@@ -20,6 +20,7 @@ import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-trackin
 import {MapLockupComponent} from "./pages/map/map-lockup/map-lockup.component";
 import {AccountConfigComponent} from "./pages/account-config/account-config.component";
 import {PermissionForRolePageComponent} from "./pages/permission-config/permission-for-role-page.component";
+import {RolePageComponent} from "./pages/role-page/role-page.component";
 
 export const MaterialRoutes: Routes = [
   {
@@ -45,6 +46,10 @@ export const MaterialRoutes: Routes = [
   {
     path: 'permission-for-role',
     component: PermissionForRolePageComponent
+  },
+  {
+    path: 'role',
+    component: RolePageComponent
   },
   {
     path: 'lists',

@@ -62,9 +62,9 @@ export class PermissionForRolePageComponent implements OnInit, OnDestroy {
         this.roles = [];
       }
 
-      this.roles = this.orderArrayBy(<Role[]>response.data, 'displayName');
+      this.roles = this._permissionService.orderArrayBy(<Role[]>response.data, 'displayName');
 
-      this.selectedRole = this.clone(this.roles[0]);
+      this.selectedRole = this._permissionService.clone(this.roles[0]);
       this.getPermissionByRole(this.selectedRole.id);
     },
     (error) => {
@@ -95,12 +95,12 @@ export class PermissionForRolePageComponent implements OnInit, OnDestroy {
     this._permissionService.updateRoleAdmin(selectedRole.id, updateRole).subscribe(
       (response: ResponseApi<string>) => {
         if (1 !== response.result)
-          this.openNotify(-1, 'Cập nhật quyền cho nhóm người dùng thất bại');
+          this._permissionService.openNotify(-1, 'Cập nhật quyền cho nhóm người dùng thất bại');
 
-        this.openNotify(1, 'Cập nhật thành công');
+        this._permissionService.openNotify(1, 'Cập nhật thành công');
       },
       (error) => {
-        this.openNotify(-1, 'Cập nhật quyền cho nhóm người dùng thất bại');
+        this._permissionService.openNotify(-1, 'Cập nhật quyền cho nhóm người dùng thất bại');
       }
     )
   }
@@ -120,41 +120,5 @@ export class PermissionForRolePageComponent implements OnInit, OnDestroy {
   }
 
   refresh = () => this.getPermissionByRole(this.selectedRole.id);
-  public orderArrayBy = (arr: any[], key: string | number, isDate: boolean = false) => {
-    if (!isDate)
-      return arr.sort((a, b) => {
-        if (a[key] > b[key]) return 1;
-        if (a[key] < b[key]) return -1;
-        return 0;
-      });
 
-    return arr.sort((a, b) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
-  }
-
-  /* clone để tránh trùng ô nhớ  */
-  public clone(object: unknown) {
-    const ObjStr = JSON.stringify(object);
-    return JSON.parse(ObjStr);
-  }
-
-  public openNotify(typeOfMessage: number, message: string = '', action: string = '', duration: number = 2500
-    , horizontalPosition: MatSnackBarHorizontalPosition = 'right',
-                    verticalPosition: MatSnackBarVerticalPosition = 'top', className: string = 'background-green') {
-
-    if (1 === typeOfMessage)
-      className = 'background-green';
-
-    if (-1 === typeOfMessage)
-      className = 'background-red';
-
-    if (-2 === typeOfMessage)
-      className = 'background-warning';
-
-    this.snackBar.open(message, action, {
-      duration: duration,
-      horizontalPosition: horizontalPosition,
-      verticalPosition: verticalPosition,
-      panelClass: [className]
-    });
-  }
 }
