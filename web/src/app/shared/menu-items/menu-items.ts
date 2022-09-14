@@ -10,6 +10,7 @@ export interface Menu {
 const MENUITEMS = [
   {state: 'dashboard', type: 'link', name: 'Dashboard', icon: 'av_timer'},
   {state: 'vehicle-traffic-chart', type: 'link', name: 'Biểu đồ lưu lượng xe', icon: 'av_timer'},
+  {state: 'role', type: 'link', name: 'Cấu hình nhóm quyền ', icon: 'view_list'},
   {state: 'permission-for-role', type: 'link', name: 'Phân quyền', icon: 'av_timer'},
   {state: 'vehicle-tracking', type: 'link', name: 'Tra cứu xe', icon: 'assignment_turned_in'},
   {state: 'account-config', type: 'link', name: 'Cấu hình tài khoản', icon: 'crop_7_5'},

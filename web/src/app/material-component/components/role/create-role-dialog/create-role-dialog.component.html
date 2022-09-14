@@ -1,8 +1,7 @@
 <h2 mat-dialog-title><b>Tạo quyền</b></h2>
 <mat-dialog-content>
   <form novalidate [formGroup]='roleForm' (ngSubmit)='createRole()'>
-    <mat-form-field appearance="outline" matTooltip="Tên quyền">
-      matTooltipPosition='right'>
+    <mat-form-field appearance="outline" matTooltip="Tên quyền" matTooltipPosition='right'>
       <mat-label>Tên quyền</mat-label>
       <input formControlName='name' matInput placeholder="Tên quyền" required>
     </mat-form-field>
