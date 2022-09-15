@@ -1,4 +1,6 @@
-﻿namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Gate;
+﻿using Support.Warning.Traffic.BorderGuard.Enums;
+
+namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Gate;
 
 public class GateCreate
 {
@@ -19,4 +21,7 @@ public class GateCreate
     public string DistrictId { get; set; }
     
     public string WardId { get; set; }
+    public NationalLevel  NationalLevel { get; set; }
+    public TypeOfShipping TypeOfShipping { get; set; }
+    public bool EconomicSector { get; set; }
 }

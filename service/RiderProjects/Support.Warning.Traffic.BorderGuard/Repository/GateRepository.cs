@@ -33,6 +33,54 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         }
     }
 
+    public async Task<RespondApiPaging<List<Gate>>> GetByCondition(GateSearch model)
+    {
+        try
+        {
+            List<Gate> gates = null;
+
+            PagingResponse paging = new()
+            {
+                CurrentPage = model.PageNumber,
+                PageSize = model.PageSize
+            };
+            var query = _context.Gates.Where(x => !x.IsDeleted);
+            if (model.Name != null)
+            {
+                query = query.Where(x => x.Name.Contains(model.Name));
+            }
+            if (model.EconomicSector != null)
+            {
+                query = query.Where(x => x.EconomicSector == model.EconomicSector);
+            }
+            if (model.NationalLevel != null)
+            {
+                query = query.Where(x => x.NationalLevel == model.NationalLevel);
+            }
+            if (model.TypeOfShipping != null)
+            {
+                query = query.Where(x => x.TypeOfShipping == model.TypeOfShipping);
+            }
+
+            if (model.IsPaging)
+            {
+                paging.TotalRecords = await query.CountAsync();
+                paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords, paging.PageSize));
+                gates = await query.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
+                return new RespondApiPaging<List<Gate>>()
+                    { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gates, PagingResponse = paging };
+            }
+
+            gates = await query.ToListAsync();
+            return new RespondApiPaging<List<Gate>>()
+                { Result = ResultRespond.Succeeded, Message = "Success", Data = gates };
+        }
+        catch (Exception e)
+        {
+            return new RespondApiPaging<List<Gate>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
+        }
+    }
+
     public async Task<RespondApi<Gate>> GetById(int id)
     {
         try
