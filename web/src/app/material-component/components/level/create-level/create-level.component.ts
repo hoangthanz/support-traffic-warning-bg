@@ -31,12 +31,12 @@ export class CreateLevelComponent {
     const role = this.roleForm.value;
     this._permissionService.createLevel(role).subscribe(
       (response: any) => {
-        if (1 !== response?.result) {
-          this._permissionService.openNotify(-1, response.message);
-          return;
-        }
+        // if (1 !== response?.result) {
+        //   this._permissionService.openNotify(-1, response.message);
+        //   return;
+        // }
 
-        this._permissionService.openNotify(1, response.message);
+        this._permissionService.openNotify(1, 'Thêm mới thành công');
         this._dialogRef.close(true);
       },
       (error) => {

@@ -48,7 +48,6 @@ export class UpdateLevelComponent {
     }
     this._permissionService.updateLevel(id, role.displayName).subscribe(
       (response: any) => {
-
         this._permissionService.openNotify(1, 'Cập nhật thành công');
         this._dialogRef.close(true);
       },

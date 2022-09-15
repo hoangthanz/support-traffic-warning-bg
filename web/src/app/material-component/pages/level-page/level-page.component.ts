@@ -95,12 +95,12 @@ export class LevelPageComponent implements OnInit {
       if (isDeleted) {
         this._levelService.deleteLevel(role.id).subscribe(
           (response: ResponseApi<string[]>) => {
-            if (1 !== response.result) {
-              this._levelService.openNotify(-1, response.message);
-              return;
-            }
+            // if (1 !== response.result) {
+            //   this._levelService.openNotify(-1, response.message);
+            //   return;
+            // }
 
-            this._levelService.openNotify(1, response.message);
+            this._levelService.openNotify(1, 'Xóa thành công');
             this.reloadRoleData();
           },
           (error) => {
