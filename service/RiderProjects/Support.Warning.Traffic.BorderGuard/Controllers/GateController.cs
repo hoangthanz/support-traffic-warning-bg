@@ -15,43 +15,43 @@ public class GateController : ControllerBase
     {
         _gateRepository = gateRepository;
     }
-    [Authorize(Roles = GatePermission.Get)]
+    // [Authorize(Roles = GatePermission.Get)]
     [HttpGet]
     public async Task<IActionResult> GetGates()
     {
         return Ok(await _gateRepository.GetAll());
     }
-    [Authorize(Roles = GatePermission.Get)]
+    // [Authorize(Roles = GatePermission.Get)]
     [HttpGet("by-condition")]
     public async Task<IActionResult> GetGatesByCondition([FromQuery] GateSearch model)
     {
         return Ok(await _gateRepository.GetByCondition(model));
     }
-    [Authorize(Roles = GatePermission.Get)]
+    // [Authorize(Roles = GatePermission.Get)]
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetGateById(int id)
     {
         return Ok(await _gateRepository.GetById(id));
     }
-    [Authorize(Roles = GatePermission.Create)]
+    // [Authorize(Roles = GatePermission.Create)]
     [HttpPost]
     public async Task<IActionResult> CreateGates([FromBody] GateCreate model)
     {
         return Ok(await _gateRepository.CreateAsync(model));
     }
-    [Authorize(Roles = GatePermission.Update)]
+    // [Authorize(Roles = GatePermission.Update)]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateGates([FromBody] GateCreate model, int id)
     {
         return Ok( await _gateRepository.UpdateAsync(id,model));
     }
-    [Authorize(Roles = GatePermission.Delete)]
+    // [Authorize(Roles = GatePermission.Delete)]
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteGates(int id)
     {
         return Ok(await _gateRepository.DeleteAsync(id));
     }
-    [Authorize(Roles = GatePermission.Delete)]
+    // [Authorize(Roles = GatePermission.Delete)]
     [HttpDelete("remove/{id:int}")]
     public async Task<IActionResult> RemoveGates(int id)
     {
