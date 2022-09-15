@@ -189,7 +189,8 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             VehicleId = vehicle.Id,
             Vehicle = vehicle,
             InGateTime = DateTime.Now,
-            IsDeleted = false
+            IsDeleted = false,
+            OutGateTime = null,
         };
         await _context.VehicleDetails.AddAsync(vehicleDetail);
         await _context.SaveChangesAsync();
@@ -197,6 +198,43 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         {
             Result = ResultRespond.Succeeded, Message = "Cập nhật thành công"
         };
+    }
+
+    public async Task<RespondApi<string>> ConfirmVehicleOutGate(RequestRegisterVehicle model)
+    {
+        try
+        {
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == model.Id && !x.IsDeleted);
+            if (vehicle == null)
+                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Không tìm thấy xe" };
+            if(model.GateId == null)
+                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
+            var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == model.GateId && !x.IsDeleted);
+            if(gate == null)
+                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+            if (!vehicle.InGate)
+            {
+                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Xe chưa vào cửa khẩu" };
+            }
+            vehicle.InGate = false;
+            vehicle.GateId = 0;
+            var vehicleDetail = await _context.VehicleDetails.FirstOrDefaultAsync(x => !x.IsDeleted 
+                && x.GateId == model.GateId && x.VehicleId == model.Id && x.OutGateTime == null);
+            vehicleDetail.OutGateTime = DateTime.Now;
+                await _context.VehicleDetails.AddAsync(vehicleDetail);
+            await _context.SaveChangesAsync();
+            return new RespondApi<string>()
+            {
+                Result = ResultRespond.Succeeded, Message = "Cập nhật thành công"
+            };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<string>()
+            {
+                Result = ResultRespond.Failed, Message = "Xác nhận xe rời cửa khẩu thaats bại"
+            };
+        }
     }
 
     public async Task<RespondApi<string>> RegisterManyVehicle(RequestRegisterManyVehicle model)
@@ -240,7 +278,8 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                     VehicleId = vehicle.Id,
                     Vehicle = vehicle,
                     InGateTime = DateTime.Now,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    OutGateTime = null
                 };
                 vehicle.InGate = true;
                 vehicle.GateId = model.GateId;
