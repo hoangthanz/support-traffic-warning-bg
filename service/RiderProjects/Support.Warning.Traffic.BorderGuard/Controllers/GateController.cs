@@ -22,6 +22,12 @@ public class GateController : ControllerBase
         return Ok(await _gateRepository.GetAll());
     }
     [Authorize(Roles = GatePermission.Get)]
+    [HttpGet]
+    public async Task<IActionResult> GetGatesByCondition([FromQuery] GateSearch model)
+    {
+        return Ok(await _gateRepository.GetByCondition(model));
+    }
+    [Authorize(Roles = GatePermission.Get)]
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetGateById(int id)
     {
