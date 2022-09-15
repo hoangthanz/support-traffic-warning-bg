@@ -47,6 +47,9 @@ import {RolePageComponent} from "./pages/role-page/role-page.component";
 import {UpdateRoleComponent} from "./components/role/update-role/update-role.component";
 import {CreateRoleComponent} from "./components/role/create-role/create-role.component";
 import {CreateUserComponent} from "./components/create-user/create-user.component";
+import {LevelPageComponent} from "./pages/level-page/level-page.component";
+import {UpdateLevelComponent} from "./components/level/update-level/update-level.component";
+import {CreateLevelComponent} from "./components/level/create-level/create-level.component";
 
 @NgModule({
   imports: [
@@ -95,6 +98,9 @@ import {CreateUserComponent} from "./components/create-user/create-user.componen
     UpdateRoleComponent,
     CreateRoleComponent,
     CreateUserComponent,
+    LevelPageComponent,
+    UpdateLevelComponent,
+    CreateLevelComponent,
     AccountConfigComponent
   ]
 })

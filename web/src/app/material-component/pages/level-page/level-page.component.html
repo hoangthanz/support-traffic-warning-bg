@@ -1,0 +1,104 @@
+<mat-card class="mat-elevation-z0" style="min-height: calc(100% - 4rem);">
+  <mat-card-header fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column"
+                   fxLayout.xs="column" fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left"
+                   fxLayoutAlign.md="left" fxLayoutAlign.sm="left" fxLayoutAlign.xs="left">
+    <mat-card-title-group>
+      <mat-card-title><b style="color: #4F5467">Cấu hình mức cảnh bảo</b></mat-card-title>
+      <mat-card-subtitle> Thông tin mức cảnh bảo</mat-card-subtitle>
+    </mat-card-title-group>
+    <div fxFlex></div>
+    <div fxLayoutAlign="end center">
+      <button mat-flat-button class="refresh-button" (click)="reloadRoleData()">
+        <mat-icon>refresh</mat-icon>
+        Làm mới
+      </button>
+
+      <button mat-flat-button color="primary" (click)="openCreateRole()">
+        <mat-icon>add</mat-icon>
+        Thêm mới
+      </button>
+    </div>
+
+  </mat-card-header>
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.xl="row" fxLayout.lg="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column"
+         fxLayoutWrap fxLayoutGap="16px" fxLayoutAlign="left" fxLayoutAlign.lg="left" fxLayoutAlign.md="left"
+         fxLayoutAlign.sm="left" fxLayoutAlign.xs="left">
+
+      <div fxFlex="25%" fxFlex.xl="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.xs="100%">
+        <mat-form-field appearance="outline" matTooltip="Tìm kiếm mức cảnh bảobảo theo tên" matTooltipPosition="below">
+          <mat-label>Tìm kiếm</mat-label>
+          <input matInput (keyup)="filterRoleName($event.target.value)" placeholder="Tìm kiếm theo tên..."/>
+        </mat-form-field>
+      </div>
+      <div fxFlex fxFlex.xl fxFlex.lg fxFlex.md fxFlex.sm fxFlex fxLayout="row" fxLayoutAlign="end center">
+        <button mat-flat-button style="background-color: #38364C;color: white;" (click)="getRolesAdmin()">
+          <mat-icon>search</mat-icon>
+          Tìm kiếm
+        </button>
+      </div>
+    </div>
+
+    <mat-table [dataSource]="roleSource" cdkDropList cdkDropListOrientation="horizontal"
+               (cdkDropListDropped)="drop($event)" multiTemplateDataRows matSort>
+
+      <ng-container matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef class="bold"> STT
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+          {{element.index}}
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="displayName">
+        <mat-header-cell *matHeaderCellDef class="bold" cdkDrag mat-sort-header>Tên hiển thị</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="bold" cdkDrag mat-sort-header>
+          Tên mức cảnh báo
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{element?.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="normalizedName">
+        <mat-header-cell *matHeaderCellDef class="bold" cdkDrag mat-sort-header>
+          Mô tả
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element?.description}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef class="bold"> Hành động
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="float: right;">
+          <button mat-icon-button href="javascript:void(0)" (click)="openUpdateRole(element)">
+            <mat-icon class="update-action-icon">edit</mat-icon>
+          </button>
+          <button mat-icon-button href="javascript:void(0)" (click)="openDeleteRole(element)">
+            <mat-icon class="delete-action-icon">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+      <div class="mat-row" *matNoDataRow fxLayout="column" fxLayoutAlign="space-around center">
+
+        <p style="color: rgb(168, 158, 158)">KO có dữ liệu</p>
+      </div>
+
+      <mat-header-row *matHeaderRowDef="roleColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: roleColumns;">
+      </mat-row>
+    </mat-table>
+
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </mat-card-content>
+
+</mat-card>
