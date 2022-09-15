@@ -291,6 +291,20 @@ public class AdminService : IAdminService
     {
         return Task.FromResult(new RespondApi<List<ClaimInfo>>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = PermissionConfig.DefineListPermission.ListClaim });
     }
+
+    public async Task<RespondApi<List<string>>> GetPermissionByRole(string Id)
+    {
+        var role = await roleManager.FindByIdAsync(Id.ToString());
+
+        if (role == null)
+            return new RespondApi<List<string>>() { Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy thông tin quyền" };
+
+        var claims = await roleManager.GetClaimsAsync(role);
+        if (claims == null)
+            return new RespondApi<List<string>>() { Result = ResultRespond.NotFound, Code = "02", Message = "Không tìm thấy thông tin permission" };
+        return new RespondApi<List<string>>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = claims.Select(e => e.Value).ToList() };
+    }
+
     public async Task<RespondApi<string>> UpdateRolesUserInGate(RequestUpdateRolesUserInGate model)
     {
         var user = await userManager.FindByIdAsync(model.UserId.ToString());

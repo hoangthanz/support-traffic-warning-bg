@@ -43,7 +43,12 @@ public class AdminController : ControllerBase
         return Ok(await _adminRepository.UpdateRoleAdminWithPermission(Id, model));
     }
 
-
+    [Authorize(Roles = DefaultApplication.RoleAdministrator)]
+    [HttpGet("getpermission-role/{Id}")]
+    public async Task<IActionResult> GetPermissionByRole(string Id)
+    {
+        return Ok(await _adminRepository.GetPermissionByRole(Id));
+    }
     [Authorize(Roles = DefaultApplication.RoleAdministrator)]
     [HttpPut("role/update-without-permission/{Id}")]
     public async Task<IActionResult> UpdateRoleAdminWithOutPermission(string Id, [FromBody] RequestUpdateRole model)
