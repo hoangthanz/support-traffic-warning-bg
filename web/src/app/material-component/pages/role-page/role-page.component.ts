@@ -10,8 +10,8 @@ import { Role } from '../../models/role';
 import {UserService} from "../../services/user/user.service";
 import {ResponseApi} from "../../../core/models/response-api";
 import {ConfirmDialogComponent} from "../../components/confirm-dialog/confirm-dialog.component";
-import {UpdateRoleDialogComponent} from "../../components/role/update-role-dialog/update-role-dialog.component";
-import {CreateRoleDialogComponent} from "../../components/role/create-role-dialog/create-role-dialog.component";
+import {UpdateRoleComponent} from "../../components/role/update-role/update-role.component";
+import {CreateRoleComponent} from "../../components/role/create-role/create-role.component";
 
 @Component({
   selector: 'lsn-role-page',
@@ -142,7 +142,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
       maxHeight: '80vh',
     }
 
-    this.dialog.open(UpdateRoleDialogComponent, config).afterClosed().subscribe(((isUpdated: boolean) => {
+    this.dialog.open(UpdateRoleComponent, config).afterClosed().subscribe(((isUpdated: boolean) => {
       if (isUpdated) {
         this.reloadRoleData();
       }
@@ -160,7 +160,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
     }
 
 
-    this.dialog.open(CreateRoleDialogComponent, config).afterClosed().subscribe(((isCreated: boolean) => {
+    this.dialog.open(CreateRoleComponent, config).afterClosed().subscribe(((isCreated: boolean) => {
       if (isCreated) {
         this.reloadRoleData();
       }

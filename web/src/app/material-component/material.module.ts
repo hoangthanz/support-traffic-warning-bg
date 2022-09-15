@@ -41,12 +41,12 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import {CuStationConfigComponent} from './components/cu-station-config/cu-station-config.component';
 import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-tracking.component";
 import {MapLockupComponent} from "./pages/map/map-lockup/map-lockup.component";
-import {RoleConfigComponent} from './pages/role-config/role-config.component';
 import {AccountConfigComponent} from './pages/account-config/account-config.component';
 import {PermissionForRolePageComponent} from "./pages/permission-config/permission-for-role-page.component";
 import {RolePageComponent} from "./pages/role-page/role-page.component";
-import {UpdateRoleDialogComponent} from "./components/role/update-role-dialog/update-role-dialog.component";
-import {CreateRoleDialogComponent} from "./components/role/create-role-dialog/create-role-dialog.component";
+import {UpdateRoleComponent} from "./components/role/update-role/update-role.component";
+import {CreateRoleComponent} from "./components/role/create-role/create-role.component";
+import {CreateUserComponent} from "./components/create-user/create-user.component";
 
 @NgModule({
   imports: [
@@ -92,9 +92,9 @@ import {CreateRoleDialogComponent} from "./components/role/create-role-dialog/cr
     MapLockupComponent,
     PermissionForRolePageComponent,
     RolePageComponent,
-    UpdateRoleDialogComponent,
-    CreateRoleDialogComponent,
-    RoleConfigComponent,
+    UpdateRoleComponent,
+    CreateRoleComponent,
+    CreateUserComponent,
     AccountConfigComponent
   ]
 })
