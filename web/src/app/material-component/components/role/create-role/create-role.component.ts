@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -8,11 +8,11 @@ import {UserService} from "../../../services/user/user.service";
 import {ResponseApi} from "../../../../core/models/response-api";
 
 @Component({
-  selector: 'lsn-create-role-dialog',
-  templateUrl: './create-role-dialog.component.html',
-  styleUrls: ['./create-role-dialog.component.css']
+  selector: 'create-role',
+  templateUrl: './create-role.component.html',
+  styleUrls: ['./create-role.component.css']
 })
-export class CreateRoleDialogComponent  implements OnInit, OnDestroy {
+export class CreateRoleComponent {
 
   public roleForm: FormGroup = new FormGroup(
     {
@@ -21,22 +21,13 @@ export class CreateRoleDialogComponent  implements OnInit, OnDestroy {
     }
   );
 
-
   constructor(
-    private _dialogRef: MatDialogRef<CreateRoleDialogComponent>,
+    private _dialogRef: MatDialogRef<CreateRoleComponent>,
     public router: Router,
     public dialog: MatDialog,
     private _permissionService: UserService,
   ) {
   }
-
-  ngOnDestroy(): void {
-  }
-
-
-  ngOnInit() {
-  }
-
 
   createRole = () => {
     const role = <CreateRole>this.roleForm.value;

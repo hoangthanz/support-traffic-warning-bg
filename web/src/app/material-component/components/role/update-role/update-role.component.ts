@@ -1,23 +1,18 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Role } from '../../../models/role';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { CookieService } from 'ngx-cookie-service';
-import { DeviceDetectorService } from 'ngx-device-detector';
+import {Component, Inject} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {Role} from '../../../models/role';
 import {UserService} from "../../../services/user/user.service";
 import {UpdateRole} from "../../../models/update-role";
 import {ResponseApi} from "../../../../core/models/response-api";
 
 @Component({
-  selector: 'lsn-update-role-dialog',
-  templateUrl: './update-role-dialog.component.html',
-  styleUrls: ['./update-role-dialog.component.css']
+  selector: 'update-role',
+  templateUrl: './update-role.component.html',
+  styleUrls: ['./update-role.component.css']
 })
-export class UpdateRoleDialogComponent implements OnInit, OnDestroy {
+export class UpdateRoleComponent {
 
   public roleForm: FormGroup = new FormGroup(
     {
@@ -27,25 +22,14 @@ export class UpdateRoleDialogComponent implements OnInit, OnDestroy {
     }
   );
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private _dialogRef: MatDialogRef<UpdateRoleDialogComponent>,
+    private _dialogRef: MatDialogRef<UpdateRoleComponent>,
     public router: Router,
-    public currencyPipe: CurrencyPipe,
-    public datePipe: DatePipe,
-    public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private _permissionService: UserService,
-    public jwtHelperService: JwtHelperService,
-    public cookieService: CookieService,
-    public deviceService: DeviceDetectorService,
   ) {
   }
-
-  ngOnDestroy(): void {
-  }
-
 
   ngOnInit() {
     this.roleForm = new FormGroup(
@@ -57,16 +41,12 @@ export class UpdateRoleDialogComponent implements OnInit, OnDestroy {
     );
   }
 
-
   createRole = () => {
     const role = <UpdateRole>this.roleForm.value;
-
     const id: string = this.data.role.id;
-
     if (this.roleForm.invalid) {
       return;
     }
-
     this._permissionService.updateDisplayNameRole(id, role.displayName).subscribe(
       (response: ResponseApi<Role[]>) => {
         if (1 !== response.result) {

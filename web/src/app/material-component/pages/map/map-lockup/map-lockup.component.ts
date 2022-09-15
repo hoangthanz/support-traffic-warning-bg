@@ -38,7 +38,7 @@ export class MapLockupComponent implements OnInit {
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '...'})
     ],
     zoom: 5,
-    center: latLng(16.00, 108.00)
+    center: latLng(20.86194, 106.68028)
   };
 
   layersControl = {

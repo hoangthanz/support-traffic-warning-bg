@@ -1,31 +1,27 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Permission } from '../../models/permission';
-import { Role } from '../../models/role';
-import {UserService} from "../../services/user/user.service";
 import {ResponseApi} from "../../../core/models/response-api";
 import {ConfirmDialogComponent} from "../../components/confirm-dialog/confirm-dialog.component";
-import {UpdateRoleComponent} from "../../components/role/update-role/update-role.component";
-import {CreateRoleComponent} from "../../components/role/create-role/create-role.component";
+import {ConfigService} from "../../services/config.service";
+import {CreateLevelComponent} from "../../components/level/create-level/create-level.component";
+import {UpdateLevelComponent} from "../../components/level/update-level/update-level.component";
 
 @Component({
   selector: 'lsn-role-page',
-  templateUrl: './role-page.component.html',
-  styleUrls: ['./role-page.component.css']
+  templateUrl: './level-page.component.html',
+  styleUrls: ['./level-page.component.css']
 })
-export class RolePageComponent implements OnInit, OnDestroy {
+export class LevelPageComponent implements OnInit {
 
   roleColumns: string[] = ['index', 'displayName', 'name', 'normalizedName', 'controls'];
   roleSource = new MatTableDataSource<any>([]);
 
-
-  permissions: Permission[] = [];
-  roles: Role[] = [];
+  roles: any = [];
 
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
@@ -36,47 +32,29 @@ export class RolePageComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     public dialog: MatDialog,
-    private _permissionService: UserService,
+    private _levelService: ConfigService,
   ) {
   }
 
-  ngOnDestroy(): void {
-  }
-
-
   ngOnInit() {
     this.getRolesAdmin();
-    this.getPermissionAdmin();
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.roleColumns, event.previousIndex, event.currentIndex);
   }
 
+  getRolesAdmin = () => this._levelService.getLevel().subscribe(
+    (response: any) => {
 
-  getPermissionAdmin = () => this._permissionService.getPermissionsAdmin().subscribe(
-    (response: ResponseApi<Permission[]>) => {
-      this.permissions = response.data;
-    },
-    (error) => {
-      this.permissions = [];
-    }
-  );
-
-
-  getRolesAdmin = () => this._permissionService.getRoleAdmin().subscribe(
-    (response: ResponseApi<Role[]>) => {
-
-      if (1 !== response.result) {
-        this.roles = [];
-        this.setRoleSource(this.roles);
-        return;
-      }
-
-      this.roles = this._permissionService.orderArrayBy(<Role[]>response.data, 'displayName');
-
+      // if (1 !== response.result) {
+      //   this.roles = [];
+      //   this.setRoleSource(this.roles);
+      //   return;
+      // }
+      this.roles = response;
       let i = 1;
-      this.roles.forEach((item) => {
+      this.roles.forEach((item: any) => {
         item.index = i;
         i++;
       });
@@ -89,22 +67,22 @@ export class RolePageComponent implements OnInit, OnDestroy {
     }
   );
 
-  setRoleSource = (roles: Role[]) => {
-    this.roleSource = new MatTableDataSource<Role>(roles);
+  setRoleSource = (roles:any) => {
+    this.roleSource = new MatTableDataSource<any>(roles);
     this.roleSource.paginator = this.paginator;
     this.roleSource.sort = this.sort;
   }
 
 
   public filterRoleName(roleName: string) {
-    this.roleSource.filterPredicate = function (role: Role, filter: string): boolean {
+    this.roleSource.filterPredicate = function (role: any, filter: string): boolean {
       return role.name.toLowerCase().includes(filter);
     };
     this.roleSource.filter = roleName.trim().toLowerCase();
   }
 
 
-  openDeleteRole = (role: Role) => {
+  openDeleteRole = (role: any) => {
     const config: MatDialogConfig = {
       panelClass: "dialog-responsive-30",
       data: {
@@ -115,25 +93,25 @@ export class RolePageComponent implements OnInit, OnDestroy {
 
     this.dialog.open(ConfirmDialogComponent, config).afterClosed().subscribe(((isDeleted: boolean) => {
       if (isDeleted) {
-        this._permissionService.deleteRoleAdmin(role.id).subscribe(
+        this._levelService.deleteLevel(role.id).subscribe(
           (response: ResponseApi<string[]>) => {
-            if (1 !== response.result) {
-              this._permissionService.openNotify(-1, response.message);
-              return;
-            }
+            // if (1 !== response.result) {
+            //   this._levelService.openNotify(-1, response.message);
+            //   return;
+            // }
 
-            this._permissionService.openNotify(1, response.message);
+            this._levelService.openNotify(1, 'Xóa thành công');
             this.reloadRoleData();
           },
           (error) => {
-            this._permissionService.openNotify(-1, 'Xóa vai trò thất bại');
+            this._levelService.openNotify(-1, 'Xóa vai trò thất bại');
           }
         );
       }
     }));
   }
 
-  openUpdateRole = (role: Role) => {
+  openUpdateRole = (role: any) => {
     const config: MatDialogConfig = {
       panelClass: "dialog-responsive-30",
       data: {
@@ -142,7 +120,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
       maxHeight: '80vh',
     }
 
-    this.dialog.open(UpdateRoleComponent, config).afterClosed().subscribe(((isUpdated: boolean) => {
+    this.dialog.open(UpdateLevelComponent, config).afterClosed().subscribe(((isUpdated: boolean) => {
       if (isUpdated) {
         this.reloadRoleData();
       }
@@ -160,7 +138,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
     }
 
 
-    this.dialog.open(CreateRoleComponent, config).afterClosed().subscribe(((isCreated: boolean) => {
+    this.dialog.open(CreateLevelComponent, config).afterClosed().subscribe(((isCreated: boolean) => {
       if (isCreated) {
         this.reloadRoleData();
       }

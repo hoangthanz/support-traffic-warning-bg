@@ -16,6 +16,7 @@ const MENUITEMS = [
   {state: 'account-config', type: 'link', name: 'Cấu hình tài khoản', icon: 'crop_7_5'},
   {state: 'gate-config', type: 'link', name: 'Cấu hình cửa khẩu', icon: 'view_comfy'},
   {state: 'station-config', type: 'link', name: 'Cấu hình trạm', icon: 'view_list'},
+  {state: 'level', type: 'link', name: 'Cấu hình mức cảnh báo', icon: 'view_comfy'},
   // {state: 'lists', type: 'link', name: 'Khai báo lưu lượng', icon: 'view_list'},
   {state: 'map-lockup', type: 'link', name: 'Bản đồ', icon: 'view_headline'},
   // {state: 'tabs', type: 'link', name: 'Tabs', icon: 'tab'},

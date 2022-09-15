@@ -7,7 +7,7 @@
           <mat-icon>refresh</mat-icon>
           Làm mới
         </button>
-        <button mat-flat-button color="primary" matTooltip="Thêm mới" >
+        <button mat-flat-button color="primary" matTooltip="Thêm mới" (click)="openCreateUser()">
           <mat-icon>add</mat-icon>
           Tạo tài khoản
         </button>
@@ -64,7 +64,9 @@
         </div>
       </div>
       <div fxFlex="10%">
-        <button mat-flat-button color="primary"> > </button>
+        <button mat-flat-button color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
       </div>
       <div fxFlex="40%">
         <mat-selection-list #shoes>

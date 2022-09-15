@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 import {throwError} from "rxjs";
-import {ResponseGetProvincesModel} from "../../models/gate-config/response-get-provinces.model";
 import {environment} from "../../../../environments/environment";
 import {catchError, retry} from "rxjs/operators";
 import {User} from "../../../shared/models/user";
@@ -35,7 +34,11 @@ export class UserService {
       retry(1),
       catchError(this.errorHandl))
   }
-
+  createUserAccount = (payload: any) => {
+    return this._httpClient.post<ResponseApi<any>>(`${environment.main_domain}/user/register`, payload).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
   getPermissionsAdmin = () => this._httpClient.get<any>(`${environment.main_domain}/admin/get-all-permission`).pipe(
     retry(1),
     catchError(this.errorHandl)

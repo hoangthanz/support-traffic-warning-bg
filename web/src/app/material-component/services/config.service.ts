@@ -97,6 +97,29 @@ export class ConfigService {
       catchError(this.errorHandl))
   }
 
+  getLevel = () => {
+    return this._httpClient.get<ResponseApi<any>>(`${environment.main_domain}/Levels`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  createLevel = (request: any) => {
+    return this._httpClient.post<any>(`${environment.main_domain}/Levels`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  deleteLevel = (id: string) =>{
+    return this._httpClient.delete<any>(`${environment.main_domain}/Levels/${id}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  updateLevel = (id: number, request: any) => {
+    return this._httpClient.put<any>(`${environment.main_domain}/Levels/${id}`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
 
   public openNotify(typeOfMessage: number, message: string = '', action: string = '', duration: number = 2500
     , horizontalPosition: MatSnackBarHorizontalPosition = 'right',

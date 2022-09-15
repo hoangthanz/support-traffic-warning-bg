@@ -1,0 +1,28 @@
+<h2 mat-dialog-title><b>Tạo mức cảnh báo</b></h2>
+<mat-dialog-content>
+  <form novalidate [formGroup]='roleForm' (ngSubmit)='createRole()'>
+    <mat-form-field appearance="outline" matTooltip="Tên mức cảnh báo" matTooltipPosition='right'>
+      <mat-label>Tên mức cảnh báo</mat-label>
+      <input formControlName='name' matInput placeholder="Tên mức cảnh báo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" matTooltip="Mô tả" matTooltipPosition='right'>
+      <mat-label>Mô tả</mat-label>
+      <input formControlName='description' matInput placeholder="Mô tả" required/>
+    </mat-form-field>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close matTooltip="">
+    <mat-icon fxHide.xs>close</mat-icon>
+    Đóng
+  </button>
+  <button mat-flat-button type='submit' class='create-button' (click)="createRole()"
+          matTooltip="">
+    <mat-icon>done</mat-icon>
+    Xác nhận
+  </button>
+</mat-dialog-actions>
