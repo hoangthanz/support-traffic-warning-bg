@@ -302,4 +302,9 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             };
         }
     }
+
+    public Task<RespondApi<string>> PublishCurrentPositionOfVehicle()
+    {
+        throw new NotImplementedException();
+    }
 }
