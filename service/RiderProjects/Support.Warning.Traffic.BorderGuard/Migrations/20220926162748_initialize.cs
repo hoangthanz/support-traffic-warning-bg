@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class version_10 : Migration
+    public partial class initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -222,6 +222,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     GateId = table.Column<int>(type: "integer", nullable: false),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -462,8 +463,8 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     NomalizanameLicencePlate = table.Column<string>(type: "text", nullable: true),
                     GateId = table.Column<int>(type: "integer", nullable: false),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
-                    DriverName = table.Column<string>(type: "text", nullable: true),
-                    DriverPhone = table.Column<string>(type: "text", nullable: true),
+                    DriverName = table.Column<string>(type: "text", nullable: false),
+                    DriverPhone = table.Column<string>(type: "text", nullable: false),
                     InGate = table.Column<bool>(type: "boolean", nullable: false),
                     LoadDueToOwnWeight = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -480,6 +481,35 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         name: "FK_Vehicles_VehicleTypes_VehicleTypeId",
                         column: x => x.VehicleTypeId,
                         principalTable: "VehicleTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
+                    VehicleId = table.Column<int>(type: "integer", nullable: false),
+                    InGateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    OutGateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleDetails_Gates_GateId",
+                        column: x => x.GateId,
+                        principalTable: "Gates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehicleDetails_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -537,6 +567,16 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_VehicleDetails_GateId",
+                table: "VehicleDetails",
+                column: "GateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleDetails_VehicleId",
+                table: "VehicleDetails",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_VehicleTypeId",
                 table: "Vehicles",
                 column: "VehicleTypeId");
@@ -588,7 +628,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "VehicleDetails");
 
             migrationBuilder.DropTable(
                 name: "wards");
@@ -597,13 +637,16 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "Levels");
 
             migrationBuilder.DropTable(
-                name: "Gates");
-
-            migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Gates");
+
+            migrationBuilder.DropTable(
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");

@@ -2,32 +2,30 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Common.Service.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
 [BsonIgnoreExtraElements]
-public class ExportImportType : IDateTracking, IUserTracking, ICheckTracking
+public class Company: IDateTracking, IUserTracking, ICheckTracking
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Description("Id")]
-    public int Id { get; set; }
     
+    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+    
+    public string Code { get; set; }
     [Required, MaxLength(255)]
-    [Description("mã")]
-    public string? Code { get; set; }
-
+    public string TaxCode { get; set; }
     [Required, MaxLength(255)]
-    [Description("Tên")]
-    public string? Name { get; set; }
-
-    [Description("Tên chuẩn hóa")]
-    public string? NormalizationName { get; set; }
-
-    [Description("Mô tả")]
-    public string? Description { get; set; }
-
+    public string Name { get; set; }
+    
+    public string Address { get; set; }
+    public string Phone { get; set; }
+    public string Email { get; set; }
+    public string Description { get; set; }
+    
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
     public Guid CreatedUserId { get; set; }

@@ -13,4 +13,7 @@ public class ApplicationUser : IdentityUser<int>, IDateTracking, ICheckTracking
     public bool IsDeleted { get; set; }
     public bool Status { get; set; }
     public int GateId { get; set; } = 0;
+
+    public int CompanyId { get; set; } = 0;
+
 }
