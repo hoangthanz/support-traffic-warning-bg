@@ -2,14 +2,14 @@
 using Common.Service.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
 [BsonIgnoreExtraElements]
 public class VehicleRegistrationPaper : IDateTracking, IUserTracking, ICheckTracking
 {
-    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    [BsonElement(elementName: "_id")]
+    [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
     public int GateId { get; set; }
@@ -37,4 +37,6 @@ public class VehicleRegistrationPaper : IDateTracking, IUserTracking, ICheckTrac
     public Guid UpdatedUserId { get; set; }
     public bool IsDeleted { get; set; }
     public bool Status { get; set; }
+    
+    public List<VehicleRegistrationPaperDetail> PaperDetails { get; set; }
 }

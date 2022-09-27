@@ -89,5 +89,9 @@ public class AdminController : ControllerBase
         return Ok(ConstApp.Nations);
     }
 
-    
+    [HttpGet("get-roles-by-user-id/{id}")]
+    public async Task<IActionResult> GetRolesByUser(int id)
+    {
+        return Ok(_adminRepository.GetRolesByUserId(id));
+    }
 }

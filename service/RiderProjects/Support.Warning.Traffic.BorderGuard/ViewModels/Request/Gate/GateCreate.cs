@@ -12,16 +12,19 @@ public class GateCreate
 
     public string? Description { get; set; }
 
+    public bool Status { get; set; }
+    public bool IsDeleted { get; set; }
     public double Latitude { set; get; }
 
     public double Longitude { set; get; }
-    
+
     public string ProvinceId { get; set; }
-    
+
     public string DistrictId { get; set; }
-    
+
     public string WardId { get; set; }
-    public NationalLevel  NationalLevel { get; set; }
-    public TypeOfShipping TypeOfShipping { get; set; }
-    public bool EconomicSector { get; set; }
+    public NationalLevel NationalLevel { get; set; } = NationalLevel.Nation;
+    public TypeOfShipping TypeOfShipping { get; set; } = TypeOfShipping.Road;
+    public bool EconomicSector { get; set; } = false;
+    public string CountryCode { get; set; } = "cn";
 }

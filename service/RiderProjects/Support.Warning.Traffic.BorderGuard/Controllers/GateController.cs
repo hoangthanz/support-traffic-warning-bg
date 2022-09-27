@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Support.Warning.Traffic.BorderGuard.IRepository;
-using Support.Warning.Traffic.BorderGuard.Permissions;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Gate;
 
 namespace Support.Warning.Traffic.BorderGuard.Controllers;

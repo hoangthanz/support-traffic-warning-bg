@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using Common.Service.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;

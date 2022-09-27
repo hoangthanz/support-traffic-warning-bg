@@ -20,4 +20,5 @@ public interface IAdminService
     Task<RespondApi<List<ClaimInfo>>> GetAllPermissionAdmin();
     Task<RespondApi<List<string>>> GetPermissionByRole(string Id);
     Task<RespondApi<string>> UpdateRolesUserInGate(RequestUpdateRolesUserInGate model);
+    Task<RespondApi<List<int>>> GetRolesByUserId(int id);
 }
