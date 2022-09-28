@@ -15,4 +15,5 @@ public interface IVehicleRepository: IRepositoryBase<Vehicle>
     Task<RespondApi<string>> RegisterVehicle(RequestRegisterVehicle model);
     Task<RespondApi<string>> ConfirmVehicleOutGate(RequestRegisterVehicle model);
     Task<RespondApi<string>> RegisterManyVehicle(RequestRegisterManyVehicle model);
+    Task<RespondApi<string>> PublishCurrentPositionOfVehicle();
 }

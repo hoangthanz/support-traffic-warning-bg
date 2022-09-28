@@ -4,9 +4,9 @@ public class Permission
 {
     public Permission(string displayName, string name, int type)
     {
-        this.DisplayName = displayName;
-        this.Name = name;
-        this.Type = type;
+        DisplayName = displayName;
+        Name = name;
+        Type = type;
     }
     public string Name { get; set; }
     public int Type { get; set; }

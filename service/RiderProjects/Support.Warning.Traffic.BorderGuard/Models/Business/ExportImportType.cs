@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Common.Service.Interfaces;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
+[BsonIgnoreExtraElements]
 public class ExportImportType : IDateTracking, IUserTracking, ICheckTracking
 {
     [Key]

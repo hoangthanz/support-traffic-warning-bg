@@ -50,6 +50,12 @@ import {CreateUserComponent} from "./components/create-user/create-user.componen
 import {LevelPageComponent} from "./pages/level-page/level-page.component";
 import {UpdateLevelComponent} from "./components/level/update-level/update-level.component";
 import {CreateLevelComponent} from "./components/level/create-level/create-level.component";
+import {VehiclePageComponent} from "./pages/vehicle-page/vehicle-page.component";
+import {CreateVehicleComponent} from "./components/vehicle/create-vehicle/create-vehicle.component";
+import {UpdateVehicleComponent} from "./components/vehicle/update-level/update-vehicle.component";
+import {CompanyPageComponent} from "./pages/company-page/company-page.component";
+import {UpdateCompanyComponent} from "./components/company/update-company/update-company.component";
+import {CreateCompanyComponent} from "./components/company/create-company/create-company.component";
 
 @NgModule({
   imports: [
@@ -101,6 +107,12 @@ import {CreateLevelComponent} from "./components/level/create-level/create-level
     LevelPageComponent,
     UpdateLevelComponent,
     CreateLevelComponent,
+    VehiclePageComponent,
+    CreateVehicleComponent,
+    UpdateVehicleComponent,
+    CompanyPageComponent,
+    UpdateCompanyComponent,
+    CreateCompanyComponent,
     AccountConfigComponent
   ]
 })

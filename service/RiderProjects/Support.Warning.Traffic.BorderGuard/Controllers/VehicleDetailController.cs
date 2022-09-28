@@ -4,7 +4,7 @@ using Support.Warning.Traffic.BorderGuard.ViewModels.Request.VehicleDetail;
 
 namespace Support.Warning.Traffic.BorderGuard.Controllers;
 [ApiController]
-[Route("api/Vehicle")]
+[Route("api/VehicleDetail")]
 public class VehicleDetailController : ControllerBase
 {
     private readonly IVehicleDetailRepository _vehicleRepository;

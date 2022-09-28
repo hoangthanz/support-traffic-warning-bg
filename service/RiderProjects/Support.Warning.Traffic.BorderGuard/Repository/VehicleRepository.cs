@@ -11,12 +11,12 @@ namespace Support.Warning.Traffic.BorderGuard.Repository;
 public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 {
     private readonly SupportWarningContext _context;
-    private readonly string UserId;
+    private readonly string _userId;
 
     public VehicleRepository(SupportWarningContext context, IHttpContextAccessor httpContext) : base(context)
     {
         _context = context;
-        UserId = httpContext?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) != null
+        _userId = httpContext?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) != null
             ? httpContext?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value
             : null;
     }
@@ -106,7 +106,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             Status = true,
             UpdatedDate = DateTime.Now,
             CreatedDate = DateTime.Now,
-            CreatedUserId = Guid.Parse(UserId),
+            CreatedUserId = Guid.Parse(_userId),
             DriverName = model.DriverName,
             DriverPhone = model.DriverPhone,
             InGate = false
@@ -139,7 +139,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         vehicle.Weight = model.Weight;
         vehicle.LoadDueToOwnWeight = model.Weight;
         vehicle.UpdatedDate = DateTime.Now;
-        vehicle.UpdatedUserId = Guid.Parse(UserId);
+        vehicle.UpdatedUserId = Guid.Parse(_userId);
         vehicle.DriverName = model.DriverName;
         vehicle.DriverPhone = model.DriverPhone;
         if (model.GateId != null)
@@ -162,7 +162,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
         vehicle.IsDeleted = true;
         vehicle.UpdatedDate = DateTime.Now;
-        vehicle.UpdatedUserId = Guid.Parse(UserId);
+        vehicle.UpdatedUserId = Guid.Parse(_userId);
         await _context.SaveChangesAsync();
         return new RespondApi<Vehicle>()
         {
@@ -301,5 +301,10 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                 Result = ResultRespond.Failed, Message = "Đăng kí thất bại"
             };
         }
+    }
+
+    public Task<RespondApi<string>> PublishCurrentPositionOfVehicle()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -403,9 +403,11 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("DriverName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("DriverPhone")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("GateId")
@@ -447,6 +449,38 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.HasIndex("VehicleTypeId");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GateId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("InGateTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("OutGateTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GateId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("VehicleDetails");
                 });
 
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleType", b =>
@@ -554,6 +588,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<string>("ActiveCode")
                         .HasColumnType("text");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -911,6 +948,25 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .IsRequired();
 
                     b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleDetail", b =>
+                {
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Gate", "Gate")
+                        .WithMany()
+                        .HasForeignKey("GateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gate");
+
+                    b.Navigation("Vehicle");
                 });
 #pragma warning restore 612, 618
         }

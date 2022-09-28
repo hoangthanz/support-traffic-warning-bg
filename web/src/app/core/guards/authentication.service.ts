@@ -87,21 +87,13 @@ export class AuthenticationService {
         path: '/',
         secure: true
       });
-
-      // let permissions = this.jwtHelper?.decodeToken(user.token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-      // permissions = (Array.isArray(permissions)) ? permissions : [permissions];
-
       let permissions = user.listClaims;
       this.permissions = permissions;
       permissions = (Array.isArray(permissions)) ? permissions : [permissions];
 
-      //this.cookieService.set('permissions', this.convertObjectToString(user.listClaims));
-      //this.permissionsService.loadPermissions(permissions);
-
       // save to section
       sessionStorage.setItem('permissions', this.convertObjectToString(user.listClaims));
       this.permissionsService.loadPermissions(permissions);
-      //this.syncServicesService.initListRole(permissions);
 
       this.userSubject.next(user);
       this.startRefreshTokenTimer();
@@ -164,49 +156,6 @@ export class AuthenticationService {
         })
       );
   }
-
-
-  refreshTokenAsync = () => new Promise<string>((resolve, reject) => {
-    this.http.post<any>(`${environment.main_domain}/user/refresh-token`, {token: this.cookieService.get('refresh-token')}, {withCredentials: true}).subscribe(
-      (user: UserToken) => {
-
-        this.cookieService.deleteAll();
-        sessionStorage.clear();
-
-        this.cookieService.set('refresh-token', user.refreshToken, {
-          expires: new Date(user.expiration),
-          path: '/',
-          secure: true
-        });
-        sessionStorage.setItem('access_token', user.token);
-        sessionStorage.setItem('permissions', this.convertObjectToString(user.listClaims));
-        //let permissions = this.jwtHelper?.decodeToken(user.token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-        let permissions = user.listClaims;
-        this.permissions = permissions;
-        permissions = (Array.isArray(permissions)) ? permissions : [permissions];
-
-        // save to section
-        this.cookieService.set('permissions', this.convertObjectToString(user.listClaims));
-        this.permissionsService.loadPermissions(permissions);
-
-        // permissions = (Array.isArray(permissions)) ? permissions : [permissions];
-        // this.permissions = permissions;
-        // this.permissionsService.loadPermissions(permissions);
-
-
-        this.userSubject.next(user);
-        this.startRefreshTokenTimer();
-        resolve(user.token);
-      },
-      error => {
-        this.clearSession();
-        resolve('');
-      }
-    )
-  });
-
-
   async startApp() {
     return new Promise<void>(async (resolve, reject) => {
       // console.log("AppInitService.init() called");
@@ -229,7 +178,7 @@ export class AuthenticationService {
 
 
   private clearSession() {
-    localStorage.clear();
+    // localStorage.clear();
     sessionStorage.clear();
     this.cookieService.deleteAll();
     this.router.navigate(['/login']);

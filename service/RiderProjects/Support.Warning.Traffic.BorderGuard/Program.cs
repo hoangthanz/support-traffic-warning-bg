@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,17 +12,19 @@ using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.HubConfig;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
+using Support.Warning.Traffic.BorderGuard.Mongodb;
+using Support.Warning.Traffic.BorderGuard.Mongodb.Services;
 using Support.Warning.Traffic.BorderGuard.Repository;
 using Support.Warning.Traffic.BorderGuard.Settings;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(name: myAllowSpecificOrigins,
         policy =>
         {
             policy.AllowAnyOrigin()
@@ -32,6 +35,8 @@ builder.Services.AddCors(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddSignalR();
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+builder.Services.AddSingleton<VehicleRegistrationPaperService>();
 
 builder.Services.AddDbContext<SupportWarningContext>(options =>
     options.UseNpgsql(connectionString));
@@ -62,7 +67,8 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
         {
             new OpenApiSecurityScheme
             {
@@ -76,6 +82,8 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -140,13 +148,13 @@ builder.Services.AddAuthentication(options =>
 });
 
 
-
 builder.Services.Configure<IdentityOptions>(opts =>
 {
     opts.Lockout.AllowedForNewUsers = true;
     opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
     opts.Lockout.MaxFailedAccessAttempts = 5;
 });
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -163,6 +171,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
     StartupSetting.CreateAdminRoles(builder.Services.BuildServiceProvider(), db);
 }
+
 app.UseSwagger();
 app.UseSwaggerUI();
 using (var scope = app.Services.CreateScope())
@@ -174,10 +183,14 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(myAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.MapControllers();
 app.MapHub<RealtimeHub>("/nofication");
 app.Run();
