@@ -343,4 +343,40 @@ public class AdminService : IAdminService
             return new RespondApi<List<int>>() { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ" , Data = new List<int>()};
         }
     }
+
+    public async Task<RespondApi<List<ApplicationRole>>> GetRoles()
+    {
+        try
+        {
+            var roles = await _context.Roles.ToListAsync();
+            return new RespondApi<List<ApplicationRole>>(){ Result = ResultRespond.Succeeded, Message = "Thành công", Data = roles};
+
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<List<ApplicationRole>> { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ" , Data = new List<ApplicationRole>()};
+        }
+    }
+
+    public async Task<RespondApi<object>> SetUserByRole(List<UserByRole> model)
+    {
+        try
+        { 
+            // set user by role and save to db
+            var userRoles = _mapper.Map<List<IdentityUserRole<int>>>(model);
+            if (userRoles.Count != 0)
+            {
+                var removedUserRoles = await _context.UserRoles.Where(x => x.UserId == model[0].UserId).ToListAsync();
+                _context.UserRoles.RemoveRange(removedUserRoles);
+                await _context.UserRoles.AddRangeAsync(userRoles);
+                await _context.SaveChangesAsync();
+            }
+           
+            return new RespondApi<object>(){ Result = ResultRespond.Succeeded, Message = "Thành công"};
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<object>(){ Result = ResultRespond.Error, Message = "Lỗi ngoại lệ"};
+        }
+    }
 }

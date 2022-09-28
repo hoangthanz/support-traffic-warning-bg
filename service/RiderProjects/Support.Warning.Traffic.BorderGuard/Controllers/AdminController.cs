@@ -92,6 +92,19 @@ public class AdminController : ControllerBase
     [HttpGet("get-roles-by-user-id/{id}")]
     public async Task<IActionResult> GetRolesByUser(int id)
     {
-        return Ok(_adminRepository.GetRolesByUserId(id));
+        return Ok(await _adminRepository.GetRolesByUserId(id));
     }
+    
+    [HttpGet("get-roles")]
+    public async Task<IActionResult> GetRoles()
+    {
+        return Ok(await _adminRepository.GetRoles());
+    }
+    
+    [HttpPost("set-role-user")]
+    public async Task<IActionResult> SetUserByRole(List<UserByRole> model)
+    {
+        return Ok(await _adminRepository.SetUserByRole(model));
+    }
+ 
 }

@@ -67,7 +67,8 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
         {
             new OpenApiSecurityScheme
             {
@@ -147,7 +148,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 
-
 builder.Services.Configure<IdentityOptions>(opts =>
 {
     opts.Lockout.AllowedForNewUsers = true;
@@ -171,6 +171,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
     StartupSetting.CreateAdminRoles(builder.Services.BuildServiceProvider(), db);
 }
+
 app.UseSwagger();
 app.UseSwaggerUI();
 using (var scope = app.Services.CreateScope())
