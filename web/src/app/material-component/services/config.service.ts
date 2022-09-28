@@ -24,6 +24,52 @@ export class ConfigService {
     private _httpClient: HttpClient,
     public snackBar: MatSnackBar) {
   }
+  getCompany = (condition: any) => {
+    return this._httpClient.get<ResponseApi<any>>(`${environment.main_domain}/Company${condition}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  createCompany = (request: any) => {
+    return this._httpClient.post<any>(`${environment.main_domain}/Company`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  deleteCompany = (id: string) =>{
+    return this._httpClient.delete<any>(`${environment.main_domain}/Company/${id}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  updateCompany = (id: any, request: any) => {
+    return this._httpClient.put<any>(`${environment.main_domain}/Company/${id}`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+  getVehicle = (condition: any) => {
+    return this._httpClient.get<ResponseApi<any>>(`${environment.main_domain}/Vehicle${condition}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  createVehicle = (request: any) => {
+    return this._httpClient.post<any>(`${environment.main_domain}/Vehicle/create-vehicle`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  deleteVehicle = (id: string) =>{
+    return this._httpClient.delete<any>(`${environment.main_domain}/Vehicle/delete/${id}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  updateVehicle = (id: any, request: any) => {
+    return this._httpClient.put<any>(`${environment.main_domain}/Vehicle/${id}`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
 
   getProvincesInfo = () => {
     return this._httpClient.get<ResponseApi<ResponseGetProvincesModel[]>>(`${environment.main_domain}/Provinces`).pipe(
