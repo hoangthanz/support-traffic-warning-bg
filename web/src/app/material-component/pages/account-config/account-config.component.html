@@ -52,7 +52,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectUser(row.id)"></tr>
 
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
@@ -69,14 +69,14 @@
         </button>
       </div>
       <div fxFlex="40%">
-        <mat-selection-list #shoes>
-          <mat-list-option *ngFor="let shoe of typesOfShoes">
-            {{shoe}}
+        <mat-selection-list #role  [(ngModel)]="selectedRoles" (ngModelChange)="onGroupsChange($event)">
+          <mat-list-option *ngFor="let role of roles" [value]="role.id">
+            {{role?.displayName}}
           </mat-list-option>
         </mat-selection-list>
 
         <p>
-          Options selected: {{shoes.selectedOptions.selected.length}}
+          Tổng số quyền đã có: {{role.selectedOptions.selected.length}}
         </p>
       </div>
     </div>
