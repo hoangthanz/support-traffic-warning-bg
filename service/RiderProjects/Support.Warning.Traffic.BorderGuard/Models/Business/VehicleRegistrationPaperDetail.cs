@@ -10,11 +10,11 @@ public class VehicleRegistrationPaperDetail
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
-    public int VehicleRegistrationPaperId { get; set; }
+    public string VehicleRegistrationPaperId { get; set; }
 
     public int? VehicleId { get; set; }
     public Vehicle Vehicle { get; set; }
     [Description("Ngày đến dự kiến")] public DateTime ArrivalDate { get; set; }
-    
+    public bool IsFinish { get; set; }
     public int GateId { get; set; }
 }

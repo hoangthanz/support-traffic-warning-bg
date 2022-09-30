@@ -42,6 +42,8 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
     public DbSet<GateLevel> GateLevels { get; set; }
 
     public DbSet<VehicleDetail> VehicleDetails { get; set; }
+    public DbSet<VehicleRegistrationPaper> VehicleRegistrationPapers { get; set; }
+    public DbSet<VehicleRegistrationPaperDetail> VehicleRegistrationPaperDetails { get; set; }
     // data of provinces vn
 
     public DbSet<administrative_regions> administrative_regions { get; set; }

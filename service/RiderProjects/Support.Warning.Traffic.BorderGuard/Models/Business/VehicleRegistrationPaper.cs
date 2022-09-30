@@ -38,5 +38,7 @@ public class VehicleRegistrationPaper : IDateTracking, IUserTracking, ICheckTrac
     public bool IsDeleted { get; set; }
     public bool Status { get; set; }
     
+    public bool IsFinish { get; set; }
+    
     public List<VehicleRegistrationPaperDetail> PaperDetails { get; set; }
 }

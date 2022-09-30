@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Common.Service.Models.Respond;
 using Microsoft.EntityFrameworkCore;
+using ServiceStack;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
@@ -303,8 +304,73 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         }
     }
 
-    public Task<RespondApi<string>> PublishCurrentPositionOfVehicle()
+    public async Task<RespondApi<Vehicle>> PublishCurrentPositionOfVehicle(CurrentPosition model)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == model.VehicleId && x.IsDeleted);
+            if (vehicle == null)
+            {
+                return new RespondApi<Vehicle>()
+                {
+                    Result = ResultRespond.Failed, Message = "Không tim thấy thông tin xe"
+                };
+            }
+
+            vehicle.Latitude = model.Latitude;
+            vehicle.Longitude = model.Longtitude;
+            var details = await _context.VehicleRegistrationPaperDetails
+                .Where(x => !x.IsFinish && x.VehicleId == vehicle.Id).ToListAsync();
+            details.ForEach(async detail =>
+            {
+                // kiểm tra v trí xe so với cửa khẩu
+                var gate = await _context.Gates.FirstOrDefaultAsync(y => y.Id == detail.GateId);
+                if (gate != null)
+                {
+                    var distance = CalculatorDistance(vehicle.Longitude, vehicle.Latitude,
+                        gate.Longitude, gate.Latitude);
+                    if (distance <= gate.RadiusGate)
+                    {
+                        gate.CountVehicle++;
+                        detail.IsFinish = true;
+                    }
+                }
+
+                var paper = await _context.VehicleRegistrationPapers.FirstOrDefaultAsync(x => !x.IsDeleted
+                    && detail.VehicleRegistrationPaperId == x.Id);
+
+                if (paper != null)
+                {
+                    var paperDetails =
+                        await _context.VehicleRegistrationPaperDetails.Where(x => x.VehicleRegistrationPaperId == paper.Id).ToListAsync();
+
+                    if (paperDetails != null && !paperDetails.Any(x => !x.IsFinish))
+                    {
+                        paper.IsFinish = true;
+                    }
+                }
+            });
+
+            await _context.SaveChangesAsync();
+            
+            return new RespondApi<Vehicle>()
+            {
+                Result = ResultRespond.Succeeded, Message = "Cập nhật vị trí phương tiện thành công", Data = vehicle
+            };
+        }
+        
+        catch (Exception e)
+        {
+            return new RespondApi<Vehicle>()
+            {
+                Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
+            };
+        }
+    }
+
+    public double CalculatorDistance(double longtitude, double latitude, double longtitudeR, double latitudeR)
+    {
+        return Math.Sqrt((longtitude - longtitudeR) * (longtitude - longtitudeR) +
+                         (latitude - latitudeR) * (latitude - latitudeR));
     }
 }

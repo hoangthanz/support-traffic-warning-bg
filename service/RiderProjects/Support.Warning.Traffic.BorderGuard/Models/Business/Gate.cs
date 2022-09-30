@@ -35,6 +35,7 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
     [Description("Kinh độ")] public double Latitude { set; get; }
 
     [Description("Vĩ độ")] public double Longitude { set; get; }
+    [Description("Bán kính cửa khẩu")] public double RadiusGate { set; get; }
 
     [ForeignKey("ProvinceId")]
     [Description("Id khu vực")]
@@ -58,6 +59,8 @@ public class Gate : IDateTracking, IUserTracking, ICheckTracking
         
     [Description("Tới cửa khẩu nào")]
     public string CountryCode { get; set; } = "cn";
+
+    [Description("Số lượng xe cửa khẩu")] public int CountVehicle { get; set; } = 0;
     
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }

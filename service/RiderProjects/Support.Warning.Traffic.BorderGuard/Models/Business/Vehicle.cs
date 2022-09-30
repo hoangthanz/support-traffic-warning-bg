@@ -35,7 +35,9 @@ public class Vehicle : IDateTracking, IUserTracking, ICheckTracking
     
     public string DriverName { get; set; }
     public string DriverPhone { get; set; }
+    [Description("Kinh độ")] public double Latitude { set; get; }
 
+    [Description("Vĩ độ")] public double Longitude { set; get; }
     public bool InGate { get; set; } = false;
 
     [Required] 

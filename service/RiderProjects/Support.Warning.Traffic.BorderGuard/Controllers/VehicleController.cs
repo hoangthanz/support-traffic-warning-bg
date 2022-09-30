@@ -56,4 +56,10 @@ public class VehicleController : ControllerBase
     {
         return Ok(await _vehicleRepository.DeleteVehicle(id));
     }
+    
+    [HttpPut("update-vehicle-position")]
+    public async Task<IActionResult> PublishCurrentPositionOfVehicle([FromBody] CurrentPosition model)
+    {
+        return Ok(await _vehicleRepository.PublishCurrentPositionOfVehicle(model));
+    }
 }
