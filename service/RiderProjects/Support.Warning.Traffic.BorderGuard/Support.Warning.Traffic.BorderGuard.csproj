@@ -38,6 +38,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Models\Map" />
       <Folder Include="Mongodb\Context" />
       <Folder Include="Mongodb\Interfaces" />
       <Folder Include="Mongodb\Repository" />

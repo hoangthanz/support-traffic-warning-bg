@@ -99,6 +99,7 @@ builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
 builder.Services.AddScoped<IWardRepository, WardRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IRouteRepository, RouteRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
