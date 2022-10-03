@@ -20,6 +20,9 @@ import {AppSidebarComponent} from "./layouts/pages/full/sidebar/sidebar.componen
 import {AppRoutes} from "./app-routing.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import {MatIconModule} from "@angular/material/icon";
     NgxPermissionsModule.forRoot(),
     MatFormFieldModule,
     MatIconModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatSidenavModule,
   ],
   providers: [
     {
