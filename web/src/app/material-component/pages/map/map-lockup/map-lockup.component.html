@@ -7,13 +7,12 @@
         <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
 
           <form class="example-form">
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Number</mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
               <input type="text"
-                     placeholder="Pick one"
-                     aria-label="Number"
+                     placeholder="Tìm kiếm địa điểm"
                      matInput
                      [formControl]="locationForm"
+                     (keyup.enter)="searchLocation($event.target.value)"
                      [matAutocomplete]="auto">
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">

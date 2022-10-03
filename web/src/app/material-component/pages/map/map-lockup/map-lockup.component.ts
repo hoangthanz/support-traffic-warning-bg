@@ -5,6 +5,8 @@ import {LocationService} from "../../../../shared/services/location.service";
 import {FormControl} from "@angular/forms";
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {HttpUrlEncodingCodec} from '@angular/common/http';
+import {OsmService} from "../../../services/osm.service";
 
 @Component({
   selector: 'app-map-lockup',
@@ -12,8 +14,12 @@ import {map, startWith} from 'rxjs/operators';
   styleUrls: ['./map-lockup.component.css']
 })
 export class MapLockupComponent implements OnInit {
-  myControl = new FormControl('');
-  locations: string[] = ['One', 'Two', 'Three'];
+  codec = new HttpUrlEncodingCodec;
+
+  keyWordOfLocation = '';
+
+  locationForm = new FormControl('');
+  locations: string[] = [];
   filteredOptions: Observable<string[]> | undefined;
 
   pos = {lng: 0, lat: 0};
@@ -67,12 +73,14 @@ export class MapLockupComponent implements OnInit {
 
 
   constructor(
-    private locationService: LocationService
+    private locationService: LocationService,
+    private osmService: OsmService
   ) {
+
     this.locationService.getPosition().then(currentPos => {
       this.pos.lng = currentPos.lng;
       this.pos.lat = currentPos.lat;
-      this.map.flyTo([this.pos.lat, this.pos.lng], 15);
+      //this.map.flyTo([this.pos.lat, this.pos.lng], 15);
       L.marker([this.pos.lat, this.pos.lng], this.currentLocationIcon).addTo(this.map);
     });
   }
@@ -83,13 +91,27 @@ export class MapLockupComponent implements OnInit {
     return this.locations.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  searchLocation(key: string): any {
+    const urlQuery = `?q=${this.ngEncode(key ?? '')}&limit=10&format=json&addressdetails=1&json_callback=_l_geocoder_0`
+    this.osmService.searchLocation(urlQuery).subscribe((data: any[]) => {
+      this.locations = data.map((item: any) => item.display_name);
+      console.log(data);
+      console.log(this.locations);
+    }, error => {
+      console.log(error);
+      console.log("xxx");
+    });
+  }
+
+  ngEncode(param: string) {
+    return this.codec.encodeValue(param);
+  }
+
   ngOnInit(): any {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.locationForm.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
-
-
 
 
     this.map = L.map("map").setView([this.pos.lng, this.pos.lat], 6);
