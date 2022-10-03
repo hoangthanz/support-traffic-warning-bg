@@ -5,8 +5,6 @@ import {throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {catchError, retry} from "rxjs/operators";
 import {User} from "../../shared/models/user";
-import {UpdateRole} from "../models/update-role";
-import {CreateRole} from "../models/create-role";
 import {ResponseApi} from "../../core/models/response-api";
 
 @Injectable({
@@ -73,40 +71,6 @@ export class UserService {
         retry(1),
         catchError(this.errorHandl)
     );
-
-    updateRoleDisplayPermission = (id: string, role: UpdateRole) => this._httpClient.put<any>(`${environment.main_domain}/admin/role/update-ui/${id}`, role).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
-
-    deleteRoleAdmin = (id: string) => this._httpClient.delete<any>(`${environment.main_domain}/admin/role/delete/${id}`).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
-    updateRoleAdmin = (id: string, role: UpdateRole) => this._httpClient.put<any>(`${environment.main_domain}/admin/role/update/${id}`, role).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
-    createRoleAdmin = (role: CreateRole) => this._httpClient.post<any>(`${environment.main_domain}/admin/role/create`, role).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
-    getPermissionByRole = (id: string) => this._httpClient.get<any>(`${environment.main_domain}/admin/getpermission-role/${id}`).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
-    updateDisplayNameRole = (id: string, displayName: string) => this._httpClient.put<any>(`${environment.main_domain}/admin/role/update-without-permission/${id}`,
-        {displayName: displayName}
-    ).pipe(
-        retry(1),
-        catchError(this.errorHandl)
-    );
-
     public openNotify(typeOfMessage: number, message: string = '', action: string = '', duration: number = 2500
         , horizontalPosition: MatSnackBarHorizontalPosition = 'right',
                       verticalPosition: MatSnackBarVerticalPosition = 'top', className: string = 'background-green') {
