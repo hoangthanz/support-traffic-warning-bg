@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import * as L from "leaflet";
 import {circle, latLng, polygon, tileLayer} from "leaflet";
 import {LocationService} from "../../../../shared/services/location.service";
+import {FormControl} from "@angular/forms";
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-map-lockup',
@@ -9,6 +12,10 @@ import {LocationService} from "../../../../shared/services/location.service";
   styleUrls: ['./map-lockup.component.css']
 })
 export class MapLockupComponent implements OnInit {
+  myControl = new FormControl('');
+  locations: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]> | undefined;
+
   pos = {lng: 0, lat: 0};
   map: any;
   markerIcon = {
@@ -70,7 +77,20 @@ export class MapLockupComponent implements OnInit {
     });
   }
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.locations.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
   ngOnInit(): any {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
+
+
 
     this.map = L.map("map").setView([this.pos.lng, this.pos.lat], 6);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {

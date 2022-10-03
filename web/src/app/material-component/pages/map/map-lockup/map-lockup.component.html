@@ -6,6 +6,23 @@
         <mat-card-title>Bản đồ</mat-card-title>
         <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
 
+          <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Number"
+                     matInput
+                     [formControl]="locationForm"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+
 
         <div id="map"
              style="height: 700px;"
@@ -20,4 +37,4 @@
   </div>
 </div>
 
-<button (click)="changeLocation()"> xxx </button>
+<!--<button (click)="changeLocation()"> xxx </button>-->
