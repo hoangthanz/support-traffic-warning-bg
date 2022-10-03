@@ -13,9 +13,6 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {InterceptorService} from "./core/interceptor/interceptor.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {NgxPermissionsModule} from "ngx-permissions";
-import {LoginComponent} from './layouts/pages/login/login.component';
-import {FullComponent} from "./layouts/pages/full/full.component";
-import {AppHeaderComponent} from "./layouts/pages/full/header/header.component";
 import {AppSidebarComponent} from "./layouts/pages/full/sidebar/sidebar.component";
 import {AppRoutes} from "./app-routing.module";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -23,15 +20,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,
-    AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent,
-    LoginComponent
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +43,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
     {
@@ -58,6 +55,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     JwtHelperService,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
   ],
+  exports: [
+    AppSidebarComponent,
+    SpinnerComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

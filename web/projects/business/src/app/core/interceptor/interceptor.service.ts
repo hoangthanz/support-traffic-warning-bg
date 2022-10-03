@@ -1,9 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import { Router } from "@angular/router";
-import {CurrencyPipe, DatePipe} from "@angular/common";
-import {BehaviorSubject, Observable} from "rxjs";
-import { finalize } from "rxjs/operators";
+import {Observable} from "rxjs";
 import { AuthenticationService } from "../guards/authentication.service";
 
 @Injectable({
@@ -15,8 +13,6 @@ export class InterceptorService implements HttpInterceptor {
     public auth: AuthenticationService,
     private injector: Injector,
     public router: Router,
-    public currencyPipe: CurrencyPipe,
-    public datePipe: DatePipe,
   ) {
   }
 
