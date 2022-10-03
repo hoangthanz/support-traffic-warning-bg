@@ -2,6 +2,8 @@
   "name": "prj",
   "version": "0.0.0",
   "scripts": {
+    "start-manage": "ng run material:serve",
+    "start-business": "ng run business:serve",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
