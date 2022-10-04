@@ -93,18 +93,17 @@ export class MapLockupComponent implements OnInit {
 
   searchLocation(key: string): any {
     const urlQuery = `?q=${this.ngEncode(key ?? '')}&limit=10&format=json&addressdetails=1&json_callback=_l_geocoder_0`
-    // this.osmService.searchLocation(urlQuery).subscribe((data: any[]) => {
-    //   this.locations = data.map((item: any) => item.display_name);
-    //   console.log(data);
-    //   console.log(this.locations);
-    // }, error => {
-    //   console.log(error);
-    //   console.log("xxx");
-    // });
+
     this.osmService.searchLocation(urlQuery).subscribe((data: any) => {
-      for (let i = 0; i < data.length; i++) {
-        this.locations.push(data[i].display_name);
-      }
+      console.log(data);
+      console.log(typeof(data));
+      let objectOfLocation = JSON.parse(data);
+
+      // for (let i = 0; i < data._l_geocoder_0.length; i++) {
+      //   this.locations.push(data._l_geocoder_0[i].display_name);
+      // }
+
+      console.log(objectOfLocation);
       console.log(this.locations);
     });
   }

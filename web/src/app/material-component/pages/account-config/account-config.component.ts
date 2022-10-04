@@ -23,7 +23,7 @@ export class AccountConfigComponent implements AfterViewInit {
 
     user: User[] = [];
     roles: any[] = [];
-    selectedRoles : any[] = [];
+    selectedRoles: any[] = [];
 
     constructor(
         private _userService: UserService,
@@ -96,7 +96,7 @@ export class AccountConfigComponent implements AfterViewInit {
         console.log(this.selectedRoles);
     }
 
-    selectUser(id:number){
+    selectUser(id: number) {
         this.getRoleOfUser(id);
     }
 }
