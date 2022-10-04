@@ -3,22 +3,16 @@ import {BehaviorSubject, Observable, of} from "rxjs";
 import {UserToken} from "../models/user-token";
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CurrencyPipe, DatePipe} from "@angular/common";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialog} from "@angular/material/dialog";
 import {environment} from "../../../environments/environment";
 import {catchError, map} from 'rxjs/operators';
-import {UserInfor} from "../models/user-info";
-import {ResponseApi} from "../models/response-api";
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {NgxPermissionsService} from 'ngx-permissions';
 import {CookieService} from 'ngx-cookie-service';
-import {DeviceDetectorService} from 'ngx-device-detector';
+import {MatDialog} from "@angular/material/dialog";
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthenticationService {
 
   private userSubject!: BehaviorSubject<UserToken>;
@@ -34,13 +28,9 @@ export class AuthenticationService {
     public router: Router,
     private http: HttpClient,
     private permissionsService: NgxPermissionsService,
-    public currencyPipe: CurrencyPipe,
-    public datePipe: DatePipe,
-    public snackBar: MatSnackBar,
     public dialog: MatDialog,
     public jwtHelperService: JwtHelperService,
     public cookieService: CookieService,
-    public deviceService: DeviceDetectorService,
   ) {
     this.userSubject = new BehaviorSubject<UserToken>(new UserToken());
     this.user = this.userSubject.asObservable();
@@ -156,6 +146,7 @@ export class AuthenticationService {
         })
       );
   }
+
   async startApp() {
     return new Promise<void>(async (resolve, reject) => {
       // console.log("AppInitService.init() called");

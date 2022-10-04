@@ -1,14 +1,15 @@
 import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
-
 import {MenuItems} from './menu-items/menu-items';
-import {AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective} from './accordion';
+import {AccordionAnchorDirective, AccordionDirective, AccordionLinkDirective} from './accordion';
 import {AuthGuardService} from '../core/guards/auth-guard.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InterceptorService} from "../core/interceptor/interceptor.service";
-import {AuthenticationService} from "../core/guards/authentication.service";
-import {appInitializer} from "../core/interceptor/app.initializer.service";
 import {CurrencyPipe, DatePipe} from "@angular/common";
 import {LocationService} from "./services/location.service";
+import {appInitializer} from "../core/interceptor/app.initializer.service";
+import {AuthenticationService} from "../core/guards/authentication.service";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 @NgModule({
@@ -23,10 +24,18 @@ import {LocationService} from "./services/location.service";
     AccordionDirective
   ],
   imports: [
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [
-    MenuItems, CurrencyPipe, DatePipe,
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+    MenuItems,
+    CurrencyPipe,
+    DatePipe,
   ]
 })
 export class SharedModule {

@@ -21,12 +21,18 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatInputModule} from "@angular/material/input";
+import {LoginComponent} from "./login/login.component";
+import {FullComponent} from "./layouts/pages/full/full.component";
+import {AppHeaderComponent} from "./layouts/pages/full/header/header.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
-    AppSidebarComponent
+    AppSidebarComponent,
+    FullComponent,
+    AppHeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

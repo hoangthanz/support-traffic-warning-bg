@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginModel} from "../../../shared/models/login-model";
+import {LoginModel} from "../shared/models/login-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../layouts/services/user.service";
 
 @Component({
   selector: 'app-login',

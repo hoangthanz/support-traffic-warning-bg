@@ -1,13 +1,8 @@
-import {
-  Directive,
-  OnInit,
-  AfterViewInit,
-  AfterContentChecked
-} from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {AfterContentChecked, Directive} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 
-import { AccordionLinkDirective } from './accordionlink.directive';
-import { filter } from 'rxjs/operators';
+import {AccordionLinkDirective} from './accordionlink.directive';
+import {filter} from 'rxjs/operators';
 
 @Directive({
   selector: '[appAccordion]'

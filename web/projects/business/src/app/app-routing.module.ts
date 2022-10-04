@@ -2,13 +2,23 @@ import {Routes} from '@angular/router';
 
 import {AuthGuardService} from "./core/guards/auth-guard.service";
 import {FullComponent} from "./layouts/pages/full/full.component";
+import {LoginComponent} from "./login/login.component";
 
 export const AppRoutes: Routes = [
   {
     path: '',
     component: FullComponent,
     canActivate: [AuthGuardService],
-    children: [],
-    loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
+    children: [
+      {
+        path: 'map',
+        loadChildren:
+          () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
+      },
+    ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];

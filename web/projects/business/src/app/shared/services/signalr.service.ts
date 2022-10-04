@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import * as signalR from "@microsoft/signalr"
+import {HubConnection} from "@microsoft/signalr"
 import {MessageSupport} from "../../core/models/message-support";
-import {HubConnection} from "@microsoft/signalr";
 import {environment} from "../../../environments/environment";
 
 @Injectable({

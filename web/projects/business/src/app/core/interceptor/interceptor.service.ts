@@ -1,8 +1,8 @@
-import { Injectable, Injector } from "@angular/core";
+import {Injectable, Injector} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import { Router } from "@angular/router";
+import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import { AuthenticationService } from "../guards/authentication.service";
+import {AuthenticationService} from "../guards/authentication.service";
 
 @Injectable({
   providedIn: 'root'
