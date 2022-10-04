@@ -24,6 +24,7 @@ import {MatInputModule} from "@angular/material/input";
 import {LoginComponent} from "./login/login.component";
 import {FullComponent} from "./layouts/pages/full/full.component";
 import {AppHeaderComponent} from "./layouts/pages/full/header/header.component";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {AppHeaderComponent} from "./layouts/pages/full/header/header.component";
     MatToolbarModule,
     MatSidenavModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     {

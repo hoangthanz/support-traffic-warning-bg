@@ -4,12 +4,14 @@ import {AccordionAnchorDirective, AccordionDirective, AccordionLinkDirective} fr
 import {AuthGuardService} from '../core/guards/auth-guard.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InterceptorService} from "../core/interceptor/interceptor.service";
-import {CurrencyPipe, DatePipe} from "@angular/common";
+import {CommonModule, CurrencyPipe, DatePipe} from "@angular/common";
 import {LocationService} from "./services/location.service";
 import {appInitializer} from "../core/interceptor/app.initializer.service";
 import {AuthenticationService} from "../core/guards/authentication.service";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -21,12 +23,19 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
   ],
   imports: [
     HttpClientModule,
     MatDialogModule,
     MatSnackBarModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
   ],
   providers: [
     {
