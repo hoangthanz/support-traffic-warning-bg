@@ -17,9 +17,7 @@ export class OsmService {
   }
 
   searchLocation = (condition: any) => {
-    return this._httpClient.get<any>(`${environment.nominatim_openstreetmap_domain}/search${condition}`).pipe(
-      retry(1),
-      catchError(this.errorHandl))
+    return this._httpClient.get(`${environment.nominatim_openstreetmap_domain}/search${condition}`,  {responseType: 'text'});
   }
 
 
