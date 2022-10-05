@@ -251,7 +251,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
     {
         try
         {
-            if (model.VehicleIds == null || model.VehicleIds.Count <= 0)
+            if (model.Vehicles == null || model.Vehicles.Count <= 0)
             {
                 return new RespondApi<string>()
                     { Result = ResultRespond.Failed, Message = "Danh sách xe không được rỗng" };
@@ -267,19 +267,16 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
             List<VehicleDetail> vehicles = new List<VehicleDetail>();
 
-            foreach (var id in model.VehicleIds)
+            foreach (var vehicleRequest in model.Vehicles)
             {
-                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.LicencePlate == vehicleRequest.LicencePlate && !x.IsDeleted);
                 if (vehicle == null)
                 {
-                    return new RespondApi<string>()
-                    {
-                        Result = ResultRespond.NotFound, Message = $"Không tồn tại xe biển số {vehicle.LicencePlate}"
-                    };
+                    await CreateVehicle(vehicleRequest);
                 }
 
                 var oldVehicle = await _context.Vehicles.FirstOrDefaultAsync(x =>
-                    x.Id == id && x.InGate && !x.IsDeleted);
+                    x.LicencePlate == vehicleRequest.LicencePlate && x.InGate && !x.IsDeleted);
                 if (oldVehicle != null)
                     return new RespondApi<string>()
                     {
