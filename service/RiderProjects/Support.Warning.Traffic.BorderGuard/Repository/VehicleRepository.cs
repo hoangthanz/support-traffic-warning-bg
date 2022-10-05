@@ -147,8 +147,6 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         vehicle.UpdatedUserId = Guid.Parse(_userId);
         vehicle.DriverName = model.DriverName;
         vehicle.DriverPhone = model.DriverPhone;
-        if (model.GateId != null)
-            vehicle.GateId = model.GateId;
         await _context.SaveChangesAsync();
         return new RespondApi<Vehicle>()
         {
@@ -188,7 +186,6 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             return new RespondApi<string>()
                 { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
         vehicle.InGate = model.InGate;
-        vehicle.GateId = model.GateId;
         var vehicleDetail = new VehicleDetail()
         {
             GateId = model.GateId,
@@ -227,7 +224,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             }
 
             vehicle.InGate = false;
-            vehicle.GateId = 0;
+            gate.CountVehicle -= 1;
             var vehicleDetail = await _context.VehicleDetails.FirstOrDefaultAsync(x => !x.IsDeleted
                 && x.GateId == model.GateId && x.VehicleId == model.Id && x.OutGateTime == null);
             vehicleDetail.OutGateTime = DateTime.Now;
@@ -295,7 +292,6 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                     OutGateTime = null
                 };
                 vehicle.InGate = true;
-                vehicle.GateId = model.GateId;
                 vehicles.Add(vehicleDetail);
             }
 

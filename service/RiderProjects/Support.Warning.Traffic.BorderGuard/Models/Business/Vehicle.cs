@@ -25,9 +25,7 @@ public class Vehicle : IDateTracking, IUserTracking, ICheckTracking
 
     [Description("Chuẩn hóa biển số xe")]
     public string? NomalizanameLicencePlate { get; set; }
-    [Description("Id cửa khẩu")] [CanBeNull]
-    public int GateId { get; set; }
-    
+
     [Required]
     [Description("Tổng trọng hàng hóa - Đơn vị hiểu là Kg")]
     

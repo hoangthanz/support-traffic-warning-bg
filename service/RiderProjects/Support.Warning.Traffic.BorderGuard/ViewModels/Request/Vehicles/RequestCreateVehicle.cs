@@ -17,5 +17,4 @@ public class RequestCreateVehicle
     public decimal LoadDueToOwnWeight { get; set; } = 0;
     public string DriverName { get; set; }
     public string DriverPhone { get; set; }
-    [CanBeNull] public int GateId { get; set; }
 }
