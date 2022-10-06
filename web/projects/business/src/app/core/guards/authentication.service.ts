@@ -96,66 +96,14 @@ export class AuthenticationService {
       this.permissionsService.loadPermissions(permissions);
 
       this.userSubject.next(user);
-      this.startRefreshTokenTimer();
       return user;
     }));
 
   logout() {
-
-    let refToken = '';
-
-    if (location.protocol == 'http:')
-      refToken = this.cookieService.get('refresh-token');
-
-    this.http.post<any>(`${environment.main_domain}/user/revoke-token`, {token: refToken}).subscribe();
-    this.cookieService.delete('refresh-token');
-    sessionStorage.clear();
-
-    this.stopRefreshTokenTimer();
-    this.userSubject.next(new UserToken());
+    this.clearSession();
     this.router.navigate(['/login']);
   }
 
-  refreshToken() {
-    let cookie = '';
-    if (location.protocol == 'http:')
-      cookie = this.cookieService.get('refresh-token');
-    return this.http.get<any>(`${environment.main_domain}/user/refresh-token/${cookie}`,)
-      .pipe(
-        map((user: UserToken) => {
-          this.currentUser = user;
-          this.cookieService.deleteAll();
-          sessionStorage.clear();
-          this.cookieService.set('refresh-token', user.refreshToken, {
-            expires: new Date(user.expiration),
-            path: '/',
-            secure: true
-          });
-          sessionStorage.setItem('access_token', user.token);
-          sessionStorage.setItem('permissions', this.convertObjectToString(user.listClaims));
-
-          let permissions = this.jwtHelper?.decodeToken(user.token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-          permissions = (Array.isArray(permissions)) ? permissions : [permissions];
-
-
-          // save to section
-          this.cookieService.set('permissions', this.convertObjectToString(user.listClaims));
-          this.permissionsService.loadPermissions(permissions);
-
-          // this.permissions = permissions;
-          // this.permissionsService.loadPermissions(permissions);
-
-
-          this.userSubject.next(user);
-          this.startRefreshTokenTimer();
-          return user;
-        }),
-        catchError(err => {
-          this.clearSession();
-          return of('error', err);
-        })
-      );
-  }
   async startApp() {
     return new Promise<void>(async (resolve, reject) => {
       // console.log("AppInitService.init() called");
@@ -178,7 +126,7 @@ export class AuthenticationService {
 
 
   private clearSession() {
-    // localStorage.clear();
+    localStorage.clear();
     sessionStorage.clear();
     this.cookieService.deleteAll();
     this.router.navigate(['/login']);
@@ -194,20 +142,6 @@ export class AuthenticationService {
     }));
   }
 
-
-  private startRefreshTokenTimer() {
-    // parse json object from base64 encoded jwt token
-    const jwtToken = this.jwtHelperService.decodeToken(this.userTokenValue.token);
-
-    // set a timeout to refresh the token a minute before it expires
-    const expires = new Date(jwtToken.exp * 1000);
-    const timeout = expires.getTime() - Date.now() - 30000;
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
-  }
-
-  private stopRefreshTokenTimer() {
-    clearTimeout(this.refreshTokenTimeout);
-  }
 
   private loadOldPermission() {
     const token = this.getToken();

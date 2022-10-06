@@ -1,8 +1,9 @@
 import {Routes} from '@angular/router';
 
 import {FullComponent} from './layouts/full/full.component';
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./auth/login/login.component";
 import {AuthGuardService} from "./core/guards/auth-guard.service";
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 
 export const AppRoutes: Routes = [
   {
@@ -29,6 +30,11 @@ export const AppRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    // canActivate: [AuthGuardService],
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
     // canActivate: [AuthGuardService],
   }
 ];

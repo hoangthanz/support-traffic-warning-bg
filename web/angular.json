@@ -161,6 +161,7 @@
             ],
             "styles": [
               "projects/business/src/styles.css",
+              "projects/business/src/assets/styles/style.scss",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []

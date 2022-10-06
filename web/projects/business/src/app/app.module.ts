@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {AppRoutes} from './app.routing';
@@ -18,7 +18,8 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {InterceptorService} from "./core/interceptor/interceptor.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {NgxPermissionsModule} from "ngx-permissions";
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './auth/login/login.component';
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {LoginComponent} from './login/login.component';
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import {LoginComponent} from './login/login.component';
     RouterModule.forRoot(AppRoutes),
     LeafletModule,
     NgxPermissionsModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [
     {

@@ -1,0 +1,109 @@
+<div class="parent-layout"
+     style="background: url('../../../assets/images/background.jpeg') center ;background-size: cover">
+  <div class="main-block bg-white rounded flex items-center content-center" style="padding: 40px;">
+    <div class="">
+      <div class="" fxLayout="row" fxLayoutAlign="center center">
+        <form novalidate [formGroup]="signUpForm" (ngSubmit)="signup()">
+          <p style="text-align: center; font-size: large; color: #004890; margin-bottom: 0px; margin-top: 10px;">
+            Đăng ký tài khoản
+          </p>
+          <div fxLayout="rows" fxLayout.sm="colums">
+            <mat-radio-group>
+              <mat-radio-button value="1" [checked]="true"
+                                style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px;">
+                Tài khoản doanh nghiệp
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" required formControlName="email">
+            <mat-error *ngIf="signUpForm.controls.email.hasError('required')">Nhập Email
+            </mat-error>
+            <mat-error *ngIf="signUpForm.controls.email.hasError('email')"> Nhập Email hợp lệ
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mật khẩu</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'"
+                   placeholder="Mật khẩu" required
+                   formControlName="password"
+                   (keydown.enter)="signup()">
+            <mat-error *ngIf="signUpForm.controls.password.hasError('required')">
+              Mật khẩu không được để trống
+            </mat-error>
+            <mat-error *ngIf="signUpForm.controls.password.hasError('pattern')">
+              Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt
+            </mat-error>
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon style="color: #3F3D56">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mã số thuế</mat-label>
+            <input matInput placeholder="Email" required formControlName="taxCode">
+            <mat-error *ngIf="signUpForm.controls.taxCode.hasError('required')">Nhập mã số thuế
+            </mat-error>
+            <mat-error *ngIf="signUpForm.controls.taxCode.hasError('taxCode')"> Nhập mã số thuế hợp lệ
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tên doanh nghiệp</mat-label>
+            <input matInput placeholder="Nhập tên" required formControlName="name">
+            <mat-error *ngIf="signUpForm.controls.name.hasError('required')">
+              Nhập tên doanh nghiệp
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Họ tên</mat-label>
+            <input matInput placeholder="Họ tên" required formControlName="displayName">
+            <mat-error *ngIf="signUpForm.controls.displayName.hasError('required')">Nhập họ tên
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Địa chỉ</mat-label>
+            <input matInput placeholder="Nhập đia chỉ" formControlName="address">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nhập số điện thoại</mat-label>
+            <input matInput placeholder="" formControlName="phone"
+                   maxlength="10" required>
+            <mat-error *ngIf="signUpForm.controls.phone.hasError('required')">
+              Nhập số điện thoại
+            </mat-error>
+            <mat-error *ngIf="signUpForm.controls.phone.hasError('pattern')">
+              Nhập số điện thoại hợp lệ
+            </mat-error>
+          </mat-form-field>
+
+
+          <div class="flex items-center content-around">
+            <div>
+              <button mat-flat-button color="primary" type="submit" class="">
+                Đăng ký
+              </button>
+            </div>
+            <div>
+              <button mat-button color="green" (click)="goToNav('login')">
+                Đăng nhập
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
