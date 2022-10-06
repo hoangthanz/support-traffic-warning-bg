@@ -1,0 +1,24 @@
+
+.search-bar {
+  @apply md:flex md:space-x-1 ;
+
+  .search-group {
+    .search-input {
+      @apply space-x-2 mr-2;
+      width: 250px;
+    }
+  }
+
+  .search-btn-group {
+    @apply flex-auto content-between;
+  }
+}
+.input_style{
+  @apply inline-flex items-center justify-end h-8 py-1.5 pl-1.5 bg-white border rounded border-gray-300 w-full;
+}
+
+input {
+  outline: none;
+  font-size: 14px;
+  font-weight: normal;
+}

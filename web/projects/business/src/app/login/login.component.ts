@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginModel} from "../shared/models/login-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {UserService} from "../layouts/services/user.service";
+import {UserService} from "../material-component/services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
     let loadingRegister = <boolean><unknown>localStorage.getItem('loading_register');
 
-    if (!loadingRegister)
+    if (false === loadingRegister)
       return;
 
     let username = localStorage.getItem('user_name_register')?.toString();

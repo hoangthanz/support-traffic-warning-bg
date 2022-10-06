@@ -1,0 +1,24 @@
+<h1 mat-dialog-title style="font-weight: bold;">Chú ý</h1>
+<div mat-dialog-content id="confirm-form">
+  <span style="font-weight:bold">{{ message }}</span>
+  <span *ngIf="subMessage" style="color: red;"> Chú ý: {{ subMessage }}</span>
+
+
+  <p style="color: #004890; font-weight: bold; font-style: italic;" *ngFor="let des of description">
+    - {{des}}
+  </p>
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button class="button-action" tabindex="-1" [mat-dialog-close]="false"
+          matTooltip="Hủy bỏ thao tác" (matTooltipPosition)="matTooltipPosition">
+    <mat-icon fxHide.xs>close</mat-icon>
+    Hủy bỏ
+  </button>
+  <button mat-button class="button-delete" mat-dialog-close tabindex="-1" [mat-dialog-close]="true"
+          (matTooltipPosition)="matTooltipPosition" [matTooltip]="matTooltip">
+    <mat-icon fxHide.xs>check</mat-icon>
+    Đồng ý
+  </button>
+</mat-dialog-actions>
