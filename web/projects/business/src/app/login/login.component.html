@@ -1,16 +1,17 @@
-<div class="parent-layout">
-  <div class="main-block">
-    <img src="assets/images/undraw_map_dark_re_36sy.svg" class="image-head"/>
-    <h2 style="text-align: center; color: #3f3d56;font-weight: 600;">Đăng Nhập</h2>
+<div class="parent-layout"
+     style="background: url('assets/images/background.jpeg') center ;background-size: cover">
+  <div class="main-block bg-white p-5 rounded">
+<!--    <img src="assets/images/background.jpeg" class="image-head"/>-->
+    <div class="head-login" style="">Đăng Nhập</div>
 
     <mat-form-field appearance="outline">
       <mat-label>Tài khoản</mat-label>
-      <input matInput placeholder="UserName" [(ngModel)]="user.userName" />
+      <input style="font-size: 18px" matInput placeholder="UserName" [(ngModel)]="user.userName" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Mật khẩu</mat-label>
-      <input matInput placeholder="********" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password"
+      <input style="font-size: 18px" matInput placeholder="********" [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password"
              (keyup.enter)="loginUser()">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide">
