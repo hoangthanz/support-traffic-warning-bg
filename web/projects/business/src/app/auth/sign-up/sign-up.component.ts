@@ -70,7 +70,6 @@ export class SignUpComponent implements OnInit {
 
 
   public loginUser = () => {
-    this.goToNav('');
     this._userService.Login(this.user.userName, this.user.password).subscribe((response: any) => {
       // khi đăng nhập thành công...
       //lưu token vào trong localStorage với key là access_token
@@ -81,6 +80,8 @@ export class SignUpComponent implements OnInit {
 
     }, (error) => {
       // lỗi thì làm gì?
+
+      this.goToNav('');
       this.openSnackBar('Đăng nhập không thành công!');
     })
   };
