@@ -13,6 +13,7 @@ import {SharedModule} from "../shared/shared.module";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {MapLockupComponent} from "./pages/map/map-lockup/map-lockup.component";
 import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-tracking.component";
+import {MonitoringComponent} from "./pages/monitoring/monitoring.component";
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {VehicleTrackingComponent} from "./pages/vehicle-tracking/vehicle-trackin
   entryComponents: [],
   declarations: [
     MapLockupComponent,
-    VehicleTrackingComponent
+    VehicleTrackingComponent,
+    MonitoringComponent
   ]
 })
 export class MaterialComponentsModule {

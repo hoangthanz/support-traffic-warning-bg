@@ -8,7 +8,8 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  {state: '', type: 'link', name: 'Map', icon: 'av_timer'},
+  {state: 'map', type: 'link', name: 'Map', icon: 'av_timer'},
+  {state: 'monitor', type: 'link', name: 'VEhicle', icon: 'av_timer'},
 ];
 
 @Injectable()

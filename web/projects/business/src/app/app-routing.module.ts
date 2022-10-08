@@ -11,7 +11,7 @@ export const AppRoutes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {
-        path: 'map',
+        path: '',
         loadChildren:
           () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
       },
