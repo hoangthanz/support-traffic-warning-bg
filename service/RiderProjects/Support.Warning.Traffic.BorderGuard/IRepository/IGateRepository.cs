@@ -14,4 +14,5 @@ public interface IGateRepository : IRepositoryBase<Gate>
     Task<RespondApi<Gate>> UpdateAsync(int id, GateCreate obj);
     Task<RespondApi<Gate>> DeleteAsync(int id);
     Task<RespondApi<Gate>> RemoveAsync(int id);
+    Task<RespondApi<Level>> CheckDangerValue(int gateId, bool IsMaxOrMin);
 }

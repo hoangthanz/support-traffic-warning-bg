@@ -181,4 +181,74 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
             return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
+
+    public async Task<RespondApi<Level>> CheckDangerValue(int gateId, bool IsMaxOrMin)
+    {
+        try
+        {
+            var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == gateId && !x.IsDeleted);
+            if (gate == null)
+                return new RespondApi<Level>()
+                    { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+            List<GateLevel> gateLevels = new List<GateLevel>();
+            if (IsMaxOrMin)
+            {
+                gateLevels = await _context.GateLevels.Where(x => x.GateId == gateId)
+                    .OrderByDescending(x => x.MaxValue)
+                    .ToListAsync();
+                if(gateLevels.Count <= 0)
+                    return new RespondApi<Level>()
+                        { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                foreach (var gateLevel in gateLevels)
+                {
+                    if (gateLevel.MaxValue <= gate.CountVehicle)
+                    {
+                        var level = await _context.Levels.FirstOrDefaultAsync(x => x.Id == gateLevel.LevelId);
+                        if (level == null)
+                        {
+                            return new RespondApi<Level>()
+                                { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                        }
+
+                        return new RespondApi<Level>()
+                        {
+                            Result = ResultRespond.Succeeded, Message = "Thành công", Data = level
+                        };
+                    }
+                }
+            }
+            else
+            {
+                gateLevels = await _context.GateLevels.Where(x => x.GateId == gateId)
+                    .OrderBy(x => x.MinValue)
+                    .ToListAsync();
+                if(gateLevels.Count <= 0)
+                    return new RespondApi<Level>()
+                        { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                foreach (var gateLevel in gateLevels)
+                {
+                    if (gateLevel.MinValue >= gate.CountVehicle)
+                    {
+                        var level = await _context.Levels.FirstOrDefaultAsync(x => x.Id == gateLevel.LevelId);
+                        if (level == null)
+                        {
+                            return new RespondApi<Level>()
+                                { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                        }
+
+                        return new RespondApi<Level>()
+                        {
+                            Result = ResultRespond.Succeeded, Message = "Thành công", Data = level
+                        };
+                    }
+                }
+            }
+            return new RespondApi<Level>()
+                { Result = ResultRespond.Succeeded, Message = "Cửa khẩu chưa đạt mức cảnh báo"};
+        }
+        catch (Exception ex)
+        {
+            return new RespondApi<Level>() { Result = ResultRespond.Error, Message = "Thất bại" };
+        }
+    }
 }

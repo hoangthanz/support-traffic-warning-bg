@@ -55,4 +55,9 @@ public class GateController : ControllerBase
     {
         return Ok(await _gateRepository.RemoveAsync(id));
     }
+    [HttpGet("danger")]
+    public async Task<IActionResult> GetLevelDanger([FromQuery]int gateId, bool IsMaxOrMin)
+    {
+        return Ok(await _gateRepository.CheckDangerValue(gateId, IsMaxOrMin));
+    }
 }
