@@ -92,7 +92,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/styles/style.scss"
+              "src/assets/styles/style.scss",
+              "../../node_modules/leaflet/dist/leaflet.css"
             ],
             "assets": [
               "src/assets",
@@ -159,7 +160,9 @@
               "projects/business/src/assets"
             ],
             "styles": [
-              "projects/business/src/styles.css"
+              "projects/business/src/styles.css",
+              "projects/business/src/assets/styles/style.scss",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
           },
@@ -226,7 +229,8 @@
               "projects/business/src/assets"
             ],
             "styles": [
-              "projects/business/src/styles.css"
+              "projects/business/src/styles.css",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
           }

@@ -1,0 +1,179 @@
+.mat-row:hover {
+  background: lightgray;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.text-header {
+  margin: 0 !important;
+  color: #fff !important;
+  text-align: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.h3 {
+  line-height: 30px;
+  font-size: 21px;
+}
+
+.header {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.block {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.shadow-no {
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+.green-progress .mat-progress-bar-fill::after {
+  background-color: #ffb22b !important;
+}
+
+.titleBlock {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.scroll {
+  overflow: auto;
+}
+
+.button-manager {
+  padding: 0;
+  margin: 1rem;
+  width: calc(100% - 1rem);
+  height: 120px;
+  border: none;
+  background-color: white;
+}
+
+.button-manager-top {
+  height: 50px;
+  position: relative;
+}
+
+.button-manager-bottom {
+  padding: 1rem;
+  padding-bottom: 0;
+  margin-top: 1rem !important;
+  font-weight: bold;
+}
+
+.button-manager-bottom-des {
+  padding: 1rem;
+  padding-top: 5px;
+  font-size: 12px;
+  color: black;
+  font-weight: 300;
+}
+
+.button-manager:hover {
+  background-color: whitesmoke;
+}
+
+.button-manager-top p {
+  line-height: 50px !important;
+  text-align: left !important;
+  padding-left: 1rem;
+  color: black;
+  font-weight: 300;
+}
+
+.button-manager-top img {
+  position: absolute;
+  top: 3rem;
+  width: 90px;
+  height: 90px;
+  // border-radius: 50%;
+  right: 1rem;
+}
+
+.button-manager p {
+  margin: 0;
+  word-break: break-word;
+  white-space: normal;
+  line-height: normal;
+  text-align: left;
+
+}
+
+.value-label-dash-board {
+  //padding: 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #4f5467;
+}
+
+.chart-block {
+  margin-top: 1rem;
+}
+
+.header-container {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 2rem;
+  color: #4f5467;
+  font-weight: bold;
+}
+
+.sub-header-title {
+  margin: 0;
+  font-size: 1rem;
+  color: black;
+}
+
+::ng-deep .ngx-charts .line-highlight {
+  display: block !important;
+}
+
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
+
+.mat-column-index{
+  flex: 50px 0 0;
+}
+
+
+.lens-green {
+  color: green;
+}
+
+.lens-yellow {
+  color: #d9b034;
+}
+
+.lens-light-blue {
+  color: #0c5ca8;
+}
+
+.lens-gray {
+  color: black;
+}
+
+.lens-blue {
+  color: #003060;
+}
+

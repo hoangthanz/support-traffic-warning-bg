@@ -1,0 +1,79 @@
+<mat-card class="mat-elevation-z0">
+  <div>
+    <mat-card-header>
+      <mat-card-title>Bản đồ</mat-card-title>
+      <mat-card-subtitle><code>&lt;Lạng sơn&gt;</code> thông tin tuyến đường.</mat-card-subtitle>
+    </mat-card-header>
+
+    <div fxLayout="row" fxLayoutAlign="end center">
+
+      <button mat-flat-button class="refresh-button" (click)="reload()"
+              matTooltip="">
+        <mat-icon>refresh</mat-icon>
+        Load
+      </button>
+
+      <button *ngIf="gateTargeted" mat-flat-button class="refresh-button"
+              matTooltip="" color="primary"
+              [mat-menu-trigger-for]="menu">
+        <mat-icon>leak_add</mat-icon>
+        {{gateTargeted?.name}}
+      </button>
+
+      <button (click)="openDialog()" mat-flat-button class="refresh-button" color="primary"
+              matTooltip="">
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content>
+    <div fxLayout="column">
+      <div fxFlex>
+        <p><strong>DAng len</strong></p>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-green">local_shipping</mat-icon>
+          <strong> 1h: <strong>{{predict?.arriveInOneHours ?? 0}}</strong> </strong>
+        </button>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-yellow">local_shipping</mat-icon>
+          2h: <strong>{{predict?.arriveInTwoHours ?? 0}}</strong>
+        </button>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-light-blue">local_shipping</mat-icon>
+          4h: <strong>{{predict?.arriveInFourHours ?? 0}}</strong>
+        </button>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-gray">local_shipping</mat-icon>
+          DAng len<strong>{{predict?.arriveInDay ?? 0}}</strong>
+        </button>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-gray">local_shipping</mat-icon>
+          DAng len <strong>{{predict?.arriveInNextDay ?? 0}}</strong>
+        </button>
+        <button mat-button matTooltip="DAng len">
+          <mat-icon class="lens-blue">local_shipping</mat-icon>
+          DAng len
+          <strong>{{(predict?.arriveInTwoDay + predict?.arriveInOneHours + predict?.arriveInTwoHours + predict?.arriveInDay + predict?.arriveInNextDay) ?? 0}}</strong>
+        </button>
+      </div>
+
+      <div id="idopenstreet"
+           style="height: calc(100vh - 325px);"
+           leaflet
+           [leafletOptions]="options"
+           [leafletLayers]="layers"
+           (leafletMapReady)="onMapReady($event)"
+           [leafletLayersControl]="layersControl"
+           (leafletClick)="onClick($event)"
+           (leafletMapZoom)="onZoom($event)"
+           (leafletMapMoveEnd)="onZoom($event)"
+      >
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let gate of gates" (click)="changeGate(gate)">{{gate.name}}</button>
+</mat-menu>

@@ -1,43 +1,40 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {AppRoutes} from './app.routing';
 import {AppComponent} from './app.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {FullComponent} from './layouts/full/full.component';
+import {AppHeaderComponent} from './layouts/full/header/header.component';
+import {AppSidebarComponent} from './layouts/full/sidebar/sidebar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DemoMaterialModule} from './demo-material-module';
 import {SharedModule} from './shared/shared.module';
 import {SpinnerComponent} from './shared/spinner.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {InterceptorService} from "./core/interceptor/interceptor.service";
 import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {NgxPermissionsModule} from "ngx-permissions";
-import {AppSidebarComponent} from "./layouts/pages/full/sidebar/sidebar.component";
-import {AppRoutes} from "./app-routing.module";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatIconModule} from "@angular/material/icon";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatInputModule} from "@angular/material/input";
-import {LoginComponent} from "./login/login.component";
-import {FullComponent} from "./layouts/pages/full/full.component";
-import {AppHeaderComponent} from "./layouts/pages/full/header/header.component";
-import {MatButtonModule} from "@angular/material/button";
+import {LoginComponent} from './auth/login/login.component';
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent,
-    AppSidebarComponent,
     FullComponent,
     AppHeaderComponent,
-    LoginComponent
+    SpinnerComponent,
+    AppSidebarComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    DemoMaterialModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
@@ -45,14 +42,7 @@ import {MatButtonModule} from "@angular/material/button";
     RouterModule.forRoot(AppRoutes),
     LeafletModule,
     NgxPermissionsModule.forRoot(),
-    MatFormFieldModule,
-    MatIconModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -63,11 +53,6 @@ import {MatButtonModule} from "@angular/material/button";
     JwtHelperService,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
   ],
-  exports: [
-    AppSidebarComponent,
-    SpinnerComponent
-  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginModel} from "../shared/models/login-model";
+import {LoginModel} from "../../shared/models/login-model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {UserService} from "../layouts/services/user.service";
+import {UserService} from "../../material-component/services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
     let loadingRegister = <boolean><unknown>localStorage.getItem('loading_register');
 
-    if (!loadingRegister)
+    if (false === loadingRegister)
       return;
 
     let username = localStorage.getItem('user_name_register')?.toString();
@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
 
 
   public loginUser = () => {
+    this.goToNav('');
     this._userService.Login(this.user.userName, this.user.password).subscribe((response: any) => {
       // khi đăng nhập thành công...
       //lưu token vào trong localStorage với key là access_token

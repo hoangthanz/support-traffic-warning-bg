@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 
 import {AuthGuardService} from "./core/guards/auth-guard.service";
 import {FullComponent} from "./layouts/pages/full/full.component";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./auth/login/login.component";
 
 export const AppRoutes: Routes = [
   {
@@ -11,7 +11,7 @@ export const AppRoutes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {
-        path: 'map',
+        path: '',
         loadChildren:
           () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
       },

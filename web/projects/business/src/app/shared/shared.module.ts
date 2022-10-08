@@ -1,17 +1,14 @@
 import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
+
 import {MenuItems} from './menu-items/menu-items';
-import {AccordionAnchorDirective, AccordionDirective, AccordionLinkDirective} from './accordion';
+import {AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective} from './accordion';
 import {AuthGuardService} from '../core/guards/auth-guard.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InterceptorService} from "../core/interceptor/interceptor.service";
-import {CommonModule, CurrencyPipe, DatePipe} from "@angular/common";
-import {LocationService} from "./services/location.service";
-import {appInitializer} from "../core/interceptor/app.initializer.service";
 import {AuthenticationService} from "../core/guards/authentication.service";
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
+import {appInitializer} from "../core/interceptor/app.initializer.service";
+import {CurrencyPipe, DatePipe} from "@angular/common";
+import {LocationService} from "./services/location.service";
 
 
 @NgModule({
@@ -23,28 +20,13 @@ import {RouterModule} from "@angular/router";
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    AccordionDirective
   ],
   imports: [
-    HttpClientModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    HttpClientModule
   ],
   providers: [
-    {
-      provide: MatDialogRef,
-      useValue: {}
-    },
-    MenuItems,
-    CurrencyPipe,
-    DatePipe,
+    MenuItems, CurrencyPipe, DatePipe,
   ]
 })
 export class SharedModule {
