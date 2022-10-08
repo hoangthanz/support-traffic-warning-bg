@@ -143,6 +143,30 @@ export class ConfigService {
       catchError(this.errorHandl))
   }
 
+  getGateLevel = () => {
+    return this._httpClient.get<ResponseApi<any>>(`${environment.main_domain}/GateLevels`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  createGateLevel = (request: any) => {
+    return this._httpClient.post<any>(`${environment.main_domain}/GateLevels`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  deleteGateLevel = (id: string) =>{
+    return this._httpClient.delete<any>(`${environment.main_domain}/GateLevels/${id}`).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
+  updateGateLevel = (id: number, request: any) => {
+    return this._httpClient.put<any>(`${environment.main_domain}/GateLevels/${id}`, request).pipe(
+      retry(1),
+      catchError(this.errorHandl))
+  }
+
   getLevel = () => {
     return this._httpClient.get<ResponseApi<any>>(`${environment.main_domain}/Levels`).pipe(
       retry(1),

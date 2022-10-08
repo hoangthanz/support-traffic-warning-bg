@@ -1,0 +1,51 @@
+<h2 mat-dialog-title><b>Tạo mức cảnh báo theo cua khau</b></h2>
+<mat-dialog-content>
+  <form novalidate [formGroup]='roleForm' (ngSubmit)='createGateLevel()'>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cửa khẩu</mat-label>
+      <mat-select formControlName='gateId'>
+        <mat-option *ngFor="let gate of listGate" [value]="gate.id">
+          {{gate.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="roleForm.controls.gateId.hasError('required')">
+        Vui lòng chọn cửa khẩu
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cửa khẩu</mat-label>
+      <mat-select formControlName='levelId'>
+        <mat-option *ngFor="let gate of listLevel" [value]="gate.id">
+          {{gate.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="roleForm.controls.levelId.hasError('required')">
+        Vui lòng chọn muc canh bao
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" matTooltip="Tên mức cảnh báo" matTooltipPosition='right'>
+      <mat-label>Gía tri toi thieu</mat-label>
+      <input formControlName='minValue' matInput type="number" placeholder="Tên mức cảnh báo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" matTooltip="Tên mức cảnh báo" matTooltipPosition='right'>
+      <mat-label>Gía tri toi đa</mat-label>
+      <input formControlName='maxValue' matInput type="number" placeholder="Tên mức cảnh báo" required>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" matTooltip="">
+    <mat-icon fxHide.xs>close</mat-icon>
+    Đóng
+  </button>
+  <button mat-flat-button type='submit' class='create-button' (click)="createGateLevel()" matTooltip="">
+    <mat-icon>done</mat-icon>
+    Xác nhận
+  </button>
+</mat-dialog-actions>

@@ -56,6 +56,10 @@ import {UpdateVehicleComponent} from "./components/vehicle/update-level/update-v
 import {CompanyPageComponent} from "./pages/company-page/company-page.component";
 import {UpdateCompanyComponent} from "./components/company/update-company/update-company.component";
 import {CreateCompanyComponent} from "./components/company/create-company/create-company.component";
+import {GateLevelPageComponent} from "./pages/gate-level-page/gate-level-page.component";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {UpdateGateLevelComponent} from "./components/gate-level/update-level/update-gate-level.component";
+import {CreateGateLevelComponent} from "./components/gate-level/create-level/create-gate-level.component";
 
 @NgModule({
   imports: [
@@ -70,7 +74,8 @@ import {CreateCompanyComponent} from "./components/company/create-company/create
     LeafletModule,
     FlexLayoutModule,
     NgApexchartsModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    DragDropModule
   ],
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
@@ -113,7 +118,10 @@ import {CreateCompanyComponent} from "./components/company/create-company/create
     CompanyPageComponent,
     UpdateCompanyComponent,
     CreateCompanyComponent,
-    AccountConfigComponent
+    AccountConfigComponent,
+    GateLevelPageComponent,
+    UpdateGateLevelComponent,
+    CreateGateLevelComponent,
   ]
 })
 export class MaterialComponentsModule {
