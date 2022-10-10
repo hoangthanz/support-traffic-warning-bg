@@ -2,6 +2,7 @@
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;
+using Support.Warning.Traffic.BorderGuard.ViewModels.Responds;
 
 namespace Support.Warning.Traffic.BorderGuard.IRepository;
 
@@ -16,4 +17,6 @@ public interface IVehicleRepository: IRepositoryBase<Vehicle>
     Task<RespondApi<string>> ConfirmVehicleOutGate(RequestRegisterVehicle model);
     Task<RespondApi<string>> RegisterManyVehicle(RequestRegisterManyVehicle model);
     Task<RespondApi<Vehicle>> PublishCurrentPositionOfVehicle(CurrentPosition model);
+    Task<RespondApi<List<RespondVehicleQuantityByVehicleType>>> GetVehicleQuantityByVehicleType();
+    Task<RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>> GetVehicleQuantityByVehicleTypeByDate(DateTime from, DateTime to);
 }

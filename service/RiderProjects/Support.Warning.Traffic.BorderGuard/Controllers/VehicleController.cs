@@ -62,4 +62,14 @@ public class VehicleController : ControllerBase
     {
         return Ok(await _vehicleRepository.PublishCurrentPositionOfVehicle(model));
     }
+    [HttpGet]
+    public async Task<IActionResult> GetVehicleQuantityByVehicleType()
+    {
+        return Ok(await _vehicleRepository.GetVehicleQuantityByVehicleType());
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetVehicleQuantityByVehicleTypeByDate([FromQuery] DateTime from, DateTime to)
+    {
+        return Ok(await _vehicleRepository.GetVehicleQuantityByVehicleTypeByDate(from, to));
+    }
 }

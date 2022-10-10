@@ -9,6 +9,7 @@ using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Realtime;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;
+using Support.Warning.Traffic.BorderGuard.ViewModels.Responds;
 
 namespace Support.Warning.Traffic.BorderGuard.Repository;
 
@@ -362,6 +363,76 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         catch (Exception e)
         {
             return new RespondApi<Vehicle>()
+            {
+                Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
+            };
+        }
+    }
+
+    public async Task<RespondApi<List<RespondVehicleQuantityByVehicleType>>> GetVehicleQuantityByVehicleType()
+    {
+        try
+        {
+            List<RespondVehicleQuantityByVehicleType> results = new List<RespondVehicleQuantityByVehicleType>();
+            var vehicleTypes = await _context.VehicleTypes.Where(x => !x.IsDeleted).ToListAsync();
+            foreach (var vehicleType in vehicleTypes)
+            {
+                var vehicles = await _context.VehicleRegistrationPaperDetails.Where(x => x.Vehicle.VehicleTypeId == vehicleType.Id )
+                    .ToListAsync();
+                var quantity = vehicles.Count;
+                results.Add(new RespondVehicleQuantityByVehicleType()
+                {
+                    VehicleType = vehicleType,
+                    Quantity = quantity
+                });
+            }
+
+            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>()
+            {
+                Result = ResultRespond.Succeeded,
+                Message = "Thành công",
+                Data = results
+            };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>()
+            {
+                Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
+            };
+        }
+    }
+
+    public async Task<RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>> GetVehicleQuantityByVehicleTypeByDate(DateTime from, DateTime to)
+    {
+        try
+        {
+            List<RespondVehicleQuantityByVehicleTypeAndDate> results = new List<RespondVehicleQuantityByVehicleTypeAndDate>();
+            var vehicleTypes = await _context.VehicleTypes.Where(x => !x.IsDeleted).ToListAsync();
+            foreach (var vehicleType in vehicleTypes)
+            {
+                var vehicles = await _context.VehicleRegistrationPaperDetails.Where(x => x.Vehicle.VehicleTypeId == vehicleType.Id 
+                                                                                         && DateTime.Compare(x.ArrivalDate, to) <= 0 
+                                                                                         && DateTime.Compare(x.ArrivalDate, from) >= 0)
+                    .ToListAsync();
+                var quantity = vehicles.Count;
+
+                results.Add(new RespondVehicleQuantityByVehicleTypeAndDate()
+                {
+                    VehicleType = vehicleType,
+                    Quantity = quantity
+                });
+            }
+            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>()
+            {
+                Result = ResultRespond.Succeeded,
+                Message = "Thành công",
+                Data = results
+            };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>()
             {
                 Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
             };
