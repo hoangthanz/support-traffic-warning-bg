@@ -24,6 +24,7 @@ import {RolePageComponent} from "./pages/role-page/role-page.component";
 import {LevelPageComponent} from "./pages/level-page/level-page.component";
 import {VehiclePageComponent} from "./pages/vehicle-page/vehicle-page.component";
 import {CompanyPageComponent} from "./pages/company-page/company-page.component";
+import {GateLevelPageComponent} from "./pages/gate-level-page/gate-level-page.component";
 
 export const MaterialRoutes: Routes = [
   {
@@ -33,6 +34,10 @@ export const MaterialRoutes: Routes = [
   {
     path: 'gate-config',
     component: GateConfigComponent
+  },
+  {
+    path: 'gate-level',
+    component: GateLevelPageComponent
   },
   {
     path: 'vehicle-traffic-chart',
