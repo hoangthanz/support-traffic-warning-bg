@@ -19,4 +19,5 @@ public interface IVehicleRepository: IRepositoryBase<Vehicle>
     Task<RespondApi<Vehicle>> PublishCurrentPositionOfVehicle(CurrentPosition model);
     Task<RespondApi<List<RespondVehicleQuantityByVehicleType>>> GetVehicleQuantityByVehicleType();
     Task<RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>> GetVehicleQuantityByVehicleTypeByDate(DateTime from, DateTime to);
+    Task<RespondApi<List<RespondVehicleQuantityByGateAndDate>>> GetVehicleQuantityByGateByDate(DateTime from, DateTime to, long gateId);
 }

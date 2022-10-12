@@ -439,6 +439,48 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         }
     }
 
+    public async Task<RespondApi<List<RespondVehicleQuantityByGateAndDate>>> GetVehicleQuantityByGateByDate(DateTime from, DateTime to, long gateId)
+    {
+        try
+        {
+            List<RespondVehicleQuantityByGateAndDate> results = new List<RespondVehicleQuantityByGateAndDate>();
+            var queryGate =  _context.Gates.Where(x => !x.IsDeleted);
+            if (gateId != null)
+            {
+                queryGate = queryGate.Where(x => x.Id == gateId);
+            }
+            var gates = await queryGate.ToListAsync();
+            foreach (var gate in gates)
+            {
+                var vehicles = await _context.VehicleRegistrationPaperDetails.Where(x => x.GateId == gate.Id 
+                                                                                         && DateTime.Compare(x.ArrivalDate, to) <= 0 
+                                                                                         && DateTime.Compare(x.ArrivalDate, from) >= 0)
+                    .ToListAsync();
+                var quantity = vehicles.Count;
+
+                results.Add(new RespondVehicleQuantityByGateAndDate()
+                {
+                    GateId = gate.Id,
+                    GateName = gate.Name,
+                    VehicleQuantity = quantity
+                });
+            }
+            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>()
+            {
+                Result = ResultRespond.Succeeded,
+                Message = "Thành công",
+                Data = results
+            };
+        }
+        catch (Exception e)
+        {
+            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>()
+            {
+                Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
+            };
+        }
+    }
+
     public double CalculatorDistance(double longtitude, double latitude, double longtitudeR, double latitudeR)
     {
         return Math.Sqrt((longtitude - longtitudeR) * (longtitude - longtitudeR) +
