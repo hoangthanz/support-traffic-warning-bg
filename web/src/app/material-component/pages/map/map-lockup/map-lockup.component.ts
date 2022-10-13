@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {HttpUrlEncodingCodec} from '@angular/common/http';
 import {OsmService} from "../../../services/osm.service";
+import {ConfigService} from "../../../services/config.service";
 
 @Component({
   selector: 'app-map-lockup',
@@ -91,7 +92,8 @@ export class MapLockupComponent implements OnInit {
   // center: latLng(21.87169463514273, 106.72393798828126),
   constructor(
     private locationService: LocationService,
-    private osmService: OsmService
+    private osmService: OsmService,
+    private configService: ConfigService,
   ) {
 
     // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -144,14 +146,25 @@ export class MapLockupComponent implements OnInit {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">Bản đồ số</a> thanhoangz',
     }).addTo(this.map);
     L.marker([this.pos.lat, this.pos.lng], this.currentLocationIcon).addTo(this.map);
-    L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).addTo(this.map);
+    // L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).addTo(this.map);
     this.map.on("click", (e: any) => {
       L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map);
 
     });
+    this.getGateInfos();
   }
 
-
+  getGateInfos() {
+    this.configService.getGate().subscribe((response: any) => {
+      if (1 == response?.result) {
+        const gates = response?.data;
+        console.log(gates);
+        for (let i = 0; i < gates.length; i++) {
+          L.marker([gates[i]?.longitude,gates[i]?.latitude], this.markerIcon).addTo(this.map);
+        }
+      }
+    })
+  }
   changeLocation(): any {
     this.map.flyTo([this.pos.lat, this.pos.lng], 12);
     L.marker([this.pos.lat, this.pos.lng], this.currentLocationIcon).addTo(this.map);
