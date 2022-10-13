@@ -21,10 +21,12 @@ public class GateCreate
     public string ProvinceId { get; set; }
 
     public string DistrictId { get; set; }
+    public double RadiusGate { set; get; }
 
     public string WardId { get; set; }
     public NationalLevel NationalLevel { get; set; } = NationalLevel.Nation;
     public TypeOfShipping TypeOfShipping { get; set; } = TypeOfShipping.Road;
     public bool EconomicSector { get; set; } = false;
     public string CountryCode { get; set; } = "cn";
+    public int CountVehicle { get; set; } = 0;
 }

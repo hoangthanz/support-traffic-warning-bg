@@ -141,6 +141,59 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.ToTable("Areas");
                 });
 
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.Company", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TaxCode")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UpdatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company");
+                });
+
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.ExportImportType", b =>
                 {
                     b.Property<int>("Id")
@@ -201,6 +254,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("CountVehicle")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CountryCode")
                         .HasColumnType("text");
 
@@ -241,6 +297,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<string>("ProvinceId")
                         .HasColumnType("text");
+
+                    b.Property<double>("RadiusGate")
+                        .HasColumnType("double precision");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
@@ -410,14 +469,14 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("GateId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("InGate")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("LicencePlate")
                         .IsRequired()
@@ -425,6 +484,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<decimal>("LoadDueToOwnWeight")
                         .HasColumnType("numeric");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("NomalizanameLicencePlate")
                         .HasColumnType("text");
@@ -481,6 +543,88 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.HasIndex("VehicleId");
 
                     b.ToTable("VehicleDetails");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaper", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CompanyId1")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ExportImportTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GateId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsFinish")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPushed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UpdatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId1");
+
+                    b.HasIndex("ExportImportTypeId");
+
+                    b.ToTable("VehicleRegistrationPapers");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaperDetail", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("GateId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsFinish")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("VehicleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("VehicleRegistrationPaperId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.HasIndex("VehicleRegistrationPaperId");
+
+                    b.ToTable("VehicleRegistrationPaperDetails");
                 });
 
             modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleType", b =>
@@ -967,6 +1111,41 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Navigation("Gate");
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaper", b =>
+                {
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId1");
+
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.ExportImportType", "ExportImportType")
+                        .WithMany()
+                        .HasForeignKey("ExportImportTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("ExportImportType");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaperDetail", b =>
+                {
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId");
+
+                    b.HasOne("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaper", null)
+                        .WithMany("PaperDetails")
+                        .HasForeignKey("VehicleRegistrationPaperId");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Support.Warning.Traffic.BorderGuard.Models.Business.VehicleRegistrationPaper", b =>
+                {
+                    b.Navigation("PaperDetails");
                 });
 #pragma warning restore 612, 618
         }

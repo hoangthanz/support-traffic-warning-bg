@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     /// <inheritdoc />
-    public partial class initialize : Migration
+    public partial class version_11010_ : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,6 +57,30 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Areas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Company",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: true),
+                    TaxCode = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Company", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,6 +137,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    RadiusGate = table.Column<double>(type: "double precision", nullable: false),
                     ProvinceId = table.Column<string>(type: "text", nullable: true),
                     DistrictId = table.Column<string>(type: "text", nullable: true),
                     WardId = table.Column<string>(type: "text", nullable: true),
@@ -120,6 +145,7 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     TypeOfShipping = table.Column<int>(type: "integer", nullable: false),
                     EconomicSector = table.Column<bool>(type: "boolean", nullable: false),
                     CountryCode = table.Column<string>(type: "text", nullable: true),
+                    CountVehicle = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -283,6 +309,41 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_wards", x => x.code);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleRegistrationPapers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    GateId = table.Column<int>(type: "integer", nullable: false),
+                    ArrivalDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    IsPushed = table.Column<bool>(type: "boolean", nullable: false),
+                    ExportImportTypeId = table.Column<int>(type: "integer", nullable: false),
+                    CompanyId = table.Column<int>(type: "integer", nullable: true),
+                    CompanyId1 = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsFinish = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleRegistrationPapers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleRegistrationPapers_Company_CompanyId1",
+                        column: x => x.CompanyId1,
+                        principalTable: "Company",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_VehicleRegistrationPapers_ExportImportTypes_ExportImportTyp~",
+                        column: x => x.ExportImportTypeId,
+                        principalTable: "ExportImportTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -461,10 +522,11 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     VehicleTypeId = table.Column<int>(type: "integer", nullable: false),
                     LicencePlate = table.Column<string>(type: "text", nullable: false),
                     NomalizanameLicencePlate = table.Column<string>(type: "text", nullable: true),
-                    GateId = table.Column<int>(type: "integer", nullable: false),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
                     DriverName = table.Column<string>(type: "text", nullable: false),
                     DriverPhone = table.Column<string>(type: "text", nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
                     InGate = table.Column<bool>(type: "boolean", nullable: false),
                     LoadDueToOwnWeight = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -512,6 +574,32 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                         principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleRegistrationPaperDetails",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    VehicleRegistrationPaperId = table.Column<string>(type: "text", nullable: true),
+                    VehicleId = table.Column<int>(type: "integer", nullable: true),
+                    ArrivalDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    IsFinish = table.Column<bool>(type: "boolean", nullable: false),
+                    GateId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleRegistrationPaperDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleRegistrationPaperDetails_VehicleRegistrationPapers_V~",
+                        column: x => x.VehicleRegistrationPaperId,
+                        principalTable: "VehicleRegistrationPapers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_VehicleRegistrationPaperDetails_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -577,6 +665,26 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VehicleRegistrationPaperDetails_VehicleId",
+                table: "VehicleRegistrationPaperDetails",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleRegistrationPaperDetails_VehicleRegistrationPaperId",
+                table: "VehicleRegistrationPaperDetails",
+                column: "VehicleRegistrationPaperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleRegistrationPapers_CompanyId1",
+                table: "VehicleRegistrationPapers",
+                column: "CompanyId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleRegistrationPapers_ExportImportTypeId",
+                table: "VehicleRegistrationPapers",
+                column: "ExportImportTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_VehicleTypeId",
                 table: "Vehicles",
                 column: "VehicleTypeId");
@@ -596,9 +704,6 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
             migrationBuilder.DropTable(
                 name: "districts");
-
-            migrationBuilder.DropTable(
-                name: "ExportImportTypes");
 
             migrationBuilder.DropTable(
                 name: "GateLevels");
@@ -631,6 +736,9 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "VehicleDetails");
 
             migrationBuilder.DropTable(
+                name: "VehicleRegistrationPaperDetails");
+
+            migrationBuilder.DropTable(
                 name: "wards");
 
             migrationBuilder.DropTable(
@@ -646,7 +754,16 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                 name: "Gates");
 
             migrationBuilder.DropTable(
+                name: "VehicleRegistrationPapers");
+
+            migrationBuilder.DropTable(
                 name: "Vehicles");
+
+            migrationBuilder.DropTable(
+                name: "Company");
+
+            migrationBuilder.DropTable(
+                name: "ExportImportTypes");
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");
