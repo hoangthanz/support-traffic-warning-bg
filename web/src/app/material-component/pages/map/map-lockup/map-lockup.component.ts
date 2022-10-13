@@ -146,7 +146,7 @@ export class MapLockupComponent implements OnInit {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">Bản đồ số</a> thanhoangz',
     }).addTo(this.map);
     L.marker([this.pos.lat, this.pos.lng], this.currentLocationIcon).addTo(this.map);
-    // L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).addTo(this.map);
+    L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).bindPopup(`huu nghi`).addTo(this.map);
     this.map.on("click", (e: any) => {
       L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map);
 
@@ -160,7 +160,7 @@ export class MapLockupComponent implements OnInit {
         const gates = response?.data;
         console.log(gates);
         for (let i = 0; i < gates.length; i++) {
-          L.marker([gates[i]?.longitude,gates[i]?.latitude], this.markerIcon).addTo(this.map);
+          L.marker([gates[i]?.longitude,gates[i]?.latitude], this.markerIcon).bindPopup(`${gates[i]?.name}`).addTo(this.map);
         }
       }
     })
