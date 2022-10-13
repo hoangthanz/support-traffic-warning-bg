@@ -15,7 +15,7 @@ public class VehicleController : ControllerBase
         _vehicleRepository = vehicleRepository;
     }
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public async Task<IActionResult> GetVehicles([FromQuery] RequestGetVehicles model)
     {
         return Ok(await _vehicleRepository.GetVehicles(model));
@@ -62,12 +62,12 @@ public class VehicleController : ControllerBase
     {
         return Ok(await _vehicleRepository.PublishCurrentPositionOfVehicle(model));
     }
-    [HttpGet]
+    [HttpGet("get-vehicle-quantity-by-gate")]
     public async Task<IActionResult> GetVehicleQuantityByVehicleType()
     {
         return Ok(await _vehicleRepository.GetVehicleQuantityByVehicleType());
     }
-    [HttpGet]
+    [HttpGet("get-vehicle-quantity-by-gate-condition")]
     public async Task<IActionResult> GetVehicleQuantityByVehicleTypeByDate([FromQuery] DateTime from, DateTime to)
     {
         return Ok(await _vehicleRepository.GetVehicleQuantityByVehicleTypeByDate(from, to));
