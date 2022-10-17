@@ -5,7 +5,7 @@ using Common.Service.Interfaces;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 
-public class Level: IDateTracking, IUserTracking, ICheckTracking
+public class Level: ICheckTracking
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,11 +14,8 @@ public class Level: IDateTracking, IUserTracking, ICheckTracking
     
     public string Name { get; set; }
     public string Description { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdatedDate { get; set; }
-    public Guid CreatedUserId { get; set; }
-    public Guid UpdatedUserId { get; set; }
+    public string Color { get; set; }
+    
     public bool IsDeleted { get; set; }
     public bool Status { get; set; }
 }

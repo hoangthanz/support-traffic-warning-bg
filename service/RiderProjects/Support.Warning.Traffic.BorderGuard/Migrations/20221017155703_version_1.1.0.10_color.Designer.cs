@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Support.Warning.Traffic.BorderGuard;
@@ -11,9 +12,11 @@ using Support.Warning.Traffic.BorderGuard;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     [DbContext(typeof(SupportWarningContext))]
-    partial class SupportWarningContextModelSnapshot : ModelSnapshot
+    [Migration("20221017155703_version_1.1.0.10_color")]
+    partial class version_11010_color
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,6 +364,12 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -372,6 +381,12 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UpdatedUserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

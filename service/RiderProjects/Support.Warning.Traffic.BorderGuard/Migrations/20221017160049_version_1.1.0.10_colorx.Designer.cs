@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Support.Warning.Traffic.BorderGuard;
@@ -11,9 +12,11 @@ using Support.Warning.Traffic.BorderGuard;
 namespace Support.Warning.Traffic.BorderGuard.Migrations
 {
     [DbContext(typeof(SupportWarningContext))]
-    partial class SupportWarningContextModelSnapshot : ModelSnapshot
+    [Migration("20221017160049_version_1.1.0.10_colorx")]
+    partial class version_11010_colorx
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
