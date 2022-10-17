@@ -15,9 +15,23 @@ export class CreateLevelComponent {
   public roleForm: FormGroup = new FormGroup(
     {
       name: new FormControl('', [Validators.required]),
+      color: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required])
     }
   );
+    colors = [
+        {value: 'red', viewValue: 'Red'},
+        {value: 'blue', viewValue: 'Blue'},
+        {value: 'green', viewValue: 'Green'},
+        {value: 'yellow', viewValue: 'Yellow'},
+        {value: 'pink', viewValue: 'Pink'},
+        {value: 'purple', viewValue: 'Purple'},
+        {value: 'orange', viewValue: 'Orange'},
+        {value: 'brown', viewValue: 'Brown'},
+        {value: 'grey', viewValue: 'Grey'},
+        {value: 'black', viewValue: 'Black'},
+    ];
+
 
   constructor(
     private _dialogRef: MatDialogRef<CreateLevelComponent>,

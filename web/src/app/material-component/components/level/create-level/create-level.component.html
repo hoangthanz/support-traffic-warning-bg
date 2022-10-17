@@ -6,6 +6,15 @@
       <input formControlName='name' matInput placeholder="Tên mức cảnh báo" required>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" matTooltip="Màu sắc cảnh báo" matTooltipPosition='right'>
+      <mat-label>Màu sắc</mat-label>
+      <mat-select formControlName='color'>
+        <mat-option *ngFor="let color of colors" [value]="color.value">
+          {{color.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field appearance="outline" matTooltip="Mô tả" matTooltipPosition='right'>
       <mat-label>Mô tả</mat-label>
       <input formControlName='description' matInput placeholder="Mô tả" required/>

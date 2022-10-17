@@ -8,8 +8,8 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  {state: 'map', type: 'link', name: 'Map', icon: 'av_timer'},
-  {state: 'monitor', type: 'link', name: 'VEhicle', icon: 'av_timer'},
+  {state: 'map', type: 'link', name: 'Tra cứu xe', icon: 'map'},
+  {state: 'monitor', type: 'link', name: 'Bản đồ', icon: 'map'},
 ];
 
 @Injectable()
