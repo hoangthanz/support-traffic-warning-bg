@@ -9,5 +9,5 @@ public enum NationalLevel
     [Description("Quốc tế")]
     International = 1,
     [Description("Tỉnh")]
-    City = 1
+    City = 2
 }
