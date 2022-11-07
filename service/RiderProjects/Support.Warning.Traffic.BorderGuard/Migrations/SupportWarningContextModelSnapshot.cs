@@ -361,6 +361,12 @@ namespace Support.Warning.Traffic.BorderGuard.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 

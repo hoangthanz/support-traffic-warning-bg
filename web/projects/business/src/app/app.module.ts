@@ -20,39 +20,42 @@ import {JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
 import {NgxPermissionsModule} from "ngx-permissions";
 import {LoginComponent} from './auth/login/login.component';
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+import {GisMapOsmComponent} from './gis-map-osm/gis-map-osm.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FullComponent,
-    AppHeaderComponent,
-    SpinnerComponent,
-    AppSidebarComponent,
-    LoginComponent,
-    SignUpComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    DemoMaterialModule,
-    FormsModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    SharedModule.forRoot(),
-    RouterModule.forRoot(AppRoutes),
-    LeafletModule,
-    NgxPermissionsModule.forRoot(),
-    ReactiveFormsModule,
-  ],
-  providers: [
-    {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy,
-    },
-    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
-    JwtHelperService,
-    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        FullComponent,
+        AppHeaderComponent,
+        SpinnerComponent,
+        AppSidebarComponent,
+        LoginComponent,
+        SignUpComponent,
+        GisMapOsmComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        DemoMaterialModule,
+        FormsModule,
+        FlexLayoutModule,
+        HttpClientModule,
+        SharedModule.forRoot(),
+        RouterModule.forRoot(AppRoutes),
+        LeafletModule,
+        NgxPermissionsModule.forRoot(),
+        ReactiveFormsModule,
+    ],
+    providers: [
+        {
+            provide: LocationStrategy,
+            useClass: PathLocationStrategy,
+        },
+        {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+        JwtHelperService,
+        {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

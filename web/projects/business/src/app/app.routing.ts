@@ -1,22 +1,14 @@
-import {Routes} from '@angular/router';
-
-import {FullComponent} from './layouts/full/full.component';
-import {LoginComponent} from "./auth/login/login.component";
-import {AuthGuardService} from "./core/guards/auth-guard.service";
-import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+import { Routes } from '@angular/router';
+import { LoginComponent } from "./auth/login/login.component";
+import { AuthGuardService } from "./core/guards/auth-guard.service";
+import { SignUpComponent } from "./auth/sign-up/sign-up.component";
+import { GisMapOsmComponent } from './gis-map-osm/gis-map-osm.component';
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: FullComponent,
-    canActivate: [AuthGuardService],
-    children: [
-      {
-        path: '',
-        loadChildren:
-          () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
-      },
-    ]
+    component: GisMapOsmComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
