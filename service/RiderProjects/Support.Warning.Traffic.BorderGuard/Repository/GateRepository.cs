@@ -1,6 +1,7 @@
-﻿using AutoMapper;
-using Common.Service.Models.Respond;
+﻿using System.Linq.Dynamic.Core;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
@@ -24,12 +25,11 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         try
         {
             var result = await _context.Gates.Where(x => !x.IsDeleted).ToListAsync();
-            return new RespondApi<List<Gate>>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
+            return new RespondApi<List<Gate>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
         }
         catch (Exception e)
         {
-            return new RespondApi<List<Gate>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
+            return new RespondApi<List<Gate>> { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
         }
     }
 
@@ -67,17 +67,15 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                 paging.TotalRecords = await query.CountAsync();
                 paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords, paging.PageSize));
                 gates = await query.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
-                return new RespondApiPaging<List<Gate>>()
-                    { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gates, PagingResponse = paging };
+                return new RespondApiPaging<List<Gate>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gates, PagingResponse = paging };
             }
 
             gates = await query.ToListAsync();
-            return new RespondApiPaging<List<Gate>>()
-                { Result = ResultRespond.Succeeded, Message = "Success", Data = gates };
+            return new RespondApiPaging<List<Gate>> { Result = ResultRespond.Succeeded, Message = "Success", Data = gates };
         }
         catch (Exception e)
         {
-            return new RespondApiPaging<List<Gate>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
+            return new RespondApiPaging<List<Gate>> { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<Gate>() };
         }
     }
 
@@ -86,12 +84,11 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         try
         {
             var result = await _context.Gates.FirstOrDefaultAsync(x => x.Id == id);
-            return new RespondApi<Gate>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
+            return new RespondApi<Gate> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
         }
         catch (Exception e)
         {
-            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+            return new RespondApi<Gate> { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
 
@@ -106,11 +103,11 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
             gate.IsDeleted = false;
             await _context.Gates.AddAsync(gate);
             await _context.SaveChangesAsync();
-            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gate };
+            return new RespondApi<Gate> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = gate };
         }
         catch (Exception e)
         {
-            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+            return new RespondApi<Gate> { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
 
@@ -120,13 +117,11 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         {
             var obj = await _context.Gates.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
             if(obj == null)
-                return new RespondApi<Gate>()
-                    { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
+                return new RespondApi<Gate> { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
             var duplicateGate = await _context.Gates.FirstOrDefaultAsync(x => !x.IsDeleted && (x.Name == model.Name || 
                     x.Code == model.Code) && x.Id != id);
             if (duplicateGate != null)
-                return new RespondApi<Gate>()
-                    { Result = ResultRespond.Duplication, Message = "tên hoặc mã cửa khẩu đã tồn tại" };
+                return new RespondApi<Gate> { Result = ResultRespond.Duplication, Message = "tên hoặc mã cửa khẩu đã tồn tại" };
             obj.Code = model.Code;
             obj.Name = model.Name;
             obj.Description = model.Description;
@@ -139,11 +134,11 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
             obj.WardId = model.WardId;
 
             await _context.SaveChangesAsync();
-            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
+            return new RespondApi<Gate> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
         }
         catch (Exception e)
         {
-            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+            return new RespondApi<Gate> { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
 
@@ -153,15 +148,14 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         {
             var obj = await _context.Gates.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
             if(obj == null)
-                return new RespondApi<Gate>()
-                    { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
+                return new RespondApi<Gate> { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
             obj.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
+            return new RespondApi<Gate> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
         }
         catch (Exception e)
         {
-            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+            return new RespondApi<Gate> { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
     public async Task<RespondApi<Gate>> RemoveAsync(int id)
@@ -170,15 +164,14 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         {
             var obj = await _context.Gates.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
             if(obj == null)
-                return new RespondApi<Gate>()
-                    { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
+                return new RespondApi<Gate> { Result = ResultRespond.Duplication, Message = "Không tồn tại id cửa khẩu này" };
             _context.Remove(obj);
             await _context.SaveChangesAsync();
-            return new RespondApi<Gate>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
+            return new RespondApi<Gate> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = obj };
         }
         catch (Exception e)
         {
-            return new RespondApi<Gate>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
+            return new RespondApi<Gate> { Result = ResultRespond.Error, Message = "Thất bại", Data = new Gate() };
         }
     }
 
@@ -188,8 +181,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
         {
             var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == gateId && !x.IsDeleted);
             if (gate == null)
-                return new RespondApi<Level>()
-                    { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+                return new RespondApi<Level> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
             List<GateLevel> gateLevels = new List<GateLevel>();
             if (IsMaxOrMin)
             {
@@ -197,8 +189,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                     .OrderByDescending(x => x.MaxValue)
                     .ToListAsync();
                 if(gateLevels.Count <= 0)
-                    return new RespondApi<Level>()
-                        { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                    return new RespondApi<Level> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
                 foreach (var gateLevel in gateLevels)
                 {
                     if (gateLevel.MaxValue <= gate.CountVehicle)
@@ -206,11 +197,10 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                         var level = await _context.Levels.FirstOrDefaultAsync(x => x.Id == gateLevel.LevelId);
                         if (level == null)
                         {
-                            return new RespondApi<Level>()
-                                { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                            return new RespondApi<Level> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
                         }
 
-                        return new RespondApi<Level>()
+                        return new RespondApi<Level>
                         {
                             Result = ResultRespond.Succeeded, Message = "Thành công", Data = level
                         };
@@ -223,8 +213,7 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                     .OrderBy(x => x.MinValue)
                     .ToListAsync();
                 if(gateLevels.Count <= 0)
-                    return new RespondApi<Level>()
-                        { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                    return new RespondApi<Level> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
                 foreach (var gateLevel in gateLevels)
                 {
                     if (gateLevel.MinValue >= gate.CountVehicle)
@@ -232,23 +221,21 @@ public class GateRepository : RepositoryBase<Gate>, IGateRepository
                         var level = await _context.Levels.FirstOrDefaultAsync(x => x.Id == gateLevel.LevelId);
                         if (level == null)
                         {
-                            return new RespondApi<Level>()
-                                { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
+                            return new RespondApi<Level> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin mức cảnh báo" };
                         }
 
-                        return new RespondApi<Level>()
+                        return new RespondApi<Level>
                         {
                             Result = ResultRespond.Succeeded, Message = "Thành công", Data = level
                         };
                     }
                 }
             }
-            return new RespondApi<Level>()
-                { Result = ResultRespond.Succeeded, Message = "Cửa khẩu chưa đạt mức cảnh báo"};
+            return new RespondApi<Level> { Result = ResultRespond.Succeeded, Message = "Cửa khẩu chưa đạt mức cảnh báo"};
         }
         catch (Exception ex)
         {
-            return new RespondApi<Level>() { Result = ResultRespond.Error, Message = "Thất bại" };
+            return new RespondApi<Level> { Result = ResultRespond.Error, Message = "Thất bại" };
         }
     }
 }

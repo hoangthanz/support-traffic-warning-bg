@@ -1,5 +1,5 @@
-﻿using Common.Service.Models.Request;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 
 namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;

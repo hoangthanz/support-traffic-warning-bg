@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using Common.Service.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Support.Warning.Traffic.BorderGuard.Common.Models.Interfaces;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 

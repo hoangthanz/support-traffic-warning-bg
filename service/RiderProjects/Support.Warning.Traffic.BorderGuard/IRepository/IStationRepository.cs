@@ -1,4 +1,4 @@
-﻿using Common.Service.Models.Respond;
+﻿using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 

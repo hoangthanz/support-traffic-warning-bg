@@ -1,6 +1,6 @@
-﻿using Common.Service.Interfaces;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common.Models.Interfaces;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.Models.Region;

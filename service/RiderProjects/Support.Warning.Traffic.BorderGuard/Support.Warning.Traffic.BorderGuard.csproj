@@ -39,9 +39,24 @@
 
     <ItemGroup>
       <Folder Include="Models\Map" />
-      <Folder Include="Mongodb\Context" />
       <Folder Include="Mongodb\Interfaces" />
       <Folder Include="Mongodb\Repository" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Mongodb\Context\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Mongodb\Context\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Mongodb\Context\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Mongodb\Context\**" />
     </ItemGroup>
 
 </Project>

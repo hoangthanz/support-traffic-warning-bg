@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Map;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Map;

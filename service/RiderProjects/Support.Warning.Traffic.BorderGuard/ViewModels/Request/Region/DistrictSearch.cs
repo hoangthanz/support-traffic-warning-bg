@@ -1,5 +1,4 @@
-﻿using Common.Service.Models.Request;
-using Common.Service.Models.Respond;
+﻿using Support.Warning.Traffic.BorderGuard.Common;
 
 namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Region;
 

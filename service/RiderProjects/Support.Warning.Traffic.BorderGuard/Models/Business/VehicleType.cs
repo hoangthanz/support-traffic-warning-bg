@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Common.Service.Interfaces;
+using Support.Warning.Traffic.BorderGuard.Common.Models.Interfaces;
 
 namespace Support.Warning.Traffic.BorderGuard.Models.Business;
 

@@ -1,7 +1,6 @@
-﻿using Common.Service.Models.Respond;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.IRepository;
-using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.Models.Region;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Region;
 
@@ -21,12 +20,11 @@ public class ProvinceRepository : IProvinceRepository
         try
         {
             var result = await _context.provinces.ToListAsync();
-            return new RespondApi<List<provinces>>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
+            return new RespondApi<List<provinces>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = result };
         }
         catch (Exception e)
         {
-            return new RespondApi<List<provinces>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<provinces>() };
+            return new RespondApi<List<provinces>> { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<provinces>() };
         }
     }
 
@@ -45,12 +43,11 @@ public class ProvinceRepository : IProvinceRepository
                     .ToListAsync();
             else
                 provinces = await _context.provinces.ToListAsync();
-            return new RespondApi<List<provinces>>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = provinces };
+            return new RespondApi<List<provinces>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = provinces };
         }
         catch (Exception e)
         {
-            return new RespondApi<List<provinces>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<provinces>() };
+            return new RespondApi<List<provinces>> { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<provinces>() };
         }
     }
 }

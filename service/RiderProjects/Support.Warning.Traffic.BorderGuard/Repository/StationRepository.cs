@@ -1,5 +1,5 @@
-﻿using Common.Service.Models.Respond;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
@@ -21,7 +21,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         try
         {
             var stations = await _context.Stations.Where(x => !x.IsDeleted).ToListAsync();
-            return new RespondApi<List<Station>>()
+            return new RespondApi<List<Station>>
             {
                 Code = "00",
                 Message = "Success",
@@ -31,7 +31,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<List<Station>>()
+            return new RespondApi<List<Station>>
             {
                 Code = "00",
                 Message = "Error",
@@ -46,7 +46,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         try
         {
             var station = await _context.Stations.Where(x => x.Id == id && !x.IsDeleted).FirstOrDefaultAsync();
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Success",
@@ -56,7 +56,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Error",
@@ -73,7 +73,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == model.GateId && !x.IsDeleted);
             if (gate == null)
             {
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Không tìm thấy cửa khẩu",
@@ -85,7 +85,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             var station = await _context.Stations.FirstOrDefaultAsync(x =>
                 !x.IsDeleted && x.Name == model.Name && x.GateId == model.GateId);
             if (null != station)
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Đã tồn tại trạm này trong cửa khẩu",
@@ -93,7 +93,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
                     Result = ResultRespond.Error
                 };
 
-            var newStation = new Station()
+            var newStation = new Station
             {
                 Name = model.Name,
                 GateId = model.GateId,
@@ -111,7 +111,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
 
             await _context.Stations.AddAsync(newStation);
             await _context.SaveChangesAsync();
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Thêm thành công",
@@ -121,7 +121,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Lỗi ngoại lệ khi thêm",
@@ -138,7 +138,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             var station = await _context.Stations.FirstOrDefaultAsync(x =>
                 !x.IsDeleted && x.Id == id);
             if (null == station)
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Trạm này không tồn tại trong cơ sở dữ liệu",
@@ -146,7 +146,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
                     Result = ResultRespond.Error
                 };
             if(id !=  obj.Id)
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Dữ liệu thay đổi thông tin trạm không trùng mã trạm",
@@ -157,7 +157,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == obj.GateId && !x.IsDeleted);
             if (gate == null)
             {
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Không tìm thấy cửa khẩu",
@@ -181,7 +181,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             station.Status = obj.Status;
          
             await _context.SaveChangesAsync();
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Cập nhật thành công",
@@ -191,7 +191,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Lỗi ngoại lệ khi cập nhật",
@@ -208,7 +208,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             var station = await _context.Stations.FirstOrDefaultAsync(x =>
                 !x.IsDeleted && x.Id == id);
             if (null == station)
-                return new RespondApi<Station>()
+                return new RespondApi<Station>
                 {
                     Code = "00",
                     Message = "Trạm này không tồn tại trong cơ sở dữ liệu",
@@ -218,7 +218,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
             
             station.IsDeleted = true;
             await _context.SaveChangesAsync();
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Xóa thành công",
@@ -228,7 +228,7 @@ public class StationRepository : RepositoryBase<Station>, IStationRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<Station>()
+            return new RespondApi<Station>
             {
                 Code = "00",
                 Message = "Xóa trạm không thành công",

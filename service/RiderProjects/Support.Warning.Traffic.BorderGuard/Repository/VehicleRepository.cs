@@ -1,8 +1,7 @@
-﻿using System.Security.Claims;
-using Common.Service.Models.Respond;
-using Microsoft.AspNetCore.SignalR;
+﻿using System.Linq.Dynamic.Core;
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using ServiceStack;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.HubConfig;
 using Support.Warning.Traffic.BorderGuard.IRepository;
@@ -67,13 +66,11 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             paging.TotalRecords = await query.CountAsync();
             paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords, paging.PageSize));
             vehicles = await query.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
-            return new RespondApiPaging<List<Vehicle>>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles, PagingResponse = paging };
+            return new RespondApiPaging<List<Vehicle>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles, PagingResponse = paging };
         }
 
         vehicles = await query.ToListAsync();
-        return new RespondApiPaging<List<Vehicle>>()
-            { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles };
+        return new RespondApiPaging<List<Vehicle>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles };
     }
 
     public async Task<RespondApi<Vehicle>> GetById(int id)
@@ -81,11 +78,10 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
         if (vehicle == null)
         {
-            return new RespondApi<Vehicle>()
-                { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
+            return new RespondApi<Vehicle> { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
         }
 
-        return new RespondApi<Vehicle>()
+        return new RespondApi<Vehicle>
         {
             Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicle
         };
@@ -98,11 +94,10 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             var oldVehicle =
                 await _context.Vehicles.FirstOrDefaultAsync(x => !x.IsDeleted && x.LicencePlate == model.LicencePlate);
             if (oldVehicle != null)
-                return new RespondApi<Vehicle>()
-                    { Result = ResultRespond.Error, Message = "Dữ liệu biển số xe đã tồn tại" };
+                return new RespondApi<Vehicle> { Result = ResultRespond.Error, Message = "Dữ liệu biển số xe đã tồn tại" };
         }
 
-        var vehicle = new Vehicle()
+        var vehicle = new Vehicle
         {
             LicencePlate = model.LicencePlate,
             Weight = model.Weight,
@@ -122,7 +117,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
         await _context.SaveChangesAsync();
 
-        return new RespondApi<Vehicle>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicle };
+        return new RespondApi<Vehicle> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicle };
     }
 
     public async Task<RespondApi<Vehicle>> UpdateVehicle(RequestCreateVehicle model, int id)
@@ -130,14 +125,13 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
         if (vehicle == null)
         {
-            return new RespondApi<Vehicle>()
-                { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
+            return new RespondApi<Vehicle> { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
         }
 
         var dupVehicle =
             await _context.Vehicles.FirstOrDefaultAsync(x => x.Id != id && x.LicencePlate == model.LicencePlate);
         if (dupVehicle != null)
-            return new RespondApi<Vehicle>()
+            return new RespondApi<Vehicle>
             {
                 Result = ResultRespond.Duplication, Message = "Biển số xe này là của xe khác"
             };
@@ -149,7 +143,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         vehicle.DriverName = model.DriverName;
         vehicle.DriverPhone = model.DriverPhone;
         await _context.SaveChangesAsync();
-        return new RespondApi<Vehicle>()
+        return new RespondApi<Vehicle>
         {
             Result = ResultRespond.Succeeded, Message = "Cập nhật thành công", Data = vehicle
         };
@@ -160,15 +154,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => !x.IsDeleted && x.Id == id);
         if (vehicle == null)
         {
-            return new RespondApi<Vehicle>()
-                { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
+            return new RespondApi<Vehicle> { Result = ResultRespond.NotFound, Message = "Không thể tìm thấy xe cần chỉnh sửa" };
         }
 
         vehicle.IsDeleted = true;
         vehicle.UpdatedDate = DateTime.Now;
         vehicle.UpdatedUserId = Guid.Parse(_userId);
         await _context.SaveChangesAsync();
-        return new RespondApi<Vehicle>()
+        return new RespondApi<Vehicle>
         {
             Result = ResultRespond.Succeeded, Message = "Cập nhật thành công", Data = vehicle
         };
@@ -178,16 +171,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
     {
         var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == model.Id && !x.IsDeleted);
         if (vehicle == null)
-            return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Không tìm thấy xe" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy xe" };
         if (model.GateId == null)
-            return new RespondApi<string>()
-                { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
         var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == model.GateId && !x.IsDeleted);
         if (gate == null)
-            return new RespondApi<string>()
-                { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
         vehicle.InGate = model.InGate;
-        var vehicleDetail = new VehicleDetail()
+        var vehicleDetail = new VehicleDetail
         {
             GateId = model.GateId,
             Gate = gate,
@@ -199,7 +190,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         };
         await _context.VehicleDetails.AddAsync(vehicleDetail);
         await _context.SaveChangesAsync();
-        return new RespondApi<string>()
+        return new RespondApi<string>
         {
             Result = ResultRespond.Succeeded, Message = "Cập nhật thành công"
         };
@@ -211,17 +202,15 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         {
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == model.Id && !x.IsDeleted);
             if (vehicle == null)
-                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Không tìm thấy xe" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy xe" };
             if (model.GateId == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
             var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == model.GateId && !x.IsDeleted);
             if (gate == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
             if (!vehicle.InGate)
             {
-                return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Xe chưa vào cửa khẩu" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Xe chưa vào cửa khẩu" };
             }
 
             vehicle.InGate = false;
@@ -231,14 +220,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             vehicleDetail.OutGateTime = DateTime.Now;
             await _context.VehicleDetails.AddAsync(vehicleDetail);
             await _context.SaveChangesAsync();
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.Succeeded, Message = "Cập nhật thành công"
             };
         }
         catch (Exception e)
         {
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.Failed, Message = "Xác nhận xe rời cửa khẩu thaats bại"
             };
@@ -251,17 +240,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         {
             if (model.Vehicles == null || model.Vehicles.Count <= 0)
             {
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Failed, Message = "Danh sách xe không được rỗng" };
+                return new RespondApi<string> { Result = ResultRespond.Failed, Message = "Danh sách xe không được rỗng" };
             }
 
             if (model.GateId == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Chưa cung cấp thông tin cửa khẩu" };
             var gate = await _context.Gates.FirstOrDefaultAsync(x => x.Id == model.GateId && !x.IsDeleted);
             if (gate == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
+                return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin cửa khẩu" };
 
             List<VehicleDetail> vehicles = new List<VehicleDetail>();
 
@@ -276,13 +262,13 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                 var oldVehicle = await _context.Vehicles.FirstOrDefaultAsync(x =>
                     x.LicencePlate == vehicleRequest.LicencePlate && x.InGate && !x.IsDeleted);
                 if (oldVehicle != null)
-                    return new RespondApi<string>()
+                    return new RespondApi<string>
                     {
                         Result = ResultRespond.NotFound,
                         Message = $"Tồn tại xe biển số {oldVehicle.LicencePlate} đã trong cửa khẩu "
                     };
 
-                var vehicleDetail = new VehicleDetail()
+                var vehicleDetail = new VehicleDetail
                 {
                     GateId = model.GateId,
                     Gate = gate,
@@ -299,14 +285,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             await _context.VehicleDetails.AddRangeAsync(vehicles);
             await _context.SaveChangesAsync();
 
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.Succeeded, Message = "Cập nhật thành công", Data = ""
             };
         }
         catch (Exception e)
         {
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.Failed, Message = "Đăng kí thất bại"
             };
@@ -320,7 +306,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Id == model.VehicleId && x.IsDeleted);
             if (vehicle == null)
             {
-                return new RespondApi<Vehicle>()
+                return new RespondApi<Vehicle>
                 {
                     Result = ResultRespond.Failed, Message = "Không tim thấy thông tin xe"
                 };
@@ -341,7 +327,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                     if (distance <= gate.RadiusGate)
                     {
                         gate.CountVehicle++;
-                        await _signalrHub.Send(new MessageSupport()
+                        await _signalrHub.Send(new MessageSupport
                         {
                             GateId = gate,
                             Message = $"Vào Cửa khẩu {gate.Name} thành công",
@@ -354,7 +340,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
             await _context.SaveChangesAsync();
 
-            return new RespondApi<Vehicle>()
+            return new RespondApi<Vehicle>
             {
                 Result = ResultRespond.Succeeded, Message = "Cập nhật vị trí phương tiện thành công", Data = vehicle
             };
@@ -362,7 +348,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
 
         catch (Exception e)
         {
-            return new RespondApi<Vehicle>()
+            return new RespondApi<Vehicle>
             {
                 Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
             };
@@ -380,14 +366,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                 var vehicles = await _context.VehicleRegistrationPaperDetails.Where(x => x.Vehicle.VehicleTypeId == vehicleType.Id )
                     .ToListAsync();
                 var quantity = vehicles.Count;
-                results.Add(new RespondVehicleQuantityByVehicleType()
+                results.Add(new RespondVehicleQuantityByVehicleType
                 {
                     VehicleType = vehicleType,
                     Quantity = quantity
                 });
             }
 
-            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>()
+            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>
             {
                 Result = ResultRespond.Succeeded,
                 Message = "Thành công",
@@ -396,7 +382,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>()
+            return new RespondApi<List<RespondVehicleQuantityByVehicleType>>
             {
                 Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
             };
@@ -417,13 +403,13 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                     .ToListAsync();
                 var quantity = vehicles.Count;
 
-                results.Add(new RespondVehicleQuantityByVehicleTypeAndDate()
+                results.Add(new RespondVehicleQuantityByVehicleTypeAndDate
                 {
                     VehicleType = vehicleType,
                     Quantity = quantity
                 });
             }
-            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>()
+            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>
             {
                 Result = ResultRespond.Succeeded,
                 Message = "Thành công",
@@ -432,7 +418,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>()
+            return new RespondApi<List<RespondVehicleQuantityByVehicleTypeAndDate>>
             {
                 Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
             };
@@ -458,14 +444,14 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
                     .ToListAsync();
                 var quantity = vehicles.Count;
 
-                results.Add(new RespondVehicleQuantityByGateAndDate()
+                results.Add(new RespondVehicleQuantityByGateAndDate
                 {
                     GateId = gate.Id,
                     GateName = gate.Name,
                     VehicleQuantity = quantity
                 });
             }
-            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>()
+            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>
             {
                 Result = ResultRespond.Succeeded,
                 Message = "Thành công",
@@ -474,7 +460,7 @@ public class VehicleRepository : RepositoryBase<Vehicle>, IVehicleRepository
         }
         catch (Exception e)
         {
-            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>()
+            return new RespondApi<List<RespondVehicleQuantityByGateAndDate>>
             {
                 Result = ResultRespond.Failed, Message = "Lấy thông tin thất bại"
             };

@@ -1,4 +1,4 @@
-﻿using Common.Service.Models.Request;
+﻿using Support.Warning.Traffic.BorderGuard.Common;
 
 namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.VehicleDetail;
 

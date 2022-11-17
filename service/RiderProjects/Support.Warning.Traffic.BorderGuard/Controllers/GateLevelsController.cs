@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Support.Warning.Traffic.BorderGuard;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 
 namespace Support.Warning.Traffic.BorderGuard.Controllers
@@ -64,10 +58,8 @@ namespace Support.Warning.Traffic.BorderGuard.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();

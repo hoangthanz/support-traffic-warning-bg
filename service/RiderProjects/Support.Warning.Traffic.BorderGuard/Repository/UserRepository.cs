@@ -3,10 +3,10 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
-using Common.Service.Models.Respond;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
@@ -156,7 +156,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (null != user)
             {
-                return new RespondApi<ApplicationUser>()
+                return new RespondApi<ApplicationUser>
                 {
                     Result = ResultRespond.Failed,
                     Message = "Tài khoản trùng tên",
@@ -198,7 +198,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                     }
                 }
 
-                return new RespondApi<ApplicationUser>()
+                return new RespondApi<ApplicationUser>
                 {
                     Result = ResultRespond.Failed,
                     Message = $"{errors}",
@@ -209,7 +209,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
 
             var userDb = await _userManager.FindByNameAsync(model.UserName);
 
-            return new RespondApi<ApplicationUser>()
+            return new RespondApi<ApplicationUser>
             {
                 Result = ResultRespond.Succeeded,
                 Message = "Tạo tài khoản thành công",
@@ -235,7 +235,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
             var userView = _mapper.Map<List<UserViewModel>>(user);
 
 
-            return new RespondApi<List<UserViewModel>>()
+            return new RespondApi<List<UserViewModel>>
             {
                 Code = "00",
                 Data = userView,
@@ -258,7 +258,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
 
-            return new RespondApi<List<IdentityUserClaim<int>>>()
+            return new RespondApi<List<IdentityUserClaim<int>>>
             {
                 Code = "00",
                 Data = user,
@@ -279,7 +279,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == claimUser.UserId);
             if (null == user)
-                return new RespondApi<List<IdentityUserClaim<int>>>()
+                return new RespondApi<List<IdentityUserClaim<int>>>
                 {
                     Code = "00",
                     Data = null,
@@ -295,7 +295,7 @@ public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository, 
                     claimUser.Claims.Select(x => new Claim(ClaimTypes.Authentication, claim)));
             }
 
-            return new RespondApi<List<IdentityUserClaim<int>>>()
+            return new RespondApi<List<IdentityUserClaim<int>>>
             {
                 Code = "00",
                 Data = null,

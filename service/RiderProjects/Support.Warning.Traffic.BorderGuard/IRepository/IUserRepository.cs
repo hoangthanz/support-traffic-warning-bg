@@ -1,5 +1,5 @@
-﻿using Common.Service.Models.Respond;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Account;

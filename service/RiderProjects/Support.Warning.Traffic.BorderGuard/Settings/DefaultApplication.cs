@@ -6,7 +6,7 @@ public class DefaultApplication
 {
     public const string RoleAdministrator = "Administrator";
     public static string AdminPass = "123123aA@";
-    public static ApplicationRole Administrator = new ApplicationRole()
+    public static ApplicationRole Administrator = new ApplicationRole
     {
         Name = RoleAdministrator,
         DisplayName = "Quản trị hệ thống",

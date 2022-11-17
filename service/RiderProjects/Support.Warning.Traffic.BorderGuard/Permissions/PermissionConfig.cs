@@ -6,7 +6,7 @@ public class PermissionConfig
 {
     public static class DefineListPermission
     {
-        public static List<ClaimInfo> ListClaim = new List<ClaimInfo>()
+        public static List<ClaimInfo> ListClaim = new List<ClaimInfo>
         {
             GatePermission.ClaimGate,
             GatePermission.ClaimStation,
@@ -15,14 +15,8 @@ public class PermissionConfig
             SearchPermission.ClaimVehicleLookUpOnMap
         };
 
-        public static List<ClaimInfo> ListReportClaim = new List<ClaimInfo>()
-        {
+        public static List<ClaimInfo> ListReportClaim = new List<ClaimInfo>();
 
-        };
-
-        public static List<ClaimInfo> ListDashboardClaim = new List<ClaimInfo>()
-        {
-
-        };
+        public static List<ClaimInfo> ListDashboardClaim = new List<ClaimInfo>();
     }
 }

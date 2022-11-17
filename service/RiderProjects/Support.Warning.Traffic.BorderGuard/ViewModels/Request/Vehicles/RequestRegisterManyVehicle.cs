@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;
+﻿namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;
 
 public class RequestRegisterManyVehicle
 {

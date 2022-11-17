@@ -1,9 +1,8 @@
 ﻿using System.Security.Claims;
-using Abp.Authorization;
 using AutoMapper;
-using Common.Service.Models.Respond;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.Permissions;
@@ -25,11 +24,11 @@ public class AdminService : IAdminService
         IConfiguration configuration, IMapper mapper,
         SupportWarningContext context)
     {
-        this._userManager = userManager;
-        this._roleManager = roleManager;
-        this._configuration = configuration;
-        this._mapper = mapper;
-        this._context = context;
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _configuration = configuration;
+        _mapper = mapper;
+        _context = context;
     }
     
     public async Task<RespondApi<IEnumerable<RespondUserInfo>>> GetAllUser()
@@ -37,7 +36,7 @@ public class AdminService : IAdminService
         var UserAdmin = await _userManager.FindByIdAsync(_userId.ToString());
         if (UserAdmin == null)
         {
-            return new RespondApi<IEnumerable<RespondUserInfo>>()
+            return new RespondApi<IEnumerable<RespondUserInfo>>
             {
                 Result = ResultRespond.Failed, Code = "01", Message = "Không có quyền truy cập thông tin",
                 Data = new List<RespondUserInfo>()
@@ -54,7 +53,7 @@ public class AdminService : IAdminService
         IEnumerable<ApplicationUser> users = _userManager.Users.Where(user => !user.IsDeleted);
         if (users == null || !users.Any())
         {
-            return new RespondApi<IEnumerable<RespondUserInfo>>()
+            return new RespondApi<IEnumerable<RespondUserInfo>>
             {
                 Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy dữ liệu",
                 Data = new List<RespondUserInfo>()
@@ -75,7 +74,7 @@ public class AdminService : IAdminService
             }*/
             return respondUserInfo;
         }).ToList();
-        return new RespondApi<IEnumerable<RespondUserInfo>>()
+        return new RespondApi<IEnumerable<RespondUserInfo>>
         {
             Result = ResultRespond.Succeeded, Message = "Thành công", Data = respondUsers
         };
@@ -83,23 +82,23 @@ public class AdminService : IAdminService
 
     public async Task<RespondApi<string>> DeleteUserAdmin(string UserId)
     {
-        var user = await _userManager.FindByIdAsync(UserId.ToString());
+        var user = await _userManager.FindByIdAsync(UserId);
 
         if (user == null)
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.NotFound, Message = "Không tìm thấy thông tin"
             };
 
         var hasAdminRole = await _userManager.GetRolesAsync(user);
         if (hasAdminRole.Contains(DefaultApplication.RoleAdministrator))
-            return new RespondApi<string>()
+            return new RespondApi<string>
             {
                 Result = ResultRespond.Failed, Message = "Không thể xóa người dùng này"
             };
 
         await _userManager.DeleteAsync(user);
-        return new RespondApi<string>()
+        return new RespondApi<string>
         {
             Result = ResultRespond.Succeeded, Message = "Thành công"
         };
@@ -110,8 +109,7 @@ public class AdminService : IAdminService
         IEnumerable<ApplicationRole> applicationRoles =
             await _context.Roles.Where(e => e.Name != DefaultApplication.RoleAdministrator).ToListAsync();
         IEnumerable<RespondRoleInfo> respondRoleInfos = _mapper.Map<IEnumerable<RespondRoleInfo>>(applicationRoles);
-        return new RespondApi<IEnumerable<RespondRoleInfo>>()
-            { Result = ResultRespond.Succeeded, Message = "Thành công", Data = respondRoleInfos };
+        return new RespondApi<IEnumerable<RespondRoleInfo>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = respondRoleInfos };
     }
 
     public async Task<RespondApi<string>> CreateRoleAdmin(RequestCreateRole model)
@@ -119,19 +117,17 @@ public class AdminService : IAdminService
         ApplicationRole hasRole = await _roleManager.FindByNameAsync(model.Name);
         if (hasRole != null)
         {
-            return new RespondApi<string>()
-                { Result = ResultRespond.Duplication, Code = "01", Message = "Tên nhóm quyền đã tồn tại" };
+            return new RespondApi<string> { Result = ResultRespond.Duplication, Code = "01", Message = "Tên nhóm quyền đã tồn tại" };
         }
 
         ApplicationRole CheckDisplayName =
             await _context.Roles.FirstOrDefaultAsync(e => e.DisplayName == model.DisplayName);
         if (CheckDisplayName != null)
         {
-            return new RespondApi<string>()
-                { Result = ResultRespond.Duplication, Code = "02", Message = "Tên hiển thị nhóm quyền đã tồn tại" };
+            return new RespondApi<string> { Result = ResultRespond.Duplication, Code = "02", Message = "Tên hiển thị nhóm quyền đã tồn tại" };
         }
 
-        ApplicationRole applicationRole = new ApplicationRole()
+        ApplicationRole applicationRole = new ApplicationRole
         {
             Name = model.Name,
             DisplayName = model.DisplayName,
@@ -145,12 +141,10 @@ public class AdminService : IAdminService
         if (roleResult.Succeeded)
         {
             if (PermissionConfig.DefineListPermission.ListClaim == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
             if (listPermissionInApp.Count == 0)
             {
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
             }
 
             foreach (string permission in model.ListPermission)
@@ -161,43 +155,39 @@ public class AdminService : IAdminService
                 }
                 else
                 {
-                    return new RespondApi<string>()
-                        { Result = ResultRespond.Failed, Code = "02", Message = "Danh sách Permission không hợp lệ" };
+                    return new RespondApi<string> { Result = ResultRespond.Failed, Code = "02", Message = "Danh sách Permission không hợp lệ" };
                 }
             }
 
-            return new RespondApi<string>() { Result = ResultRespond.Succeeded, Message = "Tạo nhóm quyền thành công" };
+            return new RespondApi<string> { Result = ResultRespond.Succeeded, Message = "Tạo nhóm quyền thành công" };
         }
 
-        return new RespondApi<string>()
-            { Result = ResultRespond.Failed, Code = "03", Message = "Không thể khởi tạo nhóm quyền" };
+        return new RespondApi<string> { Result = ResultRespond.Failed, Code = "03", Message = "Không thể khởi tạo nhóm quyền" };
     }
 
     public async Task<RespondApi<string>> DeleteRoleAdmin(string Id)
     {
         ApplicationRole role = await _roleManager.FindByIdAsync(Id);
         if (role == null || !role.CanDelete)
-            return new RespondApi<string>() { Result = ResultRespond.NotFound, Message = "Không tìm thấy quyền" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Message = "Không tìm thấy quyền" };
 
         var checkUserRole = await _userManager.GetUsersInRoleAsync(role.Name);
         if (checkUserRole != null && checkUserRole.Count() > 0)
         {
-            return new RespondApi<string>()
-                { Result = ResultRespond.Failed, Message = "Không thể xóa quyền đang sử dụng" };
+            return new RespondApi<string> { Result = ResultRespond.Failed, Message = "Không thể xóa quyền đang sử dụng" };
         }
 
         await _roleManager.DeleteAsync(role);
 
-        return new RespondApi<string>() { Result = ResultRespond.Succeeded, Message = "Xóa quyền thành công" };
+        return new RespondApi<string> { Result = ResultRespond.Succeeded, Message = "Xóa quyền thành công" };
     }
 
     public async Task<RespondApi<string>> UpdateRoleAdminWithPermission(string Id, RequestUpdateRole model)
     {
-        ApplicationRole hasRole = await _roleManager.FindByIdAsync(Id.ToString());
+        ApplicationRole hasRole = await _roleManager.FindByIdAsync(Id);
         if (hasRole == null)
         {
-            return new RespondApi<string>()
-                { Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy thông tin nhóm quyền" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy thông tin nhóm quyền" };
         }
 
         if (hasRole.DisplayName != model.DisplayName)
@@ -206,8 +196,7 @@ public class AdminService : IAdminService
                 await _context.Roles.FirstOrDefaultAsync(e => e.DisplayName == model.DisplayName);
             if (hasRoleExist != null)
             {
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Duplication, Message = "Tên hiển thị nhóm quyền đã tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Duplication, Message = "Tên hiển thị nhóm quyền đã tồn tại" };
             }
 
             hasRole.DisplayName = model.DisplayName;
@@ -229,12 +218,10 @@ public class AdminService : IAdminService
             }
 
             if (PermissionConfig.DefineListPermission.ListClaim == null)
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
             if (listPermissionInApp.Count == 0)
             {
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Failed, Code = "01", Message = "Danh sách Permission không tồn tại" };
             }
 
             foreach (var permission in model.ListPermission)
@@ -245,26 +232,22 @@ public class AdminService : IAdminService
                 }
                 else
                 {
-                    return new RespondApi<string>()
-                        { Result = ResultRespond.Failed, Code = "02", Message = "Danh sách Permission không hợp lệ" };
+                    return new RespondApi<string> { Result = ResultRespond.Failed, Code = "02", Message = "Danh sách Permission không hợp lệ" };
                 }
             }
 
-            return new RespondApi<string>()
-                { Result = ResultRespond.Succeeded, Message = "Cập nhật nhóm quyền thành công" };
+            return new RespondApi<string> { Result = ResultRespond.Succeeded, Message = "Cập nhật nhóm quyền thành công" };
         }
 
-        return new RespondApi<string>()
-            { Result = ResultRespond.Failed, Code = "03", Message = "Không thể cập nhật nhóm quyền" };
+        return new RespondApi<string> { Result = ResultRespond.Failed, Code = "03", Message = "Không thể cập nhật nhóm quyền" };
     }
 
     public async Task<RespondApi<string>> UpdateRoleAdminWithOutPermission(string Id, RequestUpdateRole model)
     {
-        ApplicationRole hasRole = await _roleManager.FindByIdAsync(Id.ToString());
+        ApplicationRole hasRole = await _roleManager.FindByIdAsync(Id);
         if (hasRole == null)
         {
-            return new RespondApi<string>()
-                { Result = ResultRespond.Failed, Message = "Không tìm thấy thông tin nhóm quyền" };
+            return new RespondApi<string> { Result = ResultRespond.Failed, Message = "Không tìm thấy thông tin nhóm quyền" };
         }
 
         if (hasRole.DisplayName != model.DisplayName)
@@ -273,8 +256,7 @@ public class AdminService : IAdminService
                 await _context.Roles.FirstOrDefaultAsync(e => e.DisplayName == model.DisplayName);
             if (hasRoleExist != null)
             {
-                return new RespondApi<string>()
-                    { Result = ResultRespond.Duplication, Message = "Tên hiển thị nhóm quyền đã tồn tại" };
+                return new RespondApi<string> { Result = ResultRespond.Duplication, Message = "Tên hiển thị nhóm quyền đã tồn tại" };
             }
 
             hasRole.DisplayName = model.DisplayName;
@@ -285,31 +267,31 @@ public class AdminService : IAdminService
 
         IdentityResult roleResult = await _roleManager.UpdateAsync(hasRole);
 
-        return new RespondApi<string>() { Result = ResultRespond.Succeeded, Message = "Thành công" };
+        return new RespondApi<string> { Result = ResultRespond.Succeeded, Message = "Thành công" };
     }
     public Task<RespondApi<List<ClaimInfo>>> GetAllPermissionAdmin()
     {
-        return Task.FromResult(new RespondApi<List<ClaimInfo>>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = PermissionConfig.DefineListPermission.ListClaim });
+        return Task.FromResult(new RespondApi<List<ClaimInfo>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = PermissionConfig.DefineListPermission.ListClaim });
     }
 
     public async Task<RespondApi<List<string>>> GetPermissionByRole(string Id)
     {
-        var role = await _roleManager.FindByIdAsync(Id.ToString());
+        var role = await _roleManager.FindByIdAsync(Id);
 
         if (role == null)
-            return new RespondApi<List<string>>() { Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy thông tin quyền" };
+            return new RespondApi<List<string>> { Result = ResultRespond.NotFound, Code = "01", Message = "Không tìm thấy thông tin quyền" };
 
         var claims = await _roleManager.GetClaimsAsync(role);
         if (claims == null)
-            return new RespondApi<List<string>>() { Result = ResultRespond.NotFound, Code = "02", Message = "Không tìm thấy thông tin permission" };
-        return new RespondApi<List<string>>() { Result = ResultRespond.Succeeded, Message = "Thành công", Data = claims.Select(e => e.Value).ToList() };
+            return new RespondApi<List<string>> { Result = ResultRespond.NotFound, Code = "02", Message = "Không tìm thấy thông tin permission" };
+        return new RespondApi<List<string>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = claims.Select(e => e.Value).ToList() };
     }
 
     public async Task<RespondApi<string>> UpdateRolesUserInGate(RequestUpdateRolesUserInGate model)
     {
         var user = await _userManager.FindByIdAsync(model.UserId.ToString());
         if (user == null)
-            return new RespondApi<string>() { Result = ResultRespond.NotFound, Code = "01", Message = "không tìm thấy thông tin người dùng" };
+            return new RespondApi<string> { Result = ResultRespond.NotFound, Code = "01", Message = "không tìm thấy thông tin người dùng" };
 
         var roles = await _userManager.GetRolesAsync(user);
         if (roles != null && roles.Count > 0)
@@ -327,7 +309,7 @@ public class AdminService : IAdminService
                 await _userManager.AddToRoleAsync(user, roleAdd.Name);
         }
 
-        return new RespondApi<string>() { Result = ResultRespond.Succeeded, Message = "Thành công" };
+        return new RespondApi<string> { Result = ResultRespond.Succeeded, Message = "Thành công" };
     }
 
     public async Task<RespondApi<List<int>>> GetRolesByUserId(int id)
@@ -336,11 +318,11 @@ public class AdminService : IAdminService
         {
             var userRoles = await _context.UserRoles.Where(x => x.UserId == id).ToListAsync();
             var roleIds = userRoles.Select(x => x.RoleId).ToList();
-            return new RespondApi<List<int>>(){ Result = ResultRespond.Succeeded, Message = "Thành công", Data = roleIds};
+            return new RespondApi<List<int>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = roleIds};
         }
         catch (Exception e)
         {
-            return new RespondApi<List<int>>() { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ" , Data = new List<int>()};
+            return new RespondApi<List<int>> { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ" , Data = new List<int>()};
         }
     }
 
@@ -349,7 +331,7 @@ public class AdminService : IAdminService
         try
         {
             var roles = await _context.Roles.ToListAsync();
-            return new RespondApi<List<ApplicationRole>>(){ Result = ResultRespond.Succeeded, Message = "Thành công", Data = roles};
+            return new RespondApi<List<ApplicationRole>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = roles};
 
         }
         catch (Exception e)
@@ -372,11 +354,11 @@ public class AdminService : IAdminService
                 await _context.SaveChangesAsync();
             }
            
-            return new RespondApi<object>(){ Result = ResultRespond.Succeeded, Message = "Thành công"};
+            return new RespondApi<object> { Result = ResultRespond.Succeeded, Message = "Thành công"};
         }
         catch (Exception e)
         {
-            return new RespondApi<object>(){ Result = ResultRespond.Error, Message = "Lỗi ngoại lệ"};
+            return new RespondApi<object> { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ"};
         }
     }
 }

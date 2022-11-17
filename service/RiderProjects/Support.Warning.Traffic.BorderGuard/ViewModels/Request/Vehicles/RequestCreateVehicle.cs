@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using JetBrains.Annotations;
-using Support.Warning.Traffic.BorderGuard.Models.Business;
+﻿using JetBrains.Annotations;
 
 namespace Support.Warning.Traffic.BorderGuard.ViewModels.Request.Vehicles;
 

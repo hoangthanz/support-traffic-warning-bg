@@ -1,5 +1,5 @@
-using Common.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Support.Warning.Traffic.BorderGuard.Common.Models.Interfaces;
 
 namespace Support.Warning.Traffic.BorderGuard.ViewModels.Account;
 

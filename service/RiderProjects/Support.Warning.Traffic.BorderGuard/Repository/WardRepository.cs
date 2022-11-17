@@ -1,5 +1,6 @@
-﻿using Common.Service.Models.Respond;
+﻿using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Region;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Region;
@@ -53,33 +54,29 @@ public class WardRepository : IWardRepository
                         .CountAsync();
                 }
                 paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords,paging.PageSize));
-                return new RespondApiPaging<List<wards>>()
-                    { Result = ResultRespond.Succeeded, Message = "Thành công", Data = wards , PagingResponse = paging};
+                return new RespondApiPaging<List<wards>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = wards , PagingResponse = paging};
             }
+
+            if (!string.IsNullOrEmpty(model.NameSearch))
+                wards = await _context.wards.Where(x => x.name.Contains(model.NameSearch)
+                                                        || x.name_en.Contains(model.NameSearch)
+                                                        || x.code.Contains(model.NameSearch)
+                                                        || x.code_name.Contains(model.NameSearch)
+                                                        || x.full_name.Contains(model.NameSearch)
+                                                        || x.full_name_en.Contains(model.NameSearch)
+                                                        && x.district_code == model.Code)
+                    .OrderBy(x => x.code).ToListAsync();
             else
             {
-                if (!string.IsNullOrEmpty(model.NameSearch))
-                    wards = await _context.wards.Where(x => x.name.Contains(model.NameSearch)
-                                                            || x.name_en.Contains(model.NameSearch)
-                                                            || x.code.Contains(model.NameSearch)
-                                                            || x.code_name.Contains(model.NameSearch)
-                                                            || x.full_name.Contains(model.NameSearch)
-                                                            || x.full_name_en.Contains(model.NameSearch)
-                                                            && x.district_code == model.Code)
-                        .OrderBy(x => x.code).ToListAsync();
-                else
-                {
-                    wards = await _context.wards.Where(x => x.district_code == model.Code)
-                        .OrderBy(x => x.code).ToListAsync();
-                }
-                return new RespondApiPaging<List<wards>>()
-                    { Result = ResultRespond.Succeeded, Message = "Thành công", Data = wards };
+                wards = await _context.wards.Where(x => x.district_code == model.Code)
+                    .OrderBy(x => x.code).ToListAsync();
             }
-            
+            return new RespondApiPaging<List<wards>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = wards };
+
         }
         catch (Exception e)
         {
-            return new RespondApiPaging<List<wards>>() { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<wards>() };
+            return new RespondApiPaging<List<wards>> { Result = ResultRespond.Error, Message = "Thất bại", Data = new List<wards>() };
         }
     }
 }

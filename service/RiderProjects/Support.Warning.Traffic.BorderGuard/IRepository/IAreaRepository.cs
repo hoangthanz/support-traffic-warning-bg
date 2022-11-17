@@ -1,8 +1,7 @@
-﻿using Common.Service.Models.Respond;
+﻿using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Area;
-
 
 namespace Support.Warning.Traffic.BorderGuard.IRepository;
 

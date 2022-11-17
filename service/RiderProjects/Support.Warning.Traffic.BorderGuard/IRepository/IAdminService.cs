@@ -1,4 +1,4 @@
-﻿using Common.Service.Models.Respond;
+﻿using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Request.Account;
 using Support.Warning.Traffic.BorderGuard.ViewModels.Responds;

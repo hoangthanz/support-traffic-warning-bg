@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
-using Common.Service.Models.Respond;
+﻿using System.Linq.Dynamic.Core;
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.Contracts;
 using Support.Warning.Traffic.BorderGuard.IRepository;
 using Support.Warning.Traffic.BorderGuard.Models.Business;
@@ -41,12 +42,10 @@ public class VehicleDetailRepository : RepositoryBase<Vehicle>,IVehicleDetailRep
             paging.TotalRecords = await query.CountAsync();
             paging.TotalPages = (int)Math.Ceiling(decimal.Divide(paging.TotalRecords, paging.PageSize));
             vehicles = await query.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToListAsync();
-            return new RespondApiPaging<List<VehicleDetail>>()
-                { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles, PagingResponse = paging };
+            return new RespondApiPaging<List<VehicleDetail>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles, PagingResponse = paging };
         }
         
         vehicles = await query.ToListAsync();
-        return new RespondApiPaging<List<VehicleDetail>>()
-            { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles};
+        return new RespondApiPaging<List<VehicleDetail>> { Result = ResultRespond.Succeeded, Message = "Thành công", Data = vehicles};
     }
 }
