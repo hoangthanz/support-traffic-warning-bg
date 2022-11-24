@@ -1,6 +1,11 @@
 <div id="map"
      [style]="styleOfPolygon"
      leaflet
+     style="height: 100vh"
      [leafletOptions]="options"
      [leafletLayersControl]="layersControl">
 </div>
+<!--
+(leafletClick)="onClick($event)"
+(leafletMapZoom)="onZoom($event)"
+(leafletMapMoveEnd)="onZoom($event)"-->
