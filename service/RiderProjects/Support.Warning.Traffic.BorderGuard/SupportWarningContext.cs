@@ -51,6 +51,7 @@ public class SupportWarningContext : IdentityDbContext<ApplicationUser, Applicat
     public DbSet<districts> districts { get; set; }
     public DbSet<provinces> provinces { get; set; }
     public DbSet<wards> wards { get; set; }
+    public DbSet<VehicleStatistics>  VehicleStatistics{ get; set; }
 
     public override int SaveChanges()
     {

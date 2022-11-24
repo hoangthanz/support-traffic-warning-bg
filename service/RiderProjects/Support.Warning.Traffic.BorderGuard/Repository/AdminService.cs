@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Support.Warning.Traffic.BorderGuard.Common;
 using Support.Warning.Traffic.BorderGuard.IRepository;
+using Support.Warning.Traffic.BorderGuard.Models.Business;
 using Support.Warning.Traffic.BorderGuard.Models.Identity;
 using Support.Warning.Traffic.BorderGuard.Permissions;
 using Support.Warning.Traffic.BorderGuard.Settings;
@@ -359,6 +360,22 @@ public class AdminService : IAdminService
         catch (Exception e)
         {
             return new RespondApi<object> { Result = ResultRespond.Error, Message = "Lỗi ngoại lệ"};
+        }
+    }
+
+    public Task<RespondApi<object>> CreateDb()
+    {
+        try
+        {
+            var gates = new List<Gate>()
+            {
+                
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }

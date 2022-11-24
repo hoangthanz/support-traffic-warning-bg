@@ -23,4 +23,5 @@ public interface IAdminService
     Task<RespondApi<List<int>>> GetRolesByUserId(int id);
     Task<RespondApi<List<ApplicationRole>>> GetRoles();
     Task<RespondApi<object>> SetUserByRole(List<UserByRole> model);
+    Task<RespondApi<object>> CreateDb();
 }
