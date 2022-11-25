@@ -385,7 +385,7 @@ export class GisMapOsmComponent implements OnInit {
           const lon = tram?.coordinates[0];
           const lat = tram?.coordinates[1];
           console.log(lon, lat);
-          L.marker([lon, lat], this.markerTram).bindPopup(`Trạm: ${tram?.name}`).addTo(this.map);
+          L.marker([lon, lat], this.markerTram).bindPopup(this.popupService.makeTramPopup(feature.properties, tram, feature?.tram?.length)).addTo(this.map);
         }
       }
 
