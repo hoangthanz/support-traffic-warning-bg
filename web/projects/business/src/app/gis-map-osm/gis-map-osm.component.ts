@@ -306,7 +306,7 @@ export class GisMapOsmComponent implements OnInit {
     }
 
   scaledRadius(val: number, maxVal: number): number {
-    return 20 * (val / maxVal);
+    return 100 * (val / maxVal);
   }
 
   makeCapitalCircleMarkers(): void {
