@@ -23,6 +23,20 @@ export class GisMapOsmComponent implements OnInit {
             21.87169463514273, 106.72393798828126
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              21.81711691363514271, 106.72393798828121
+            ]
+          },
+          {
+            name: 'B2',
+            coordinates: [
+              21.87169463514279, 106.6239398828129
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Hữu Nghị",
@@ -43,6 +57,14 @@ export class GisMapOsmComponent implements OnInit {
             22.0060897, 106.6767043
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              22.01060897, 106.67671042
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Tân Thanh",
@@ -60,9 +82,17 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.5362507,107.96727317
+            21.51362507,107.967127317
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              21.51362507,107.967127317
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Móng cái",
@@ -83,6 +113,14 @@ export class GisMapOsmComponent implements OnInit {
             21.5333253,107.9520463
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              21.53133253,107.95120463
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Bắc Luân 2",
@@ -103,6 +141,14 @@ export class GisMapOsmComponent implements OnInit {
             22.5159137,103.9435922
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              22.51591137,103.91435922
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Lào cai",
@@ -123,6 +169,14 @@ export class GisMapOsmComponent implements OnInit {
             22.5861347,106.7187278
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              22.51861347,106.71187278
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Hạ Lang",
@@ -143,6 +197,14 @@ export class GisMapOsmComponent implements OnInit {
             23.2906039,105.242088
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              23.12906039,105.1242088
+            ]
+          }
+        ],
         properties: {
           state: "Alabama",
           name: "Phó Bảng",
@@ -163,6 +225,14 @@ export class GisMapOsmComponent implements OnInit {
             16.3091064,107.089507
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              16.31091064,107.0189507
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Hồng Vân",
@@ -183,6 +253,14 @@ export class GisMapOsmComponent implements OnInit {
             16.6239945,106.5889585
           ]
         },
+        tram:[
+          {
+            name: 'B1',
+            coordinates: [
+              16.62399415,106.58895858
+            ]
+          },
+        ],
         properties: {
           state: "Alabama",
           name: "Lao Bảo",
@@ -197,6 +275,8 @@ export class GisMapOsmComponent implements OnInit {
       },
     ]
   };
+
+  datatram : any;
   styleOfPolygon = `height: ${window.innerHeight}px; width: ${window.innerWidth};`;
   widthOfScreen = window.innerWidth;
   heightOfScreen = window.innerHeight;
@@ -239,6 +319,17 @@ export class GisMapOsmComponent implements OnInit {
         })
     };
 
+  markerTram = {
+    icon: L.icon({
+      iconSize: [25, 41],
+      iconAnchor: [10, 41],
+      popupAnchor: [2, -40],
+      // specify the path here
+      iconUrl: "assets/images/icons/parking.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-shadow.png",
+      tooltipAnchor: [16, -28],
+    })
+  };
     constructor(private locationService: LocationService,
                 private popupService: PopUpService,
                 private osmService: OsmService,
@@ -287,8 +378,17 @@ export class GisMapOsmComponent implements OnInit {
       ).addTo(this.map);
       this.map.on("click", (e: any) => {
         // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map);
-
       });
+      for (const feature of this.data?.features) {
+        console.log(feature);
+        for (const tram of feature?.tram) {
+          const lon = tram?.coordinates[0];
+          const lat = tram?.coordinates[1];
+          console.log(lon, lat);
+          L.marker([lon, lat], this.markerTram).bindPopup(`Trạm: ${tram?.name}`).addTo(this.map);
+        }
+      }
+
       this.getGateInfos();
       this.makeCapitalCircleMarkers();
     }

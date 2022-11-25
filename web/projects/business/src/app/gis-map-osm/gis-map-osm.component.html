@@ -21,11 +21,22 @@ padding: 2px;
 ">
   <div class="bg-white m-4">
     <mat-label>Chọn cửa khẩu</mat-label>
-    <mat-select style="z-index: 9999999;border: 1px solid black; border-radius: 2px;padding: 5px; margin-bottom: 5px;margin-top: 5px">
+    <mat-select
+      [(ngModel)]="datatram"
+      style="z-index: 9999999;border: 1px solid black; border-radius: 2px;padding: 5px; margin-bottom: 5px;margin-top: 5px">
       <mat-option *ngFor="let item of data.features" [value]="item" (click)="flyto(item.geometry.coordinates)" >
         {{item.properties.name}}
       </mat-option>
     </mat-select>
   </div>
 
+  <div class="bg-white m-4">
+    <mat-label>Chọn trạm</mat-label>
+    <mat-select style="z-index: 9999999;border: 1px solid black; border-radius: 2px;padding: 5px; margin-bottom: 5px;margin-top: 5px">
+      <mat-option *ngFor="let item of datatram?.tram" [value]="item" (click)="flyto(item.coordinates)" >
+        {{item?.name}}
+      </mat-option>
+    </mat-select>
+  </div>
 </div>
+
