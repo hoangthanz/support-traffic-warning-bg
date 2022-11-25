@@ -32,7 +32,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 100,
           data5: 100,
           data6: 100,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -52,7 +52,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 200,
           data5: 200,
           data6: 200,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -72,7 +72,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 1243,
           data5: 154,
           data6: 1213,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -92,7 +92,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 500,
           data5: 500,
           data6: 500,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -112,7 +112,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 1243,
           data5: 154,
           data6: 12413,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -132,7 +132,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 1243,
           data5: 154,
           data6: 12413,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -152,7 +152,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 1243,
           data5: 154,
           data6: 12413,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -172,7 +172,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 1243,
           data5: 154,
           data6: 12413,
-          population: 89919951
+          population: 500
         }
       },
       {
@@ -192,7 +192,7 @@ export class GisMapOsmComponent implements OnInit {
           data4: 500,
           data5: 500,
           data6: 600,
-          population: 89919951
+          population: 500
         }
       },
     ]
@@ -317,11 +317,12 @@ export class GisMapOsmComponent implements OnInit {
     for (const c of this.data.features) {
       const lon = c.geometry.coordinates[1];
       const lat = c.geometry.coordinates[0];
-      const circle = L.circleMarker([lat, lon], {
-        radius: this.scaledRadius(c.properties.population, maxPop)
-      });
-
       const total = c.properties.data1 + c.properties.data2 + c.properties.data3 + c.properties.data4 + c.properties.data5 + c.properties.data6;
+      // const circle = L.circleMarker([lat, lon], {
+      //   radius: this.scaledRadius(c.properties.population, maxPop)
+      // });
+      const circle = L.circle([lat, lon], total > 6000 ? total/2 : total);
+
       if(total > 6000) {
         circle.setStyle({fillColor: 'red'});
         circle.setStyle({color: 'red'});
@@ -340,6 +341,7 @@ export class GisMapOsmComponent implements OnInit {
       }
       console.log(c.properties.population);
       circle.bindPopup(this.popupService.makeCapitalPopup(c.properties));
+
       circle.addTo(this.map);
     }
     // });
