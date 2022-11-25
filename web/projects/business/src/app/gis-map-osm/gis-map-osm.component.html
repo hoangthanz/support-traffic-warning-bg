@@ -11,19 +11,21 @@
 (leafletMapMoveEnd)="onZoom($event)"-->
 
 <div style="position: fixed;
-z-index: 999999;
-  bottom: 0;
+z-index: 800;
+  top: 0;
   right: 0;
   width: 150px;
-  border: 3px solid #73AD21;">
-  <div class="bg-white p-1">
-    <div *ngFor="let item of data.features">
-      <button mat-flat-button (click)="flyto(item.geometry.coordinates)" class=" my-1 border rounded bg-primary text-white" style="margin: 10px; padding: 0 10px">
-        <div class="b">
-          {{item.properties.name}}
-        </div>
-      </button>
-    </div>
+  border: 3px solid bisque;
+border-radius: 3px;
+padding: 2px;
+">
+  <div class="bg-white m-4">
+    <mat-label>Chọn cửa khẩu</mat-label>
+    <mat-select style="z-index: 9999999;border: 1px solid black; border-radius: 2px;padding: 5px; margin-bottom: 5px;margin-top: 5px">
+      <mat-option *ngFor="let item of data.features" [value]="item" (click)="flyto(item.geometry.coordinates)" >
+        {{item.properties.name}}
+      </mat-option>
+    </mat-select>
   </div>
 
 </div>
