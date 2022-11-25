@@ -321,7 +321,7 @@ export class GisMapOsmComponent implements OnInit {
 
   markerTram = {
     icon: L.icon({
-      iconSize: [25, 41],
+      iconSize: [25, 25],
       iconAnchor: [10, 41],
       popupAnchor: [2, -40],
       // specify the path here
