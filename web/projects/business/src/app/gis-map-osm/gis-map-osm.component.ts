@@ -4,6 +4,7 @@ import {circle, latLng, polygon, tileLayer} from "leaflet";
 import {LocationService} from "../shared/services/location.service";
 import {OsmService} from "../../../../../src/app/material-component/services/osm.service";
 import {ConfigService} from "../../../../../src/app/material-component/services/config.service";
+import {PopUpService} from "../shared/services/popup.service";
 
 @Component({
   selector: 'app-gis-map-osm',
@@ -19,13 +20,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.77169463514273, 106.72393798828126
+            21.87169463514273, 106.72393798828126
           ]
         },
         properties: {
           state: "Alabama",
-          name: "Montgomery",
-          population: 199518
+          name: "Hữu Nghị",
+          data1: 100,
+          data2: 200,
+          data3: 100,
+          data4: 100,
+          data5: 100,
+          data6: 100,
+          population: 89919951
         }
       },
       {
@@ -33,13 +40,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.67169463514273, 106.72393798828126
+            22.0060897, 106.6767043
           ]
         },
         properties: {
-          state: "Alaska",
-          name: "Juneau",
-          population: 32094
+          state: "Alabama",
+          name: "Tân Thanh",
+          data1: 200,
+          data2: 200,
+          data3: 200,
+          data4: 200,
+          data5: 200,
+          data6: 200,
+          population: 89919951
         }
       },
       {
@@ -47,13 +60,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.57169463514273, 106.72393798828126
+            21.5362507,107.96727317
           ]
         },
         properties: {
-          state: "Arizona",
-          name: "Phoenix",
-          population: 1626078
+          state: "Alabama",
+          name: "Móng cái",
+          data1: 1000,
+          data2: 1364,
+          data3: 1367,
+          data4: 1243,
+          data5: 154,
+          data6: 1213,
+          population: 89919951
         }
       },
       {
@@ -61,13 +80,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.47169463514273, 106.72393798828126
+            21.5333253,107.9520463
           ]
         },
         properties: {
-          state: "Arkansas",
-          name: "Little Rock",
-          population: 198606
+          state: "Alabama",
+          name: "Bắc Luân 2",
+          data1: 500,
+          data2: 500,
+          data3: 500,
+          data4: 500,
+          data5: 500,
+          data6: 500,
+          population: 89919951
         }
       },
       {
@@ -75,13 +100,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.37169463514273, 106.72393798828126
+            22.5159137,103.9435922
           ]
         },
         properties: {
-          state: "California",
-          name: "Sacramento",
-          population: 501901
+          state: "Alabama",
+          name: "Lào cai",
+          data1: 1000,
+          data2: 1364,
+          data3: 5367,
+          data4: 1243,
+          data5: 154,
+          data6: 12413,
+          population: 89919951
         }
       },
       {
@@ -89,13 +120,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.27169463514273, 106.72393798828126
+            22.5861347,106.7187278
           ]
         },
         properties: {
-          state: "Colorado",
-          name: "Denver",
-          population: 704621
+          state: "Alabama",
+          name: "Hạ Lang",
+          data1: 1000,
+          data2: 1364,
+          data3: 5367,
+          data4: 1243,
+          data5: 154,
+          data6: 12413,
+          population: 89919951
         }
       },
       {
@@ -103,13 +140,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.17169463514273, 106.72393798828126
+            23.2906039,105.242088
           ]
         },
         properties: {
-          state: "Connecticut",
-          name: "Hartford",
-          population: 123400
+          state: "Alabama",
+          name: "Phó Bảng",
+          data1: 1000,
+          data2: 1364,
+          data3: 5367,
+          data4: 1243,
+          data5: 154,
+          data6: 12413,
+          population: 89919951
         }
       },
       {
@@ -117,13 +160,19 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.17169463514273, 106.12393798828126
+            16.3091064,107.089507
           ]
         },
         properties: {
-          state: "Delaware",
-          name: "Dover",
-          population: 37538
+          state: "Alabama",
+          name: "Hồng Vân",
+          data1: 1000,
+          data2: 1364,
+          data3: 5367,
+          data4: 1243,
+          data5: 154,
+          data6: 12413,
+          population: 89919951
         }
       },
       {
@@ -131,589 +180,21 @@ export class GisMapOsmComponent implements OnInit {
         geometry: {
           type: "Point",
           coordinates: [
-            21.17169463514273, 106.22393798828126
+            16.6239945,106.5889585
           ]
         },
         properties: {
-          state: "Florida",
-          name: "Tallahassee",
-          population: 191049
+          state: "Alabama",
+          name: "Lao Bảo",
+          data1: 500,
+          data2: 500,
+          data3: 500,
+          data4: 500,
+          data5: 500,
+          data6: 600,
+          population: 89919951
         }
       },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.32393798828126
-          ]
-        },
-        properties: {
-          state: "Georgia",
-          name: "Atlanta",
-          population: 486290
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.42393798828126
-          ]
-        },
-        properties: {
-          state: "Hawaii",
-          name: "Honolulu",
-          population: 350395
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.52393798828126
-          ]
-        },
-        properties: {
-          state: "Idaho",
-          name: "Boise",
-          population: 226570
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.62393798828126
-          ]
-        },
-        properties: {
-          state: "Illinois",
-          name: "Springfield",
-          population: 114868
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "Indiana",
-          name: "Indianapolis",
-          population: 863002
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.82393798828126
-          ]
-        },
-        properties: {
-          state: "Iowa",
-          name: "Des Moines",
-          population: 217521
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.17169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Kansas",
-          name: "Topeka",
-          population: 126587
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.27169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Kentucky",
-          name: "Frankfort",
-          population: 27621
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.37169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Louisiana",
-          name: "Baton Rouge",
-          population: 225374
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.47169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Maine",
-          name: "Augusta",
-          population: 18594
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.57169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Maryland",
-          name: "Annapolis",
-          population: 39321
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.67169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Massachusetts",
-          name: "Boston",
-          population: 685094
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.77169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Michigan",
-          name: "Lansing",
-          population: 116986
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Minnesota",
-          name: "Saint Paul",
-          population: 306621
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.92393798828126
-          ]
-        },
-        properties: {
-          state: "Mississippi",
-          name: "Jackson",
-          population: 166965
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.32393798828126
-          ]
-        },
-        properties: {
-          state: "Missouri",
-          name: "Jefferson City",
-          population: 42895
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.42393798828126
-          ]
-        },
-        properties: {
-          state: "Montana",
-          name: "Helana",
-          population: 31429
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.52393798828126
-          ]
-        },
-        properties: {
-          state: "Nebraska",
-          name: "Lincoln",
-          population: 284736
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.62393798828126
-          ]
-        },
-        properties: {
-          state: "Nevada",
-          name: "Carson City",
-          population: 54745
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "New Hampshire",
-          name: "Concord",
-          population: 43019
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.82393798828126
-          ]
-        },
-        properties: {
-          state: "New Jersey",
-          name: "Trenton",
-          population: 84964
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.97169463514273, 106.88393798828126
-          ]
-        },
-        properties: {
-          state: "New Mexico",
-          name: "Santa Fe",
-          population: 83776
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.73393798828126
-          ]
-        },
-        properties: {
-          state: "New York",
-          name: "Albany",
-          population: 98251
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.74393798828126
-          ]
-        },
-        properties: {
-          state: "North Carolina",
-          name: "Raleigh",
-          population: 464758
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.75393798828126
-          ]
-        },
-        properties: {
-          state: "North Dakota",
-          name: "Bismarck",
-          population: 72865
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.76393798828126
-          ]
-        },
-        properties: {
-          state: "Ohio",
-          name: "Columbus",
-          population: 879170
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.77393798828126
-          ]
-        },
-        properties: {
-          state: "Oklahoma",
-          name: "Oklahoma City",
-          population: 643648
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.78393798828126
-          ]
-        },
-        properties: {
-          state: "Oregon",
-          name: "Salem",
-          population: 169798
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Pennsylvania",
-          name: "Harrisburg",
-          population: 49192
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.82169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Rhode Island",
-          name: "Providence",
-          population: 180393
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.83169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "South Carolina",
-          name: "Columbia",
-          population: 133114
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.84169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "South Dakota",
-          name: "Pierre",
-          population: 14004
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.85169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Tennessee",
-          name: "Nashville",
-          population: 667560
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.86169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Texas",
-          name: "Austin",
-          population: 950715
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Utah",
-          name: "Salt Lake City",
-          population: 200544
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.88169463514273, 106.79393798828126
-          ]
-        },
-        properties: {
-          state: "Vermont",
-          name: "Montpelier",
-          population: 7484
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "Virginia",
-          name: "Richmond",
-          population: 227032
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "Washington",
-          name: "Olympia",
-          population: 51609
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "West Virginia",
-          name: "Charleston",
-          population: 47929
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 106.72393798828126
-          ]
-        },
-        properties: {
-          state: "Wisconsin",
-          name: "Madison",
-          population: 255214
-        }
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [
-            21.87169463514273, 107.72393798828126
-          ]
-        },
-        properties: {
-          state: "Wyoming",
-          name: "Cheyenne",
-          population: 63624
-        }
-      }
     ]
   };
   styleOfPolygon = `height: ${window.innerHeight}px; width: ${window.innerWidth};`;
@@ -759,18 +240,53 @@ export class GisMapOsmComponent implements OnInit {
     };
 
     constructor(private locationService: LocationService,
+                private popupService: PopUpService,
                 private osmService: OsmService,
                 private configService: ConfigService) {
     }
 
     ngOnInit() {
-      this.map = L.map("map").setView([21.87169463514273, 106.72393798828126], 12);
+      this.map = L.map("map").setView([21.87169463514273, 106.72393798828126], 13);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">Bản đồ số</a> thanhoangz',
       }).addTo(this.map);
-      L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).bindPopup(`huu nghi`).addTo(this.map);
+      L.marker([21.87169463514273, 106.72393798828126], this.markerIcon).bindPopup(
+        `Cửa khẩu: Hữu Nghị`
+      ).addTo(this.map);
+
+      L.marker([22.0060897, 106.6767043], this.markerIcon).bindPopup(
+        `Cửa khẩu: Tân thanh`
+      ).addTo(this.map);
+
+      L.marker([21.5362507,107.96727317], this.markerIcon).bindPopup(
+        `Cửa khẩu: Móng cái`
+      ).addTo(this.map);
+
+      L.marker([21.5333253,107.9520463], this.markerIcon).bindPopup(
+        `Cửa khẩu: Bắc Luân 2`
+      ).addTo(this.map);
+
+      L.marker([22.5159137,103.9435922], this.markerIcon).bindPopup(
+        `Cửa khẩu: Lào cai`
+      ).addTo(this.map);
+
+      L.marker([22.5861347,106.7187278], this.markerIcon).bindPopup(
+        `Cửa khẩu: Hạ Lang`
+      ).addTo(this.map);
+
+      L.marker([23.2906039,105.242088], this.markerIcon).bindPopup(
+        `Cửa khẩu: Phó Bảng`
+      ).addTo(this.map);
+
+      L.marker([16.3091064,107.089507], this.markerIcon).bindPopup(
+        `Cửa khẩu: Hồng Vân`
+      ).addTo(this.map);
+
+      L.marker([16.6239945,106.5889585], this.markerIcon).bindPopup(
+        `Cửa khẩu: Lao Bảo`
+      ).addTo(this.map);
       this.map.on("click", (e: any) => {
-        L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map);
+        // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map);
 
       });
       this.getGateInfos();
@@ -804,7 +320,26 @@ export class GisMapOsmComponent implements OnInit {
       const circle = L.circleMarker([lat, lon], {
         radius: this.scaledRadius(c.properties.population, maxPop)
       });
+
+      const total = c.properties.data1 + c.properties.data2 + c.properties.data3 + c.properties.data4 + c.properties.data5 + c.properties.data6;
+      if(total > 6000) {
+        circle.setStyle({fillColor: 'red'});
+        circle.setStyle({color: 'red'});
+      }
+      else if(total > 3001) {
+        circle.setStyle({fillColor: 'orange'});
+        circle.setStyle({color: 'orange'});
+      }
+      else if(total > 1001) {
+        circle.setStyle({fillColor: 'yellow'});
+        circle.setStyle({color: 'yellow'});
+      }
+      else {
+        circle.setStyle({fillColor: 'green'});
+        circle.setStyle({color: 'green'});
+      }
       console.log(c.properties.population);
+      circle.bindPopup(this.popupService.makeCapitalPopup(c.properties));
       circle.addTo(this.map);
     }
     // });
