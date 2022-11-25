@@ -344,4 +344,8 @@ export class GisMapOsmComponent implements OnInit {
     }
     // });
   }
+
+  flyto(data: any){
+    this.map.flyTo([data[0], data[1]], 15)
+  }
 }
